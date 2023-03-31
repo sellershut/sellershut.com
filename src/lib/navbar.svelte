@@ -1,6 +1,6 @@
 <script lang="ts">
   const setTheme = (theme: string) => {
-    document.documentElement.dataset.theme = theme;
+    document.documentElement.setAttribute('class', theme);
     document.cookie = `siteTheme=${theme};max-age=31557600;path='/'`;
   };
 </script>
