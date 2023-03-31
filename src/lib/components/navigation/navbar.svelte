@@ -11,13 +11,23 @@
     { name: 'Apparel', path: '#' },
     { name: 'Recreational', path: '#' },
   ];
+
+  const navigationState = { showSearchContainer: false };
+
+  function toggleSearchContainer() {
+    navigationState.showSearchContainer = !navigationState.showSearchContainer;
+  }
+
+  function handleMessage(event: { detail: boolean }) {
+    navigationState.showSearchContainer = event.detail;
+  }
 </script>
 
 <div>
   <div
     class="nav-container bg-black bg-opacity-80 backdrop-blur-2xl h-10 z-50 fixed top-0 left-0 right-0"
   >
-    <nav class="w-[1000px] mx-auto px-2 h-full hidden">
+    <nav class={navigationState.showSearchContainer ? 'hidden' : 'w-[1000px] mx-auto px-2 h-full'}>
       <ul class="desktop-nav flex justify-between items-center h-full">
         <li>
           <a href={'#'} class="link-logo">
@@ -33,7 +43,7 @@
           </li>
         {/each}
         <li>
-          <a href={'#'} class="link-search">
+          <a href={'#'} on:click={toggleSearchContainer} class="link-search">
             <IconSearch class={'navigation-link scale-75'} />
           </a>
         </li>
@@ -50,8 +60,12 @@
 
     <!-- end of navigation items -->
 
-    <NavSearchContainer />
+    {#if navigationState.showSearchContainer}
+      <NavSearchContainer on:message={handleMessage} />
+    {/if}
   </div>
 
-  <div class="overlay fixed bg-black opacity-50 w-full h-screen left-0 top-0 z-20" />
+  {#if navigationState.showSearchContainer}
+    <div class="overlay fixed bg-black opacity-50 w-full h-screen left-0 top-0 z-20" />
+  {/if}
 </div>

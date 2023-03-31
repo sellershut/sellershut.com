@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
 
@@ -25,14 +26,14 @@
     },
   ];
 
-  export let showSearchContainer = true;
+  const dispatch = createEventDispatcher();
+
+  function closeSearch() {
+    dispatch('message', false);
+  }
 </script>
 
-<div
-  class={showSearchContainer
-    ? 'search-container w-3/5 mx-auto px-10 relative z-30'
-    : 'hidden pointer-events-none'}
->
+<div class="search-container w-3/5 mx-auto px-10 fixed top-0 left-0 right-0 z-30">
   <a
     href={'#'}
     class="link-search flex h-10 items-center justify-center absolute left-3 opacity-50"
@@ -50,11 +51,13 @@
     </form>
   </div>
 
-  <div
+  <a
+    href={'#'}
+    on:click={closeSearch}
     class="link-close flex items-center justify-center h-10 absolute top-0 right-3 opacity-50 cursor-pointer transition-all duration-300 hover:opacity-40"
   >
     <IconX class={'text-white'} />
-  </div>
+  </a>
 
   <!-- nav quick links -->
   <div class="quick-links bg-white absolute left-0 right-0 py-4 px-2 rounded-b-2xl">
