@@ -4,7 +4,7 @@
 </script>
 
 <Navbar />
-<div class="bg-primary dark:bg-secondary font-light">
+<div class="font-light">
   <div class="container">
     <slot />
   </div>
