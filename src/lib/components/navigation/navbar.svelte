@@ -27,34 +27,60 @@
   <div
     class="nav-container bg-black bg-opacity-80 backdrop-blur-2xl h-10 z-50 fixed top-0 left-0 right-0"
   >
-    <nav class={navigationState.showSearchContainer ? 'hidden' : 'w-[1000px] mx-auto px-2 h-full'}>
+    <nav class={'w-[1000px] mx-auto px-2 h-full'}>
       <ul
-        class={`desktop-nav flex justify-between items-center h-full ${
-          navigationState.showSearchContainer ? '[&>*]:opacity-0 [&>*]:pointer-events-none' : ''
+        class={`desktop-nav flex justify-between items-center h-full [&>*]:transition-all [&>*]:duration-300 ${
+          navigationState.showSearchContainer
+            ? '[&>*]:opacity-0 [&>*]:pointer-events-none [&>*]:scale-75'
+            : ''
         } `}
       >
-        <li>
+        <li
+          class={navigationState.showSearchContainer
+            ? 'desktop-nav-link-search'
+            : 'desktop-nav-link-no-search'}
+        >
           <a href={'#'} class="link-logo">
             <IconHome class={'navigation-link scale-75'} />
           </a>
         </li>
-        <li>
+        <li
+          class={navigationState.showSearchContainer
+            ? 'desktop-nav-link-search'
+            : 'desktop-nav-link-no-search'}
+        >
           <a href={'#'} class="navigation-link">All</a>
         </li>
         {#each navigationLinks as link}
-          <li>
+          <li
+            class={navigationState.showSearchContainer
+              ? 'desktop-nav-link-search'
+              : 'desktop-nav-link-no-search'}
+          >
             <a href={link.path} class="navigation-link">{link.name}</a>
           </li>
         {/each}
-        <li>
+        <li
+          class={navigationState.showSearchContainer
+            ? 'desktop-nav-link-search'
+            : 'desktop-nav-link-no-search'}
+        >
           <a href={'#'} on:click={toggleSearchContainer} class="link-search">
             <IconSearch class={'navigation-link scale-75'} />
           </a>
         </li>
-        <li>
+        <li
+          class={navigationState.showSearchContainer
+            ? 'desktop-nav-link-search'
+            : 'desktop-nav-link-no-search'}
+        >
           <a href={'#'} class="navigation-link">Login</a>
         </li>
-        <li>
+        <li
+          class={navigationState.showSearchContainer
+            ? 'desktop-nav-link-search'
+            : 'desktop-nav-link-no-search'}
+        >
           <a href={'#'} class="link-theme">
             <IconMoon class={'navigation-link scale-75 font-thin'} />
           </a>
@@ -72,7 +98,7 @@
   {#if navigationState.showSearchContainer}
     <a
       href={'#'}
-      class="overlay fixed bg-black opacity-50 w-full h-screen left-0 top-0 z-20"
+      class="overlay fixed bg-black opacity-50 w-full h-screen left-0 top-0 z-20 transition-all duration-300 ease-linear"
       on:click={() => {
         navigationState.showSearchContainer = false;
       }}
