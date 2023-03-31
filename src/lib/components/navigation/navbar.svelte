@@ -1,114 +1,171 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
-  import IconHome from '../icons/icon-home.svelte';
-  import IconMoon from '../icons/icon-moon.svelte';
+  import { fade, fly } from 'svelte/transition';
   import IconSearch from '../icons/icon-search.svelte';
-  import NavSearchContainer from './nav-search-container.svelte';
+  import IconX from '../icons/icon-x.svelte';
 
-  const navigationLinks = [
-    { name: 'Electronics', path: '#' },
-    { name: 'Pets', path: '#' },
-    { name: 'Vehicles', path: '#' },
-    { name: 'Apparel', path: '#' },
-    { name: 'Recreational', path: '#' },
+  const links = [
+    {
+      name: 'All',
+      path: '#',
+    },
+    {
+      name: 'Electronics',
+      path: '#',
+    },
+    {
+      name: 'Apparel',
+      path: '#',
+    },
+    {
+      name: 'Recreational',
+      path: '#',
+    },
+    {
+      name: 'Sporting',
+      path: '#',
+    },
+    {
+      name: 'Vehicles',
+      path: '#',
+    },
   ];
 
-  const navigationState = { showSearchContainer: false };
+  const quickLinks = [
+    {
+      name: 'iPhone',
+      path: '#',
+    },
+    {
+      name: 'MacBook',
+      path: '#',
+    },
+    {
+      name: 'Mechanical Keyboard',
+      path: '#',
+    },
+    {
+      name: 'Cricket Bat',
+      path: '#',
+    },
+    {
+      name: 'Rugby Ball',
+      path: '#',
+    },
+  ];
 
-  function toggleSearchContainer() {
-    navigationState.showSearchContainer = !navigationState.showSearchContainer;
-  }
-
-  function handleMessage(event: { detail: boolean }) {
-    navigationState.showSearchContainer = event.detail;
-  }
+  let searchFocused = false;
+  let showSearchContainer = false;
 </script>
 
-<div>
-  <div
-    class="nav-container bg-black bg-opacity-80 backdrop-blur-2xl h-10 z-50 fixed top-0 left-0 right-0"
-  >
-    <nav class={'w-[1000px] mx-auto px-2 h-full'}>
-      <ul
-        class={`desktop-nav flex justify-between items-center h-full [&>*]:transition-all [&>*]:duration-300 ${
-          navigationState.showSearchContainer
-            ? '[&>*]:opacity-0 [&>*]:pointer-events-none [&>*]:scale-75'
-            : ''
-        } `}
-      >
-        <li
-          class={navigationState.showSearchContainer
-            ? 'desktop-nav-link-search'
-            : 'desktop-nav-link-no-search'}
-        >
-          <a href={'#'} class="link-logo">
-            <IconHome class={'navigation-link scale-75'} />
-          </a>
+<nav class="bg-black flex h-screen md:h-10 text-white z-50 text-sm">
+  {#if !searchFocused}
+    <ul
+      transition:fly={{ y: -100, duration: 500 }}
+      class="z-10 flex w-full lg:w-[1000px] justify-between md:justify-around md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
+    >
+      <li class="w-1/3 md:hidden">menu</li>
+      {#if !showSearchContainer}
+        <li class="w-1/3 md:w-auto text-center md:text-left">logo</li>
+        <li class="hidden md:flex h-full items-center justify-center">
+          {#each links as { path, name }}
+            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={path}>{name}</a>
+          {/each}
         </li>
-        <li
-          class={navigationState.showSearchContainer
-            ? 'desktop-nav-link-search'
-            : 'desktop-nav-link-no-search'}
-        >
-          <a href={'#'} class="navigation-link">All</a>
-        </li>
-        {#each navigationLinks as link}
-          <li
-            class={navigationState.showSearchContainer
-              ? 'desktop-nav-link-search'
-              : 'desktop-nav-link-no-search'}
+        <li class="hidden md:block">
+          <a
+            href={'#'}
+            on:click={() => {
+              showSearchContainer = true;
+            }}
           >
-            <a href={link.path} class="navigation-link">{link.name}</a>
-          </li>
-        {/each}
-        <li
-          class={navigationState.showSearchContainer
-            ? 'desktop-nav-link-search'
-            : 'desktop-nav-link-no-search'}
-        >
-          <a href={'#'} on:click={toggleSearchContainer} class="link-search">
-            <IconSearch class={'navigation-link scale-75'} />
+            <IconSearch />
           </a>
         </li>
-        <li
-          class={navigationState.showSearchContainer
-            ? 'desktop-nav-link-search'
-            : 'desktop-nav-link-no-search'}
-        >
-          <a href={'#'} class="navigation-link">Login</a>
-        </li>
-        <li
-          class={navigationState.showSearchContainer
-            ? 'desktop-nav-link-search'
-            : 'desktop-nav-link-no-search'}
-        >
-          <a href={'#'} class="link-theme">
-            <IconMoon class={'navigation-link scale-75 font-thin'} />
+        <li class="hidden md:block">Login</li>
+        <li class="w-1/3 md:w-auto text-right md:text-left">theme</li>
+      {:else}
+        <div class="hidden: md:flex items-center justify-center w-full relative">
+          <div>
+            <IconSearch class="text-gray-400" />
+          </div>
+          <form class="flex-1 flex flex-col">
+            <input
+              type="text"
+              placeholder="search sellershut.com"
+              class="w-full bg-transparent border-transparent"
+            />
+            <div
+              class="text-black absolute top-10 left-0 w-full px-12 py-8 rounded-b-2xl flex flex-col space-y-1 bg-white shadow-md"
+            >
+              <h2>Quick Links</h2>
+              {#each quickLinks as { path, name }, i}
+                <a class="mx-4 opacity-80 hover:opacity-100 hover:bg-blue-50 p-2" href={path}
+                  >{name}</a
+                >
+              {/each}
+            </div>
+          </form>
+          <a
+            href={'#'}
+            on:click={() => {
+              showSearchContainer = false;
+            }}
+          >
+            <IconX class="text-gray-400" />
           </a>
-        </li>
-      </ul>
-    </nav>
+        </div>
+      {/if}
+    </ul>
+  {/if}
 
-    <!-- end of navigation items -->
-
-    {#if navigationState.showSearchContainer}
-      <NavSearchContainer
-        on:message={handleMessage}
-        showSearchContainer={navigationState.showSearchContainer}
+  <div
+    class={`md:hidden absolute top-0 left-0 right-0 transition-all duration-500 w-full ${
+      searchFocused ? 'translate-y-0' : 'translate-y-[40px]'
+    } h-screen flex flex-col`}
+  >
+    <form
+      action=""
+      class="relative flex space-x-2 px-2 w-full overscroll-x-none justify-center items-center"
+    >
+      <input
+        type="text"
+        on:focus={() => {
+          searchFocused = true;
+        }}
+        class="h-10 flex-1 rounded bg-zinc-800 pl-8 w-full"
+        placeholder="search sellershut.com"
       />
+      <div class="absolute top-2 left-1 text-gray-500">
+        <IconSearch />
+      </div>
+      {#if searchFocused}
+        <a
+          on:click={() => {
+            searchFocused = false;
+          }}
+          href={'#'}
+          class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded">Cancel</a
+        >
+      {/if}
+    </form>
+
+    {#if !searchFocused}
+      {#each links as { path, name }, i}
+        <a
+          in:fly={{ x: -20, y: 20, delay: 300 + (i + 1) * 100 }}
+          class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
+          href={path}>{name}</a
+        >
+      {/each}
+    {:else}
+      <h2 transition:fade class="pt-4 px-10 font-bold">Quick Links</h2>
+      {#each quickLinks as { path, name }, i}
+        <a
+          in:fly={{ x: 20, y: -20, delay: (i + 1) * 100 }}
+          class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
+          href={path}>{name}</a
+        >
+      {/each}
     {/if}
   </div>
-
-  {#if navigationState.showSearchContainer}
-    <a
-      transition:fade
-      href={'#'}
-      class="overlay fixed bg-black opacity-50 w-full h-screen left-0 top-0 z-20"
-      on:click={() => {
-        navigationState.showSearchContainer = false;
-      }}
-    >
-      <div />
-    </a>
-  {/if}
-</div>
+</nav>

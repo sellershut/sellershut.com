@@ -13,17 +13,3 @@
     --color-secondary: 255 115 179;
   }
 }
-
-@layer components {
-  .navigation-link {
-    @apply text-white text-sm opacity-80 hover:opacity-100 transition-opacity duration-300;
-  }
-
-  .desktop-nav-link-search {
-    @apply [&:nth-of-type(1)]:delay-[0ms] [&:nth-of-type(2)]:delay-[30ms] [&:nth-of-type(3)]:delay-[60ms] [&:nth-of-type(4)]:delay-[90ms] [&:nth-of-type(5)]:delay-[120ms] [&:nth-of-type(6)]:delay-[150ms] [&:nth-of-type(7)]:delay-[180ms] [&:nth-of-type(8)]:delay-[210ms] [&:nth-of-type(9)]:delay-[240ms] [&:nth-of-type(10)]:delay-[270ms] [&:nth-of-type(11)]:delay-[300ms];
-  }
-
-  .desktop-nav-link-no-search {
-    @apply [&:nth-of-type(11)]:delay-[0ms] [&:nth-of-type(10)]:delay-[30ms] [&:nth-of-type(9)]:delay-[60ms] [&:nth-of-type(8)]:delay-[90ms] [&:nth-of-type(7)]:delay-[120ms] [&:nth-of-type(6)]:delay-[150ms] [&:nth-of-type(5)]:delay-[180ms] [&:nth-of-type(4)]:delay-[210ms] [&:nth-of-type(3)]:delay-[240ms] [&:nth-of-type(2)]:delay-[270ms] [&:nth-of-type(1)]:delay-[300ms];
-  }
-}
