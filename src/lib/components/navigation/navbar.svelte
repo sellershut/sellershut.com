@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { fade, fly } from 'svelte/transition';
+  import { fade, fly, scale } from 'svelte/transition';
+  import { quintOut } from 'svelte/easing';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
 
@@ -55,23 +56,34 @@
 
   let searchFocused = false;
   let showSearchContainer = false;
+  const scales = 300;
 </script>
 
-<nav class="bg-black flex h-screen md:h-10 text-white z-50 text-sm">
+<nav
+  class="bg-black/80 backdrop-blur flex h-screen md:h-10 text-white z-50 text-sm fixed top-0 left-0 right-0"
+>
   {#if !searchFocused}
     <ul
       transition:fly={{ y: -100, duration: 500 }}
-      class="z-10 flex w-full lg:w-[1000px] justify-between md:justify-around md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
+      class="z-20 flex w-full lg:w-[1000px] justify-between md:justify-around md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
     >
       <li class="w-1/3 md:hidden">menu</li>
       {#if !showSearchContainer}
-        <li class="w-1/3 md:w-auto text-center md:text-left">logo</li>
-        <li class="hidden md:flex h-full items-center justify-center">
-          {#each links as { path, name }}
-            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={path}>{name}</a>
-          {/each}
+        <li
+          in:scale={{ duration: 0.5 * scales, easing: quintOut }}
+          class="w-1/3 md:w-auto text-center md:text-left"
+        >
+          logo
         </li>
-        <li class="hidden md:block">
+        {#each links as { path, name }, i}
+          <li
+            in:scale={{ duration: ((2 + i) / 2) * scales, easing: quintOut }}
+            class="hidden md:flex h-full items-center justify-center"
+          >
+            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={path}>{name}</a>
+          </li>
+        {/each}
+        <li in:scale={{ duration: (8 / 2) * scales, easing: quintOut }} class="hidden md:block">
           <a
             href={'#'}
             on:click={() => {
@@ -81,37 +93,51 @@
             <IconSearch />
           </a>
         </li>
-        <li class="hidden md:block">Login</li>
-        <li class="w-1/3 md:w-auto text-right md:text-left">theme</li>
+        <li in:scale={{ duration: (9 / 2) * scales, easing: quintOut }} class="hidden md:block">
+          Login
+        </li>
+        <li
+          in:scale={{ duration: (10 / 2) * scales, easing: quintOut }}
+          class="w-1/3 md:w-auto text-right md:text-left"
+        >
+          theme
+        </li>
       {:else}
         <div class="hidden: md:flex items-center justify-center w-full relative">
-          <div>
-            <IconSearch class="text-gray-400" />
-          </div>
-          <form class="flex-1 flex flex-col">
-            <input
-              type="text"
-              placeholder="search sellershut.com"
-              class="w-full bg-transparent border-transparent"
-            />
-            <div
-              class="text-black absolute top-10 left-0 w-full px-12 py-8 rounded-b-2xl flex flex-col space-y-1 bg-white shadow-md"
-            >
-              <h2>Quick Links</h2>
-              {#each quickLinks as { path, name }, i}
-                <a class="mx-4 opacity-80 hover:opacity-100 hover:bg-blue-50 p-2" href={path}
-                  >{name}</a
-                >
-              {/each}
+          {#if showSearchContainer}
+            <div in:fly={{ x: 200, delay: 500 }}>
+              <IconSearch class="text-gray-400" />
             </div>
-          </form>
+            <form class="flex-1 flex flex-col">
+              <input
+                in:fly={{ x: 200, delay: 500 }}
+                type="text"
+                placeholder="search sellershut.com"
+                class="w-full bg-transparent border-transparent focus:ring-transparent focus:border-transparent"
+              />
+              <div
+                class="text-black absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-white shadow-md"
+              >
+                <h2 class="px-12">Quick Links</h2>
+                {#each quickLinks as { path, name }, i}
+                  <a
+                    in:fly={{ x: 200, delay: i * 100 }}
+                    class="opacity-80 hover:opacity-100 hover:bg-blue-50 px-12 py-2 inline-block w-full"
+                    href={path}
+                  >
+                    <span>{name}</span>
+                  </a>
+                {/each}
+              </div>
+            </form>
+          {/if}
           <a
             href={'#'}
             on:click={() => {
               showSearchContainer = false;
             }}
           >
-            <IconX class="text-gray-400" />
+            <IconX class="text-gray-400 hover:text-gray-200" />
           </a>
         </div>
       {/if}
@@ -168,4 +194,17 @@
       {/each}
     {/if}
   </div>
+
+  {#if showSearchContainer}
+    <a
+      href={'#'}
+      on:click={() => {
+        showSearchContainer = false;
+      }}
+      transition:fade
+      class="h-screen w-screen z-10 bg-black bg-opacity-50"
+    >
+      <div />
+    </a>
+  {/if}
 </nav>
