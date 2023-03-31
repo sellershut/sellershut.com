@@ -1,16 +1,29 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'airbnb-base',
+    'airbnb-typescript/base',
+  ],
   plugins: ['svelte3', '@typescript-eslint'],
   ignorePatterns: ['*.cjs'],
   overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
   settings: {
     'svelte3/typescript': () => require('typescript'),
+    'import/resolver': {
+      typescript: {
+        alwaystrytypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      },
+    },
   },
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 2020,
+    project: './tsconfig.json',
+    extraFileExtensions: ['.svelte'],
   },
   env: {
     browser: true,
