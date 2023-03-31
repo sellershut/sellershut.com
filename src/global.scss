@@ -13,3 +13,9 @@
     --color-secondary: 255 115 179;
   }
 }
+
+@layer components {
+  .navigation-link {
+    @apply text-white text-sm opacity-80 hover:opacity-100 transition-opacity duration-300;
+  }
+}

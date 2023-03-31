@@ -5,9 +5,5 @@
   };
 </script>
 
-<nav>
-  <li>
-    <a href={'#'} on:click={() => setTheme('dark')}>Dark</a>
-    <a href={'#'} on:click={() => setTheme('light')}>Light</a>
-  </li>
-</nav>
+<a href={'#'} on:click={() => setTheme('dark')}>Dark</a>
+<a href={'#'} on:click={() => setTheme('light')}>Light</a>
