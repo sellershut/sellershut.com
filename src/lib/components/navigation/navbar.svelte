@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
   import IconHome from '../icons/icon-home.svelte';
   import IconMoon from '../icons/icon-moon.svelte';
   import IconSearch from '../icons/icon-search.svelte';
@@ -91,14 +92,18 @@
     <!-- end of navigation items -->
 
     {#if navigationState.showSearchContainer}
-      <NavSearchContainer on:message={handleMessage} />
+      <NavSearchContainer
+        on:message={handleMessage}
+        showSearchContainer={navigationState.showSearchContainer}
+      />
     {/if}
   </div>
 
   {#if navigationState.showSearchContainer}
     <a
+      transition:fade
       href={'#'}
-      class="overlay fixed bg-black opacity-50 w-full h-screen left-0 top-0 z-20 transition-all duration-300 ease-linear"
+      class="overlay fixed bg-black opacity-50 w-full h-screen left-0 top-0 z-20"
       on:click={() => {
         navigationState.showSearchContainer = false;
       }}
