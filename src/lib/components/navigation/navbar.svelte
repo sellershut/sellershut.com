@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
-  import { createQuery, useQueryClient } from '@tanstack/svelte-query';
+  import { createQuery } from '@tanstack/svelte-query';
   import type { ICategory } from '$lib/types/category';
   import getSubCategories from '$lib/api/category/query/subCategories';
   import IconSearch from '../icons/icon-search.svelte';
@@ -9,38 +9,10 @@
   import ThemeSwitcher from '../theme-switcher.svelte';
   import IconHome from '../icons/icon-home.svelte';
 
-  const client = useQueryClient();
   const categories = createQuery<ICategory[], Error>({
     queryKey: ['rootCategories'],
     queryFn: () => getSubCategories(),
   });
-
-  const links = [
-    {
-      name: 'All',
-      path: '#',
-    },
-    {
-      name: 'Electronics',
-      path: '#',
-    },
-    {
-      name: 'Apparel',
-      path: '#',
-    },
-    {
-      name: 'Recreational',
-      path: '#',
-    },
-    {
-      name: 'Sporting',
-      path: '#',
-    },
-    {
-      name: 'Vehicles',
-      path: '#',
-    },
-  ];
 
   const quickLinks = [
     {
@@ -69,6 +41,7 @@
   let showSearchContainer = false;
   let openMobileNav = false;
   const scales = 300;
+  const limit = 5;
 </script>
 
 <nav
@@ -92,7 +65,7 @@
             openMobileNav ? 'w-5' : 'w-5 aspect-square'
           } flex items-center cursor-pointer `}
         >
-          <div class="menu-icon relative w-full bg-green-500">
+          <div class="menu-icon relative w-full">
             <span
               class={`line-1 transition-all duration-300 ease absolute h-[2px] rounded w-full
               aspect-square bg-zinc-100 ${openMobileNav ? 'top-0 rotate-45' : 'px-4 -top-1'}`}
@@ -111,14 +84,28 @@
         >
           <IconHome class="mx-auto" />
         </li>
-        {#each links as { path, name }, i}
+        {#if $categories.isLoading}
+          <span>Loading</span>
+        {:else if $categories.isSuccess}
           <li
-            in:scale={{ duration: ((2 + i) / 2) * scales, easing: quintOut }}
+            in:scale={{ duration: scales, easing: quintOut }}
             class="hidden md:flex h-full items-center justify-center"
           >
-            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={path}>{name}</a>
+            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'#'}>All</a>
           </li>
-        {/each}
+          {#each $categories.data as category, i}
+            {#if i < limit}
+              <li
+                in:scale={{ duration: ((3 + i) / 2) * scales, easing: quintOut }}
+                class="hidden md:flex h-full items-center justify-center"
+              >
+                <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'#'}
+                  >{category.name}</a
+                >
+              </li>
+            {/if}
+          {/each}
+        {/if}
         <li in:scale={{ duration: (8 / 2) * scales, easing: quintOut }} class="hidden md:block">
           <a
             href={'#'}
@@ -217,13 +204,19 @@
       </form>
 
       {#if !searchFocused}
-        {#each links as { path, name }, i}
-          <a
-            in:fly={{ x: -20, y: 20, delay: 300 + (i + 1) * 100 }}
-            class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
-            href={path}>{name}</a
-          >
-        {/each}
+        {#if $categories.isLoading}
+          <span>Loading...</span>
+        {:else if $categories.isSuccess}
+          {#each $categories.data as category, i}
+            {#if i < limit}
+              <a
+                in:fly={{ x: -20, y: 20, delay: 300 + (i + 1) * 100 }}
+                class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
+                href={'#'}>{category.name}</a
+              >
+            {/if}
+          {/each}
+        {/if}
       {:else}
         <h2 transition:fade class="pt-4 px-10 font-bold small-caps">Quick Links</h2>
         {#each quickLinks as { path, name }, i}

@@ -11,7 +11,7 @@ const getSubCategories = async (id = 0): Promise<ICategory[]> => {
     data: {
       query: `
           query {
-              getCategories {
+              getSubCategories(parentId: ${id}) {
                 id,
                 name,
                 parentId,
