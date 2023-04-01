@@ -1,6 +1,8 @@
 import axios from 'axios';
 import type { ICategory } from '$lib/types/category';
 
+export const keyRootCategories = 'rootCategories';
+
 const getSubCategories = async (id = 0): Promise<ICategory[]> => {
   const response = await axios({
     url: 'http://localhost:3000/api/graphql',

@@ -3,14 +3,14 @@
   import { quintOut } from 'svelte/easing';
   import { createQuery } from '@tanstack/svelte-query';
   import type { ICategory } from '$lib/types/category';
-  import getSubCategories from '$lib/api/category/query/subCategories';
+  import getSubCategories, { keyRootCategories } from '$lib/api/category/query/subCategories';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
   import ThemeSwitcher from '../theme-switcher.svelte';
   import IconHome from '../icons/icon-home.svelte';
 
   const categories = createQuery<ICategory[], Error>({
-    queryKey: ['rootCategories'],
+    queryKey: [keyRootCategories],
     queryFn: () => getSubCategories(),
   });
 
@@ -41,7 +41,8 @@
   let showSearchContainer = false;
   let openMobileNav = false;
   const scales = 300;
-  const limit = 5;
+  // slice the array -> we might want to get the top n categories
+  const slice = (arr: ICategory[]) => arr.slice(0, 5);
 </script>
 
 <nav
@@ -93,17 +94,14 @@
           >
             <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'#'}>All</a>
           </li>
-          {#each $categories.data as category, i}
-            {#if i < limit}
-              <li
-                in:scale={{ duration: ((3 + i) / 2) * scales, easing: quintOut }}
-                class="hidden md:flex h-full items-center justify-center"
+          {#each slice($categories.data) as category, i}
+            <li
+              in:scale={{ duration: ((3 + i) / 2) * scales, easing: quintOut }}
+              class="hidden md:flex h-full items-center justify-center"
+            >
+              <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'#'}>{category.name}</a
               >
-                <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'#'}
-                  >{category.name}</a
-                >
-              </li>
-            {/if}
+            </li>
           {/each}
         {/if}
         <li in:scale={{ duration: (8 / 2) * scales, easing: quintOut }} class="hidden md:block">
@@ -207,14 +205,12 @@
         {#if $categories.isLoading}
           <span>Loading...</span>
         {:else if $categories.isSuccess}
-          {#each $categories.data as category, i}
-            {#if i < limit}
-              <a
-                in:fly={{ x: -20, y: 20, delay: 300 + (i + 1) * 100 }}
-                class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
-                href={'#'}>{category.name}</a
-              >
-            {/if}
+          {#each slice($categories.data) as category, i}
+            <a
+              in:fly={{ x: -20, y: 20, delay: 300 + (i + 1) * 100 }}
+              class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
+              href={'#'}>{category.name}</a
+            >
           {/each}
         {/if}
       {:else}
