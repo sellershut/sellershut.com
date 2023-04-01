@@ -4,6 +4,7 @@
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
   import ThemeSwitcher from '../theme-switcher.svelte';
+  import IconHome from '../icons/icon-home.svelte';
 
   const links = [
     {
@@ -100,7 +101,7 @@
           in:scale={{ duration: 0.5 * scales, easing: quintOut }}
           class="w-1/3 md:w-auto text-center md:text-left"
         >
-          logo
+          <IconHome class="mx-auto" />
         </li>
         {#each links as { path, name }, i}
           <li

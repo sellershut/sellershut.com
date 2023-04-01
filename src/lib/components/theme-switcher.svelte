@@ -24,7 +24,7 @@
       on:click={() => {
         setTheme('light');
         isDark = false;
-      }}><IconMoon class="ml-auto mr-0" /></a
+      }}><IconSun class="ml-auto mr-0" /></a
     >
   {:else}
     <a
@@ -32,7 +32,7 @@
       on:click={() => {
         setTheme('dark');
         isDark = true;
-      }}><IconSun class="ml-auto mr-0" /></a
+      }}><IconMoon class="ml-auto mr-0" /></a
     >
   {/if}
 {/if}
