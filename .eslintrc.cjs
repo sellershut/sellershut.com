@@ -36,7 +36,7 @@ module.exports = {
           $app: './.svelte-kit/runtime/app',
           '@sveltejs': './.svelte-kit/dev',
         },
-        extensions: ['.js'],
+        extensions: ['.ts'],
       },
       typescript: {
         alwaystrytypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`

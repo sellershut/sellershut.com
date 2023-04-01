@@ -1,10 +1,19 @@
 <script lang="ts">
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
+  import { createQuery, useQueryClient } from '@tanstack/svelte-query';
+  import type { ICategory } from '$lib/types/category';
+  import getSubCategories from '$lib/api/category/query/subCategories';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
   import ThemeSwitcher from '../theme-switcher.svelte';
   import IconHome from '../icons/icon-home.svelte';
+
+  const client = useQueryClient();
+  const categories = createQuery<ICategory[], Error>({
+    queryKey: ['rootCategories'],
+    queryFn: () => getSubCategories(),
+  });
 
   const links = [
     {
