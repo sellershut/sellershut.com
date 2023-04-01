@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ISectionDivider } from '$lib/types';
+  import type { ISectionDivider } from '$lib/types/common';
 
   export let params: ISectionDivider;
 </script>
