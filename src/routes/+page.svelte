@@ -1,5 +1,6 @@
 <script>
   import SectionDivider from '$lib/components/section-divider.svelte';
+  import Statistics from '$lib/components/statistics/statistics.svelte';
 </script>
 
 <div class="pt-14 flex flex-col space-y-4">
@@ -36,6 +37,7 @@
     </div>
   </div>
   <SectionDivider params={{ hintEnabled: true, position: 'centre' }} />
+  <Statistics />
   <p class="small-caps">
     Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
   </p>
