@@ -3,6 +3,7 @@
   import { quintOut } from 'svelte/easing';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
+  import ThemeSwitcher from '../theme-switcher.svelte';
 
   const links = [
     {
@@ -56,18 +57,40 @@
 
   let searchFocused = false;
   let showSearchContainer = false;
+  const openMobileNav = false;
   const scales = 300;
 </script>
 
 <nav
-  class="bg-black/80 backdrop-blur flex h-screen md:h-10 text-white z-50 text-sm fixed top-0 left-0 right-0"
+  class={`bg-black/80 backdrop-blur flex ${
+    openMobileNav ? 'h-screen' : 'h-10'
+  } text-white z-50 text-sm fixed top-0 left-0 right-0`}
 >
   {#if !searchFocused}
     <ul
       transition:fly={{ y: -100, duration: 500 }}
       class="z-20 flex w-full lg:w-[1000px] justify-between md:justify-around md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
     >
-      <li class="w-1/3 md:hidden">menu</li>
+      <li class="w-1/3 md:hidden">
+        <div
+          class={`menu-icon-container h-10 ${
+            openMobileNav ? 'w-5' : 'w-5 aspect-square'
+          } flex items-center cursor-pointer `}
+        >
+          <div class="menu-icon relative w-full bg-green-500">
+            <span
+              class={`line-1 transition-all duration-300 ease absolute h-[2px] rounded w-full aspect-square bg-zinc-100 ${
+                openMobileNav ? 'top-0 rotate-45' : 'px-4 -top-1'
+              }`}
+            />
+            <span
+              class={`line-2 transition-all duration-300 ease absolute h-[2px] rounded w-full aspect-square bg-zinc-100 ${
+                openMobileNav ? 'top-0 -rotate-45' : 'top-1'
+              } `}
+            />
+          </div>
+        </div>
+      </li>
       {#if !showSearchContainer}
         <li
           in:scale={{ duration: 0.5 * scales, easing: quintOut }}
@@ -100,7 +123,7 @@
           in:scale={{ duration: (10 / 2) * scales, easing: quintOut }}
           class="w-1/3 md:w-auto text-right md:text-left"
         >
-          theme
+          <ThemeSwitcher />
         </li>
       {:else}
         <div class="hidden: md:flex items-center justify-center w-full relative">
@@ -144,56 +167,58 @@
     </ul>
   {/if}
 
-  <div
-    class={`md:hidden absolute top-0 left-0 right-0 transition-all duration-500 w-full ${
-      searchFocused ? 'translate-y-0' : 'translate-y-[40px]'
-    } h-screen flex flex-col`}
-  >
-    <form
-      action=""
-      class="relative flex space-x-2 px-2 w-full overscroll-x-none justify-center items-center"
+  {#if openMobileNav}
+    <div
+      class={`md:hidden absolute top-0 left-0 right-0 transition-all duration-500 w-full ${
+        searchFocused ? 'translate-y-0' : 'translate-y-[40px]'
+      } h-screen flex flex-col`}
     >
-      <input
-        type="text"
-        on:focus={() => {
-          searchFocused = true;
-        }}
-        class="h-10 flex-1 rounded bg-zinc-800 pl-8 w-full"
-        placeholder="search sellershut.com"
-      />
-      <div class="absolute top-2 left-1 text-gray-500">
-        <IconSearch />
-      </div>
-      {#if searchFocused}
-        <a
-          on:click={() => {
-            searchFocused = false;
+      <form
+        action=""
+        class="relative flex space-x-2 px-2 w-full overscroll-x-none justify-center items-center"
+      >
+        <input
+          type="text"
+          on:focus={() => {
+            searchFocused = true;
           }}
-          href={'#'}
-          class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded">Cancel</a
-        >
-      {/if}
-    </form>
+          class="h-10 flex-1 rounded bg-zinc-800 pl-8 w-full"
+          placeholder="search sellershut.com"
+        />
+        <div class="absolute top-2 left-1 text-gray-500">
+          <IconSearch />
+        </div>
+        {#if searchFocused}
+          <a
+            on:click={() => {
+              searchFocused = false;
+            }}
+            href={'#'}
+            class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded">Cancel</a
+          >
+        {/if}
+      </form>
 
-    {#if !searchFocused}
-      {#each links as { path, name }, i}
-        <a
-          in:fly={{ x: -20, y: 20, delay: 300 + (i + 1) * 100 }}
-          class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
-          href={path}>{name}</a
-        >
-      {/each}
-    {:else}
-      <h2 transition:fade class="pt-4 px-10 font-bold">Quick Links</h2>
-      {#each quickLinks as { path, name }, i}
-        <a
-          in:fly={{ x: 20, y: -20, delay: (i + 1) * 100 }}
-          class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
-          href={path}>{name}</a
-        >
-      {/each}
-    {/if}
-  </div>
+      {#if !searchFocused}
+        {#each links as { path, name }, i}
+          <a
+            in:fly={{ x: -20, y: 20, delay: 300 + (i + 1) * 100 }}
+            class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
+            href={path}>{name}</a
+          >
+        {/each}
+      {:else}
+        <h2 transition:fade class="pt-4 px-10 font-bold">Quick Links</h2>
+        {#each quickLinks as { path, name }, i}
+          <a
+            in:fly={{ x: 20, y: -20, delay: (i + 1) * 100 }}
+            class="mx-4 py-3 border-b border-gray-600 opacity-80 hover:opacity-100"
+            href={path}>{name}</a
+          >
+        {/each}
+      {/if}
+    </div>
+  {/if}
 
   {#if showSearchContainer}
     <a
