@@ -57,7 +57,7 @@
 
   let searchFocused = false;
   let showSearchContainer = false;
-  const openMobileNav = false;
+  let openMobileNav = false;
   const scales = 300;
 </script>
 
@@ -72,7 +72,11 @@
       class="z-20 flex w-full lg:w-[1000px] justify-between md:justify-around md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
     >
       <li class="w-1/3 md:hidden">
-        <div
+        <a
+          href={'#'}
+          on:click={() => {
+            openMobileNav = !openMobileNav;
+          }}
           class={`menu-icon-container h-10 ${
             openMobileNav ? 'w-5' : 'w-5 aspect-square'
           } flex items-center cursor-pointer `}
@@ -89,7 +93,7 @@
               } `}
             />
           </div>
-        </div>
+        </a>
       </li>
       {#if !showSearchContainer}
         <li
@@ -175,6 +179,7 @@
     >
       <form
         action=""
+        in:fly={{ y: -200 }}
         class="relative flex space-x-2 px-2 w-full overscroll-x-none justify-center items-center"
       >
         <input
