@@ -1,5 +1,5 @@
 <div class="pt-14 flex flex-col space-y-4">
-  <h1 class="font-texturina font-bold text-4xl sm:text-5xl">Top Categories</h1>
+  <h1 class="title-font font-bold text-4xl sm:text-5xl">Top Categories</h1>
   <div
     class="relative flex border border-white/5 shadow-md flex-col space-y-2 bg-gradient-to-br bg-opacity-40 from-white/60 to-white/20 p-4 backdrop-blur-md rounded-lg
     dark:bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] dark:from-zinc-800 dark:via-slate-700 dark:to-zinc-600"
@@ -15,10 +15,19 @@
       <span class="invisible w-2 aspect-square bg-rose-500 rounded-full group-hover:visible" />
     </div>
   </div>
+  <div class="px-5 py-24 mx-auto">
+    <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+      <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font">
+        Something's taking up space? Get your ad live in a few...
+      </h1>
+      <a
+        href={'#'}
+        class="flex-shrink-0 text-white bg-rose-500 border-0 py-2 px-8 focus:outline-none hover:bg-rose-600 rounded text-lg mt-10 sm:mt-0"
+        >Get Started</a
+      >
+    </div>
+  </div>
   <p class="small-caps">
     Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
   </p>
 </div>
-
-<style lang="postcss">
-</style>

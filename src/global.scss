@@ -119,4 +119,8 @@
     min-height: 100%;
     background: repeating-conic-gradient(#000 0 0.0001%, #0000 0 0.0002%);
   }
+
+  .title-font {
+    @apply font-texturina;
+  }
 }

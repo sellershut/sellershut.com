@@ -144,13 +144,13 @@
                 class="w-full bg-transparent border-transparent focus:ring-transparent focus:border-transparent"
               />
               <div
-                class="text-black absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-white shadow-md"
+                class="text-zinc-800 dark:text-zinc-100 absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-white dark:bg-zinc-800 shadow-md"
               >
                 <h2 class="px-12">Quick Links</h2>
                 {#each quickLinks as { path, name }, i}
                   <a
                     in:fly={{ x: 200, delay: i * 100 }}
-                    class="opacity-80 hover:opacity-100 hover:bg-blue-50 px-12 py-2 inline-block w-full"
+                    class="opacity-80 hover:opacity-100 hover:bg-rose-400 px-12 py-2 inline-block w-full"
                     href={path}
                   >
                     <span>{name}</span>
@@ -200,7 +200,7 @@
               searchFocused = false;
             }}
             href={'#'}
-            class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded">Cancel</a
+            class="bg-rose-500 hover:bg-blue-400 px-4 py-2 rounded">Cancel</a
           >
         {/if}
       </form>
