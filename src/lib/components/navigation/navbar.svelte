@@ -70,7 +70,8 @@
   {#if !searchFocused}
     <ul
       transition:fly={{ y: -100, duration: 500 }}
-      class="z-20 flex w-full lg:w-[1000px] justify-between md:justify-around md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
+      class="z-20 flex w-full lg:w-[1000px] justify-between md:justify-around md:mx-auto px-2 fixed
+      top-0 left-0 right-0 h-10 items-center"
     >
       <li class="w-1/3 md:hidden">
         <a
@@ -84,14 +85,12 @@
         >
           <div class="menu-icon relative w-full bg-green-500">
             <span
-              class={`line-1 transition-all duration-300 ease absolute h-[2px] rounded w-full aspect-square bg-zinc-100 ${
-                openMobileNav ? 'top-0 rotate-45' : 'px-4 -top-1'
-              }`}
+              class={`line-1 transition-all duration-300 ease absolute h-[2px] rounded w-full
+              aspect-square bg-zinc-100 ${openMobileNav ? 'top-0 rotate-45' : 'px-4 -top-1'}`}
             />
             <span
-              class={`line-2 transition-all duration-300 ease absolute h-[2px] rounded w-full aspect-square bg-zinc-100 ${
-                openMobileNav ? 'top-0 -rotate-45' : 'top-1'
-              } `}
+              class={`line-2 transition-all duration-300 ease absolute h-[2px] rounded w-full
+              aspect-square bg-zinc-100 ${openMobileNav ? 'top-0 -rotate-45' : 'top-1'} `}
             />
           </div>
         </a>
@@ -141,16 +140,19 @@
                 in:fly={{ x: 200, delay: 500 }}
                 type="text"
                 placeholder="search sellershut.com"
-                class="w-full bg-transparent border-transparent focus:ring-transparent focus:border-transparent"
+                class="w-full bg-transparent border-transparent focus:ring-transparent
+                focus:border-transparent"
               />
               <div
-                class="text-zinc-800 dark:text-zinc-100 absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-white dark:bg-zinc-800 shadow-md"
+                class="text-zinc-800 dark:text-zinc-100 absolute top-10 left-0 w-full px-0 py-8
+                rounded-b-2xl flex flex-col space-y-1 bg-white dark:bg-zinc-800 shadow-md"
               >
-                <h2 class="px-12">Quick Links</h2>
+                <h2 class="px-12 small-caps title-font font-bold">Quick Links</h2>
                 {#each quickLinks as { path, name }, i}
                   <a
                     in:fly={{ x: 200, delay: i * 100 }}
-                    class="opacity-80 hover:opacity-100 hover:bg-rose-400 px-12 py-2 inline-block w-full"
+                    class="opacity-80 hover:opacity-100 hover:bg-rose-400 px-12 py-2 inline-block
+                    w-full"
                     href={path}
                   >
                     <span>{name}</span>
@@ -214,7 +216,7 @@
           >
         {/each}
       {:else}
-        <h2 transition:fade class="pt-4 px-10 font-bold">Quick Links</h2>
+        <h2 transition:fade class="pt-4 px-10 font-bold small-caps">Quick Links</h2>
         {#each quickLinks as { path, name }, i}
           <a
             in:fly={{ x: 20, y: -20, delay: (i + 1) * 100 }}
