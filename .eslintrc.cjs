@@ -19,6 +19,13 @@ module.exports = {
         'import/no-mutable-exports': 0,
       },
     },
+    {
+      files: ['./src/routes/**/*.ts'],
+      rules: {
+        'import/prefer-default-export': 0,
+        'import/no-mutable-exports': 0,
+      },
+    },
   ],
   settings: {
     'svelte3/typescript': () => require('typescript'),
@@ -46,5 +53,8 @@ module.exports = {
     browser: true,
     es2017: true,
     node: true,
+  },
+  rules: {
+    'import/extensions': 0,
   },
 };
