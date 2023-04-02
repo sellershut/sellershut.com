@@ -1,7 +1,11 @@
 import axios from 'axios';
 import type { IUser } from '$lib/types/user';
+import type { AdapterUser } from '@auth/core/adapters';
 
-export const getUserById = async (id: string, type: 'email' | 'id'): Promise<IUser> => {
+export const getUserById = async (
+  id: string,
+  type: 'email' | 'id',
+): Promise<AdapterUser | null> => {
   const response = await axios({
     url: 'http://localhost:3000/api/graphql',
     method: 'post',
@@ -13,13 +17,19 @@ export const getUserById = async (id: string, type: 'email' | 'id'): Promise<IUs
           query {
               getUserBy${type === 'email' ? 'Email' : 'Id'}(id: ${id}) {
                 id,
-                name,
+                email,
+                emailVerified
               }
           }
       `,
     },
   });
-  return response.data.data.getUser;
+  if (response.data.error) {
+    return null;
+  }
+
+  const user: IUser = response.data.data.getUserById;
+  return { ...user };
 };
 
 export const getUserByAccountId = async (
