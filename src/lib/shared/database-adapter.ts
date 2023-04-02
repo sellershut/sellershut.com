@@ -1,5 +1,5 @@
 import { adapterCreateUser } from '$lib/api/user/mutation/create-user';
-import { getUserByAccountId, getUserById } from '$lib/api/user/query';
+import { /* getUserByAccountId, */ getUserById } from '$lib/api/user/query';
 import type { Adapter, AdapterUser } from '@auth/core/adapters';
 
 export default function DatabaseAdapter(): Adapter {
