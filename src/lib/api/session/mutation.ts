@@ -1,19 +1,13 @@
 import type { ISession } from '$lib/types/session';
 import type { AdapterSession } from '@auth/core/adapters';
 import axios from 'axios';
-import { apiStringify } from '$lib/shared/api-stringify';
 import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterCreateSession = async (
   session: Omit<ISession, 'id'>,
 ): Promise<AdapterSession> => {
-  const params = apiStringify({
-    expires: session.expires.toISOString(),
-    userId: session.userId,
-    sessionToken: session.sessionToken,
-  });
-
+  const { expires, userId, sessionToken } = session;
   const response = await axios({
     url: PUBLIC_API_ENDPOINT,
     method: 'post',
@@ -23,7 +17,11 @@ export const adapterCreateSession = async (
     data: {
       query: `
           mutation {
-              createSession(input: ${params}) {
+              createSession(input: {
+                  expires: ${expires},
+                  userId: "${userId}",
+                  sessionToken: "${sessionToken}",
+              }) {
                 sessionToken,
                 userId,
                 expires

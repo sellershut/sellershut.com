@@ -15,7 +15,7 @@ export const adapterGetSessionAndUser = async (
     data: {
       query: `
           query {
-              getUserBySessionToken(token: ${token}) {
+              getUserBySessionToken(token: "${token}") {
                 session{
                   sessionToken,
                   expires,

@@ -1,13 +1,12 @@
 import type { VerificationToken } from '@auth/core/adapters';
 import axios from 'axios';
 import { throwAuthError } from '$lib/shared/throw-auth-error';
-import { apiStringify } from '$lib/shared/api-stringify';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterCreateVerificationToken = async (
   data: VerificationToken,
 ): Promise<VerificationToken> => {
-  const params = apiStringify(data);
+  const { identifier, token, expires } = data;
   const response = await axios({
     url: PUBLIC_API_ENDPOINT,
     method: 'post',
@@ -17,7 +16,11 @@ export const adapterCreateVerificationToken = async (
     data: {
       query: `
           mutation {
-              createVerificationToken(input: ${params}){
+              createVerificationToken(input: {
+                  identifier: "${identifier}",
+                  token: "${token}",
+                  expires: ${expires}
+              }){
                 identifier,
                 token,
                 expires
@@ -44,7 +47,10 @@ export const adapterDeleteVerificationToken = async (
     data: {
       query: `
           mutation {
-              deleteVerificationToken(identifier: "${identifier}", token: "${token}") {
+              deleteVerificationToken(
+                  identifier: "${identifier}",
+                  token: "${token}"
+              ) {
                 identifier,
                 token,
                 expires
