@@ -1,11 +1,12 @@
 import type { AdapterSession, AdapterUser } from '@auth/core/adapters';
 import axios from 'axios';
+import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterGetSessionAndUser = async (
   token: string,
 ): Promise<{ session: AdapterSession; user: AdapterUser } | null> => {
   const response = await axios({
-    url: 'http://localhost:3000/api/graphql',
+    url: PUBLIC_API_ENDPOINT,
     method: 'post',
     headers: {
       Authorization: 'Bearer foo',

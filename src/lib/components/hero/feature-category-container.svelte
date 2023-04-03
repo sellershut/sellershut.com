@@ -1,5 +1,5 @@
 <script lang="ts">
-  import getSubCategories, { keyRootCategories } from '$lib/api/category/query/subCategories';
+  import { getSubCategories, keyRootCategories } from '$lib/api/category/query';
   import { createQuery } from '@tanstack/svelte-query';
   import type { ICategory } from '$lib/types/category';
   import shuffleArray from '$lib/shared/shuffle-array';

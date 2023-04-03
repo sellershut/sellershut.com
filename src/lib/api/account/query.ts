@@ -1,11 +1,14 @@
 import type { AdapterAccount, AdapterUser } from '@auth/core/adapters';
 import axios from 'axios';
+import { apiStringify } from '$lib/shared/api-stringify';
+import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterGetUserByAccount = async (
-  providerAccountId: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
+  data: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
 ): Promise<AdapterUser | null> => {
+  const params = apiStringify(data).replace(/[{}]/g, '');
   const response = await axios({
-    url: 'http://localhost:3000/api/graphql',
+    url: PUBLIC_API_ENDPOINT,
     method: 'post',
     headers: {
       Authorization: 'Bearer foo',
@@ -13,10 +16,10 @@ export const adapterGetUserByAccount = async (
     data: {
       query: `
             query{
-              getUserByAccountId(${JSON.stringify(providerAccountId)}){
+              getUserByAccountId(${params}){
                 id,
                 email,
-                emailVerified,
+                emailVerified
               }
             }
       `,

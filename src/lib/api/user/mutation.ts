@@ -1,10 +1,16 @@
-import type { IUser } from '$lib/types/user';
 import type { AdapterUser } from '@auth/core/adapters';
 import axios from 'axios';
+import { apiStringify } from '$lib/shared/api-stringify';
+import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterCreateUser = async (data: Omit<AdapterUser, 'id'>): Promise<AdapterUser> => {
+  const obj = {
+    ...data,
+  };
+  const params = apiStringify(obj);
+
   const response = await axios({
-    url: 'http://localhost:3000/api/graphql',
+    url: PUBLIC_API_ENDPOINT,
     method: 'post',
     headers: {
       Authorization: 'Bearer foo',
@@ -12,8 +18,8 @@ export const adapterCreateUser = async (data: Omit<AdapterUser, 'id'>): Promise<
     data: {
       query: `
           mutation {
-              createUser(input: ${JSON.stringify(data)}) {
-                id
+              createUser(input: ${params}) {
+                id,
                 email,
                 emailVerified
               }
@@ -21,13 +27,12 @@ export const adapterCreateUser = async (data: Omit<AdapterUser, 'id'>): Promise<
       `,
     },
   });
-  const user: IUser = response.data.data.createUser;
-  return { ...user };
+  return response.data.data.createUser;
 };
 
 export const adapterUpdateUser = async (data: Partial<AdapterUser>): Promise<AdapterUser> => {
   const response = await axios({
-    url: 'http://localhost:3000/api/graphql',
+    url: PUBLIC_API_ENDPOINT,
     method: 'post',
     headers: {
       Authorization: 'Bearer foo',
@@ -36,7 +41,7 @@ export const adapterUpdateUser = async (data: Partial<AdapterUser>): Promise<Ada
       query: `
           mutation {
               createUser(input: ${JSON.stringify(data)}) {
-                id
+                id,
                 email,
                 emailVerified
               }
@@ -44,8 +49,7 @@ export const adapterUpdateUser = async (data: Partial<AdapterUser>): Promise<Ada
       `,
     },
   });
-  const user: IUser = response.data.data.createUser;
-  return { ...user };
+  return response.data.data.createUser;
 };
 
 export default adapterCreateUser;

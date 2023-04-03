@@ -8,61 +8,46 @@ import {
 import { adapterGetSessionAndUser } from '$lib/api/session/query';
 import { adapterCreateUser, adapterUpdateUser } from '$lib/api/user/mutation';
 import { getUserById } from '$lib/api/user/query';
+import {
+  adapterCreateVerificationToken,
+  adapterDeleteVerificationToken,
+} from '$lib/api/verification_token/mutation';
 import type {
-  Adapter, AdapterAccount, AdapterSession, AdapterUser,
+  Adapter,
+  AdapterAccount,
+  AdapterSession,
+  AdapterUser,
+  VerificationToken,
 } from '@auth/core/adapters';
 
-export default function DatabaseAdapter(): Adapter {
-  return {
-    createUser: async (user: Omit<AdapterUser, 'id'>): Promise<AdapterUser> => {
-      const dbUser = await adapterCreateUser(user);
-      return dbUser;
-    },
-    getUser: async (id: string): Promise<AdapterUser | null> => {
-      const user = await getUserById(id, 'id');
-      return user;
-    },
-    getUserByEmail: async (email: string): Promise<AdapterUser | null> => {
-      const user = await getUserById(email, 'email');
-      return user;
-    },
-    updateUser: async (user: Partial<AdapterUser>): Promise<AdapterUser> => {
-      const dbUser = await adapterUpdateUser(user);
-      return dbUser;
-    },
-    createSession: async (session: {
-      sessionToken: string;
-      userId: string;
-      expires: Date;
-    }): Promise<AdapterSession> => {
-      const dbSession = await adapterCreateSession(session);
-      return dbSession;
-    },
-    deleteSession: async (sessionToken: string) => {
-      const dbSession = await adapterDeleteSession(sessionToken);
-      return dbSession;
-    },
-    updateSession: async (
-      session: Partial<AdapterSession> & Pick<AdapterSession, 'sessionToken'>,
-    ): Promise<AdapterSession | null | undefined> => {
-      const dbSession = await adapterUpdateSession(session);
-      return dbSession;
-    },
-    getUserByAccount: async (
-      providerAccountId: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
-    ): Promise<AdapterUser | null> => {
-      const user = await adapterGetUserByAccount(providerAccountId);
-      return user;
-    },
-    linkAccount: async (account: AdapterAccount) => {
-      const dbAccount = await adapterCreateAccount(account);
-      return dbAccount;
-    },
-    getSessionAndUser: async (
-      sessionToken: string,
-    ): Promise<{ session: AdapterSession; user: AdapterUser } | null> => {
-      const result = await adapterGetSessionAndUser(sessionToken);
-      return result;
-    },
-  };
-}
+export const DatabaseAdapter: Adapter = {
+  createUser: (user: Omit<AdapterUser, 'id'>): Promise<AdapterUser> => adapterCreateUser(user),
+  getUser: (id: string): Promise<AdapterUser | null> => getUserById(id, 'id'),
+  getUserByEmail: (email: string): Promise<AdapterUser | null> => getUserById(email, 'email'),
+  getUserByAccount: (
+    providerAccountId: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
+  ): Promise<AdapterUser | null> => adapterGetUserByAccount(providerAccountId),
+  updateUser: (user: Partial<AdapterUser>): Promise<AdapterUser> => adapterUpdateUser(user),
+  linkAccount: (account: AdapterAccount) => adapterCreateAccount(account),
+  getSessionAndUser: (
+    sessionToken: string,
+  ): Promise<{
+    session: AdapterSession;
+    user: AdapterUser;
+  } | null> => adapterGetSessionAndUser(sessionToken),
+  createSession: (session: {
+    sessionToken: string;
+    userId: string;
+    expires: Date;
+  }): Promise<AdapterSession> => adapterCreateSession(session),
+  updateSession: (
+    session: Partial<AdapterSession> & Pick<AdapterSession, 'sessionToken'>,
+  ): Promise<AdapterSession | null | undefined> => adapterUpdateSession(session),
+  deleteSession: (sessionToken: string) => adapterDeleteSession(sessionToken),
+  createVerificationToken: (verificationToken: VerificationToken): Promise<VerificationToken> =>
+    adapterCreateVerificationToken(verificationToken),
+  useVerificationToken: (params: { identifier: string; token: string }) =>
+    adapterDeleteVerificationToken(identifierToken),
+};
+
+export default DatabaseAdapter;

@@ -1,9 +1,10 @@
 <script lang="ts">
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
+  import { signIn } from '@auth/sveltekit/client';
   import { createQuery } from '@tanstack/svelte-query';
   import type { ICategory } from '$lib/types/category';
-  import getSubCategories, { keyRootCategories } from '$lib/api/category/query/subCategories';
+  import { getSubCategories, keyRootCategories } from '$lib/api/category/query';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
   import ThemeSwitcher from '../theme-switcher.svelte';
@@ -115,7 +116,7 @@
           </a>
         </li>
         <li in:scale={{ duration: (9 / 2) * scales, easing: quintOut }} class="hidden md:block">
-          Login
+          <button on:click={() => signIn()}> Login </button>
         </li>
         <li
           in:scale={{ duration: (10 / 2) * scales, easing: quintOut }}

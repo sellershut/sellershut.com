@@ -1,4 +1,4 @@
-import getSubCategories, { keyRootCategories } from '$lib/api/category/query/subCategories';
+import { getSubCategories, keyRootCategories } from '$lib/api/category/query';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ parent }) => {

@@ -1,13 +1,14 @@
 import axios from 'axios';
 import type { IUser } from '$lib/types/user';
 import type { AdapterUser } from '@auth/core/adapters';
+import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const getUserById = async (
   id: string,
   type: 'email' | 'id',
 ): Promise<AdapterUser | null> => {
   const response = await axios({
-    url: 'http://localhost:3000/api/graphql',
+    url: PUBLIC_API_ENDPOINT,
     method: 'post',
     headers: {
       Authorization: 'Bearer foo',
@@ -15,7 +16,9 @@ export const getUserById = async (
     data: {
       query: `
           query {
-              getUserBy${type === 'email' ? 'Email' : 'Id'}(id: ${id}) {
+              getUserBy${type === 'email' ? 'Email' : 'Id'}(${
+  type === 'email' ? 'email' : 'id'
+}: "${id}") {
                 id,
                 email,
                 emailVerified
@@ -24,12 +27,11 @@ export const getUserById = async (
       `,
     },
   });
-  if (response.data.error) {
-    return null;
-  }
 
-  const user: IUser = response.data.data.getUserById;
-  return { ...user };
+  if (type === 'email') {
+    return response.data.data.getUserByEmail;
+  }
+  return response.data.data.getUserById;
 };
 
 export const getUserByAccountId = async (
@@ -37,7 +39,7 @@ export const getUserByAccountId = async (
   provider: string,
 ): Promise<IUser> => {
   const response = await axios({
-    url: 'http://localhost:3000/api/graphql',
+    url: PUBLIC_API_ENDPOINT,
     method: 'post',
     headers: {
       Authorization: 'Bearer foo',

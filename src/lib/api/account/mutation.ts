@@ -1,9 +1,23 @@
 import type { AdapterAccount } from '@auth/core/adapters';
 import axios from 'axios';
+import { apiStringify } from '$lib/shared/api-stringify';
+import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterCreateAccount = async (account: AdapterAccount) => {
+  const processed = { ...account };
+  processed.accessToken = processed.access_token;
+  processed.expiresIn = processed.expires_in;
+  processed.tokenType = processed.token_type;
+  processed.refreshToken = processed.refresh_token;
+  processed.idToken = processed.id_token;
+  delete processed.access_token;
+  delete processed.expires_in;
+  delete processed.token_type;
+  delete processed.refresh_token;
+  delete processed.id_token;
+  const params = apiStringify(processed);
   const response = await axios({
-    url: 'http://localhost:3000/api/graphql',
+    url: PUBLIC_API_ENDPOINT,
     method: 'post',
     headers: {
       Authorization: 'Bearer foo',
@@ -11,15 +25,14 @@ export const adapterCreateAccount = async (account: AdapterAccount) => {
     data: {
       query: `
           mutation {
-              createAccount(input: ${JSON.stringify(account)}) {
+              createAccount(input: ${params}) {
                 userId
               }
           }
       `,
     },
   });
-  const dbSession = response.data.data.createAccount;
-  return { ...dbSession };
+  return response.data.data.createAccount;
 };
 
 export default adapterCreateAccount;
