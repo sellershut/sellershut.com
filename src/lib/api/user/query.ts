@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/indent */
 import axios from 'axios';
 import type { IUser } from '$lib/types/user';
 import type { AdapterUser } from '@auth/core/adapters';
+import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const getUserById = async (
@@ -17,8 +19,8 @@ export const getUserById = async (
       query: `
           query {
               getUserBy${type === 'email' ? 'Email' : 'Id'}(${
-  type === 'email' ? 'email' : 'id'
-}: "${id}") {
+        type === 'email' ? 'email' : 'id'
+      }: "${id}") {
                 id,
                 email,
                 emailVerified
@@ -28,6 +30,7 @@ export const getUserById = async (
     },
   });
 
+  throwAuthError(`Get User By ${type}`, response);
   if (type === 'email') {
     return response.data.data.getUserByEmail;
   }
@@ -55,7 +58,9 @@ export const getUserByAccountId = async (
       `,
     },
   });
-  return response.data.data.getUser;
+
+  throwAuthError('Get User By Account', response);
+  return response.data.data.getUserByProvider;
 };
 
 export default getUserById;

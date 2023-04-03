@@ -1,6 +1,7 @@
 import type { AdapterAccount } from '@auth/core/adapters';
 import axios from 'axios';
 import { apiStringify } from '$lib/shared/api-stringify';
+import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterCreateAccount = async (account: AdapterAccount) => {
@@ -32,6 +33,7 @@ export const adapterCreateAccount = async (account: AdapterAccount) => {
       `,
     },
   });
+  throwAuthError('Create Account', response);
   return response.data.data.createAccount;
 };
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { ICategory } from '$lib/types/category';
+import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const keyRootCategories = 'rootCategories';
@@ -24,6 +25,8 @@ export const getSubCategories = async (id = 0): Promise<ICategory[]> => {
       `,
     },
   });
+
+  throwAuthError('Get SubCategories', response);
   return response.data.data.getSubCategories;
 };
 

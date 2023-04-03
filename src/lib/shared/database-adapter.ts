@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { adapterCreateAccount } from '$lib/api/account/mutation';
 import { adapterGetUserByAccount } from '$lib/api/account/query';
 import {
@@ -44,10 +45,14 @@ export const DatabaseAdapter: Adapter = {
     session: Partial<AdapterSession> & Pick<AdapterSession, 'sessionToken'>,
   ): Promise<AdapterSession | null | undefined> => adapterUpdateSession(session),
   deleteSession: (sessionToken: string) => adapterDeleteSession(sessionToken),
-  createVerificationToken: (verificationToken: VerificationToken): Promise<VerificationToken> =>
-    adapterCreateVerificationToken(verificationToken),
-  useVerificationToken: (params: { identifier: string; token: string }) =>
-    adapterDeleteVerificationToken(identifierToken),
+  createVerificationToken: (verificationToken: VerificationToken): Promise<VerificationToken> => {
+    const token = verificationToken;
+    return adapterCreateVerificationToken(token);
+  },
+  useVerificationToken: (params: { identifier: string; token: string }) => {
+    const { identifier, token } = params;
+    return adapterDeleteVerificationToken(identifier, token);
+  },
 };
 
 export default DatabaseAdapter;

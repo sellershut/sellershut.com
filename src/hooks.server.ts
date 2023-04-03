@@ -5,6 +5,20 @@ import { SvelteKitAuth } from '@auth/sveltekit';
 import Google from '@auth/core/providers/google';
 import { APP_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 
+const missingEnv = (variable: string) => {
+  throw new Error(`MISSING '${variable}' variable in .env`);
+};
+
+if (!APP_SECRET) {
+  missingEnv('APP_SECRET');
+}
+if (!GOOGLE_CLIENT_ID) {
+  missingEnv('GOOGLE_CLIENT_ID');
+}
+if (!GOOGLE_CLIENT_SECRET) {
+  missingEnv('GOOGLE_CLIENT_SECRET');
+}
+
 export const handleTheme = (async ({ event, resolve }) => {
   const theme = event.cookies.get('siteTheme');
   const response = await resolve(event, {
@@ -14,7 +28,8 @@ export const handleTheme = (async ({ event, resolve }) => {
   return response;
 }) satisfies Handle;
 
-export const handleAuth = (async (...args) =>
+const handleAuth = (async (...args) =>
+  // eslint-disable-next-line implicit-arrow-linebreak
   SvelteKitAuth({
     trustHost: true,
     adapter: DatabaseAdapter,

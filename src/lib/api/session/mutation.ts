@@ -1,11 +1,19 @@
 import type { ISession } from '$lib/types/session';
 import type { AdapterSession } from '@auth/core/adapters';
 import axios from 'axios';
+import { apiStringify } from '$lib/shared/api-stringify';
+import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterCreateSession = async (
   session: Omit<ISession, 'id'>,
 ): Promise<AdapterSession> => {
+  const params = apiStringify({
+    expires: session.expires.toISOString(),
+    userId: session.userId,
+    sessionToken: session.sessionToken,
+  });
+
   const response = await axios({
     url: PUBLIC_API_ENDPOINT,
     method: 'post',
@@ -15,7 +23,7 @@ export const adapterCreateSession = async (
     data: {
       query: `
           mutation {
-              createSession(input: ${JSON.stringify(session)}) {
+              createSession(input: ${params}) {
                 sessionToken,
                 userId,
                 expires
@@ -24,8 +32,8 @@ export const adapterCreateSession = async (
       `,
     },
   });
-  const dbSession: ISession = response.data.data.createSession;
-  return { ...dbSession };
+  throwAuthError('Create Session', response);
+  return response.data.data.createSession;
 };
 
 export const adapterDeleteSession = async (sessionToken: string): Promise<AdapterSession> => {
@@ -48,8 +56,8 @@ export const adapterDeleteSession = async (sessionToken: string): Promise<Adapte
       `,
     },
   });
-  const dbSession: ISession = response.data.data.createSession;
-  return { ...dbSession };
+  throwAuthError('Delete Session', response);
+  return response.data.data.deleteSession;
 };
 
 export const adapterUpdateSession = async (
@@ -75,12 +83,9 @@ export const adapterUpdateSession = async (
     },
   });
 
-  if (response.data.error) {
-    return null;
-  }
+  throwAuthError('Update Session', response);
 
-  const dbSession: ISession = response.data.data.updateSession;
-  return { ...dbSession };
+  return response.data.data.updateSession;
 };
 
 export default adapterCreateSession;

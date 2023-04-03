@@ -43,10 +43,11 @@
   "dependencies": {
     "@auth/core": "^0.5.1",
     "@auth/sveltekit": "^0.3.0",
+    "@sveltejs/kit": "^1.15.0",
     "@tanstack/svelte-query": "^4.27.0",
     "axios": "^1.3.4",
     "sellershut.com": "link:",
-    "svelte": "^3.58.0",
-    "@sveltejs/kit": "^1.15.0"
+    "stringify-object": "^5.0.0",
+    "svelte": "^3.58.0"
   }
 }

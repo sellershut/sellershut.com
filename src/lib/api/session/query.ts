@@ -1,5 +1,6 @@
 import type { AdapterSession, AdapterUser } from '@auth/core/adapters';
 import axios from 'axios';
+import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const adapterGetSessionAndUser = async (
@@ -30,6 +31,7 @@ export const adapterGetSessionAndUser = async (
       `,
     },
   });
+  throwAuthError('Get User By Session Token', response);
   const { session, user } = response.data.data.getUserBySessionToken;
   return { session, user };
 };
