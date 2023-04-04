@@ -2,6 +2,7 @@ import type { AdapterSession, AdapterUser } from '@auth/core/adapters';
 import axios from 'axios';
 import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
+import { convertToAdapterSession } from './mutation';
 
 export const adapterGetSessionAndUser = async (
   token: string,
@@ -31,9 +32,12 @@ export const adapterGetSessionAndUser = async (
       `,
     },
   });
+
   throwAuthError('Get User By Session Token', response);
   const { session, user } = response.data.data.getUserBySessionToken;
-  return { session, user };
+
+  const adapterSession = convertToAdapterSession(session);
+  return { session: adapterSession, user };
 };
 
 export default adapterGetSessionAndUser;

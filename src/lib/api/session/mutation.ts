@@ -4,6 +4,19 @@ import axios from 'axios';
 import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
+export const convertToAdapterSession = (response: {
+  sessionToken: string;
+  userId: string;
+  expires: string;
+}): AdapterSession => {
+  const { sessionToken, userId, expires } = response;
+  return {
+    sessionToken,
+    userId,
+    expires: new Date(expires),
+  };
+};
+
 export const adapterCreateSession = async (
   session: Omit<ISession, 'id'>,
 ): Promise<AdapterSession> => {
@@ -18,7 +31,7 @@ export const adapterCreateSession = async (
       query: `
           mutation {
               createSession(input: {
-                  expires: ${expires},
+                  expires: "${expires.toISOString()}",
                   userId: "${userId}",
                   sessionToken: "${sessionToken}",
               }) {
@@ -31,7 +44,9 @@ export const adapterCreateSession = async (
     },
   });
   throwAuthError('Create Session', response);
-  return response.data.data.createSession;
+  const data = response.data.data.createSession;
+
+  return convertToAdapterSession(data);
 };
 
 export const adapterDeleteSession = async (sessionToken: string): Promise<AdapterSession> => {
@@ -46,7 +61,6 @@ export const adapterDeleteSession = async (sessionToken: string): Promise<Adapte
           mutation {
               deleteSession(sessionToken: ${sessionToken}) {
                 sessionToken,
-                id,
                 expires,
                 userId
               }
@@ -54,8 +68,10 @@ export const adapterDeleteSession = async (sessionToken: string): Promise<Adapte
       `,
     },
   });
+
   throwAuthError('Delete Session', response);
-  return response.data.data.deleteSession;
+  const data = response.data.data.deleteSession;
+  return convertToAdapterSession(data);
 };
 
 export const adapterUpdateSession = async (
@@ -71,7 +87,6 @@ export const adapterUpdateSession = async (
       query: `
           mutation {
               updateSession(${JSON.stringify(session)}) {
-                id,
                 sessionToken,
                 expires,
                 userId
@@ -83,7 +98,8 @@ export const adapterUpdateSession = async (
 
   throwAuthError('Update Session', response);
 
-  return response.data.data.updateSession;
+  const data = response.data.data.updateSession;
+  return convertToAdapterSession(data);
 };
 
 export default adapterCreateSession;

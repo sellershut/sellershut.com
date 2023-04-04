@@ -3,6 +3,19 @@ import axios from 'axios';
 import { throwAuthError } from '$lib/shared/throw-auth-error';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
+const convertToAdapterVerificationToken = (data: {
+  identifier: string;
+  token: string;
+  expires: string;
+}): VerificationToken => {
+  const { identifier, token, expires } = data;
+  return {
+    identifier,
+    token,
+    expires: new Date(expires),
+  };
+};
+
 export const adapterCreateVerificationToken = async (
   data: VerificationToken,
 ): Promise<VerificationToken> => {
@@ -19,7 +32,7 @@ export const adapterCreateVerificationToken = async (
               createVerificationToken(input: {
                   identifier: "${identifier}",
                   token: "${token}",
-                  expires: ${expires}
+                  expires: "${expires.toISOString()}"
               }){
                 identifier,
                 token,
@@ -31,7 +44,8 @@ export const adapterCreateVerificationToken = async (
   });
 
   throwAuthError('Create Verification Token', response);
-  return response.data.data.createVerificationToken;
+  const resp = response.data.data.createVerificationToken;
+  return convertToAdapterVerificationToken(resp);
 };
 
 export const adapterDeleteVerificationToken = async (
@@ -59,8 +73,10 @@ export const adapterDeleteVerificationToken = async (
       `,
     },
   });
+
   throwAuthError('Delete Verification Token', response);
-  return response.data.data.deleteVerificationToken;
+  const resp = response.data.data.deleteVerificationToken;
+  return convertToAdapterVerificationToken(resp);
 };
 
 export default adapterCreateVerificationToken;
