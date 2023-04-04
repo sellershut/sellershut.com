@@ -15,8 +15,8 @@
 
 <h1 class="title-font font-bold text-4xl sm:text-5xl">Popular...</h1>
 <div
-  class="relative flex border border-white/5 shadow-md flex-col space-y-2 bg-gradient-to-br
-    bg-opacity-40 from-white/60 to-white/20 p-4 backdrop-blur-md rounded-lg
+  class="relative flex border border-rose-500/10 shadow-md flex-col space-y-2 bg-gradient-to-br
+    dark:border-white/5 bg-opacity-40 from-white/60 to-white/20 p-4 backdrop-blur-md rounded-lg
     dark:bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] dark:from-zinc-800
     dark:via-slate-700 dark:to-zinc-600"
 >
