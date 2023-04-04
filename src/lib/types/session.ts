@@ -1,5 +1,5 @@
 export type ISession = {
-  id: string;
+  id?: string;
   sessionToken: string;
   userId: string;
   expires: Date;

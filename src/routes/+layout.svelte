@@ -9,7 +9,7 @@
 
 <QueryClientProvider client={data.queryClient}>
   <main class="font-roboto">
-    <Navbar />
+    <Navbar session={data.session} />
     <div
       class="bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-rose-100 to-teal-100
     dark:bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] dark:from-rose-900

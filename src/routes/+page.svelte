@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import FeatureCategoryContainer from '$lib/components/hero/feature-category-container.svelte';
   import SectionDivider from '$lib/components/section-divider.svelte';
   import Statistics from '$lib/components/statistics/statistics.svelte';

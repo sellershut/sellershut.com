@@ -1,10 +1,11 @@
 <script lang="ts">
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
-  import { signIn } from '@auth/sveltekit/client';
+  import { signIn, signOut } from '@auth/sveltekit/client';
   import { createQuery } from '@tanstack/svelte-query';
   import type { ICategory } from '$lib/types/category';
   import { getSubCategories, keyRootCategories } from '$lib/api/category/query';
+  import type { Session } from '@auth/core/types';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
   import ThemeSwitcher from '../theme-switcher.svelte';
@@ -44,6 +45,8 @@
   const scales = 300;
   // slice the array -> we might want to get the top n categories
   const slice = (arr: ICategory[]) => arr.slice(0, 5);
+
+  export let session: Session | null;
 </script>
 
 <nav
@@ -84,7 +87,9 @@
           in:scale={{ duration: 0.5 * scales, easing: quintOut }}
           class="w-1/3 md:w-auto text-center md:text-left"
         >
-          <IconHome class="mx-auto" />
+          <a href="/">
+            <IconHome class="mx-auto" />
+          </a>
         </li>
         {#if $categories.isLoading}
           <span>Loading</span>
@@ -116,7 +121,11 @@
           </a>
         </li>
         <li in:scale={{ duration: (9 / 2) * scales, easing: quintOut }} class="hidden md:block">
-          <button on:click={() => signIn()}> Login </button>
+          {#if session === null}
+            <button on:click={() => signIn()}>Sign In</button>
+          {:else}
+            <button on:click={() => signOut()}>Sign Out</button>
+          {/if}
         </li>
         <li
           in:scale={{ duration: (10 / 2) * scales, easing: quintOut }}
