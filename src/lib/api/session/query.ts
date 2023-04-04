@@ -34,10 +34,14 @@ export const adapterGetSessionAndUser = async (
   });
 
   throwAuthError('Get User By Session Token', response);
-  const { session, user } = response.data.data.getUserBySessionToken;
+  const data = response.data.data.getUserBySessionToken;
+  if (data) {
+    const { session, user } = response.data.data.getUserBySessionToken;
+    const adapterSession = convertToAdapterSession(session);
+    return { session: adapterSession, user };
+  }
 
-  const adapterSession = convertToAdapterSession(session);
-  return { session: adapterSession, user };
+  return null;
 };
 
 export default adapterGetSessionAndUser;
