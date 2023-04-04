@@ -3,6 +3,7 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { DatabaseAdapter } from '$lib/shared/database-adapter';
 import { SvelteKitAuth } from '@auth/sveltekit';
 import Google from '@auth/core/providers/google';
+import { adapterGetAccessTokenByUserId } from '$lib/api/account/query';
 import { APP_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 
 const missingEnv = (variable: string) => {
@@ -28,9 +29,9 @@ export const handleTheme = (async ({ event, resolve }) => {
   return response;
 }) satisfies Handle;
 
-const handleAuth = (async (...args) =>
-  // eslint-disable-next-line implicit-arrow-linebreak
-  SvelteKitAuth({
+const handleAuth = (async (...args) => {
+  const [{ event }] = args;
+  return SvelteKitAuth({
     trustHost: true,
     adapter: DatabaseAdapter,
     providers: [
@@ -41,8 +42,19 @@ const handleAuth = (async (...args) =>
         clientSecret: GOOGLE_CLIENT_SECRET,
       }),
     ],
+    debug: true,
     secret: APP_SECRET,
-  })(...args)) satisfies Handle;
+    callbacks: {
+      async session({ session, user }) {
+        const accessToken = await adapterGetAccessTokenByUserId(user.id);
+        // eslint-disable-next-line no-param-reassign
+        session.accessToken = accessToken;
+        event.locals.session = session;
+        return session;
+      },
+    },
+  })(...args);
+}) satisfies Handle;
 
 export const handle = sequence(handleTheme, handleAuth);
 export default handle;

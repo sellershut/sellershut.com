@@ -33,4 +33,28 @@ export const adapterGetUserByAccount = async (
   return response.data.data.getUserByAccountId;
 };
 
+export const adapterGetAccessTokenByUserId = async (user_id: string): Promise<string | null> => {
+  const response = await axios({
+    url: PUBLIC_API_ENDPOINT,
+    method: 'post',
+    headers: {
+      Authorization: 'Bearer foo',
+    },
+    data: {
+      query: `
+            query{
+              getAccountByUserId(
+                  userId: "${user_id}",
+              ){
+                accessToken
+              }
+            }
+      `,
+    },
+  });
+
+  throwAuthError('Get AccessToken By User Id', response);
+  return response.data.data.getAccountByUserId.accessToken;
+};
+
 export default adapterGetUserByAccount;
