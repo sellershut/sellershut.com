@@ -52,7 +52,14 @@
     dark:bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] dark:from-zinc-800
     dark:via-slate-700 dark:to-zinc-600"
 >
-  <a href={'#'} class="font-medium text-rose-500 hover:text-rose-600 duration-200">View All</a>
+  <div>
+    <a
+      href={'#'}
+      class="font-medium duration-200 bg-gradient-to-br dark:from-white/20 dark:to-white/10 backdrop-blur
+      rounded hover:bg-zinc-800/10 hover:text-zinc-800 border border-rose-500/10 dark:border-zinc-800 text-zinc-800
+      dark:text-zinc-300/70 dark:hover:text-zinc-300 py-2 px-6 shadow small-caps">View All</a
+    >
+  </div>
   <div
     class="absolute top-0 left-0 noise h-full w-full mix-blend-overlay opacity-5
       dark:opacity-10 -z-10"
