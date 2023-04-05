@@ -98,7 +98,9 @@
             in:scale={{ duration: scales, easing: quintOut }}
             class="hidden md:flex h-full items-center justify-center"
           >
-            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'#'}>All</a>
+            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'/browse/categories'}
+              >All</a
+            >
           </li>
           {#each slice($categories.data) as category, i}
             <li
