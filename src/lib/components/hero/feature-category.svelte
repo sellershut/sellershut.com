@@ -21,7 +21,7 @@
     {`${category ? category.name : ''}`}
   </p>
   <span
-    class="invisible w-2 aspect-square transition-all duration-200 bg-rose-500 rounded-full
-    group-hover:visible"
+    class="invisible hidden w-2 aspect-square transition-all duration-200 bg-rose-500 rounded-full
+    group-hover:visible md:block"
   />
 </a>

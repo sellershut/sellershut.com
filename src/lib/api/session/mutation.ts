@@ -59,7 +59,7 @@ export const adapterDeleteSession = async (sessionToken: string): Promise<Adapte
     data: {
       query: `
           mutation {
-              deleteSession(sessionToken: ${sessionToken}) {
+              deleteSession(sessionToken: "${sessionToken}") {
                 sessionToken,
                 expires,
                 userId

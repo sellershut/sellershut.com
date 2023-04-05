@@ -70,8 +70,7 @@
     pagination="true"
     navigation="true"
     css-mode="true"
-    class="w-full flex flex-col flex-wrap sm:flex-row justify-around space-y-2 items-center
-        sm:justify-center"
+    class="w-full py-8 flex items-center justify-around"
   >
     {#if $categories.isLoading}
       {#each Array(limit) as _loadingCategory}
