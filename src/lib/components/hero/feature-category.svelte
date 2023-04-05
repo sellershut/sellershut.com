@@ -4,7 +4,7 @@
   export let category: ICategory;
 </script>
 
-<a href={'#'} class="group flex flex-col items-center gap-2">
+<a href={'#'} class="group flex flex-col items-center gap-2 py-2">
   <img
     alt={`${category.name} image`}
     class="object-fill w-36 lg:w-40 aspect-square duration-200 transition-all rounded-full

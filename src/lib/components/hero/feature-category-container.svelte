@@ -3,14 +3,20 @@
   import { createQuery } from '@tanstack/svelte-query';
   import type { ICategory } from '$lib/types/category';
   import shuffleArray from '$lib/shared/shuffle-array';
+  import { register } from 'swiper/element/bundle';
   import FeatureCategory from './feature-category.svelte';
+  // import function to register Swiper custom elements
+  // register Swiper custom elements
+  register();
 
   const categories = createQuery<ICategory[], Error>({
     queryKey: [keyRootCategories],
     queryFn: () => getSubCategories(),
   });
 
-  const slice = (arr: ICategory[]) => shuffleArray(arr).slice(0, 7);
+  const limit = 7;
+
+  const slice = (arr: ICategory[]) => shuffleArray(arr).slice(0, limit);
 </script>
 
 <h1 class="title-font font-bold text-4xl sm:text-5xl">Popular...</h1>
@@ -25,13 +31,42 @@
     class="absolute top-0 left-0 noise h-full w-full mix-blend-overlay opacity-5
       dark:opacity-10 -z-10"
   />
-  <div class="w-full flex flex-col flex-wrap sm:flex-row justify-around space-y-2 items-center">
+
+  <swiper-container
+    css-mode="true"
+    slides-per-view="1"
+    navigation="true"
+    pagination="true"
+    breakpoints={{
+      480: {
+        slidesPerView: 2,
+      },
+      640: {
+        slidesPerView: 3,
+      },
+      768: {
+        slidesPerView: 4,
+      },
+      1024: {
+        slidesPerView: 5,
+      },
+      1280: {
+        slidesPerView: 6,
+      },
+      1536: {
+        slidesPerView: 7,
+      },
+    }}
+    class="w-full flex flex-col flex-wrap sm:flex-row justify-around space-y-2 items-center"
+  >
     {#if $categories.isLoading}
       <span>Loading</span>
     {:else if $categories.isSuccess}
       {#each slice($categories.data) as category}
-        <FeatureCategory {category} />
+        <swiper-slide lazy="true">
+          <FeatureCategory {category} />
+        </swiper-slide>
       {/each}
     {/if}
-  </div>
+  </swiper-container>
 </div>
