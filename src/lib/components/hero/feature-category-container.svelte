@@ -16,8 +16,34 @@
 
   const limit = 7;
 
+  const findCount = (width: number): number => {
+    if (width >= 1536) {
+      return 7;
+    }
+    if (width >= 1280) {
+      return 6;
+    }
+    if (width >= 1024) {
+      return 5;
+    }
+    if (width >= 768) {
+      return 4;
+    }
+    if (width >= 640) {
+      return 3;
+    }
+    if (width >= 480) {
+      return 2;
+    }
+    return 1;
+  };
+
   const slice = (arr: ICategory[]) => shuffleArray(arr).slice(0, limit);
+  $: innerWidth = 0;
+  $: count = findCount(innerWidth);
 </script>
+
+<svelte:window bind:innerWidth />
 
 <h1 class="title-font font-bold text-4xl sm:text-5xl">Popular...</h1>
 <div
@@ -33,30 +59,10 @@
   />
 
   <swiper-container
-    css-mode="true"
-    slides-per-view="1"
-    navigation="true"
+    slides-per-view={count}
     pagination="true"
-    breakpoints={{
-      480: {
-        slidesPerView: 2,
-      },
-      640: {
-        slidesPerView: 3,
-      },
-      768: {
-        slidesPerView: 4,
-      },
-      1024: {
-        slidesPerView: 5,
-      },
-      1280: {
-        slidesPerView: 6,
-      },
-      1536: {
-        slidesPerView: 7,
-      },
-    }}
+    navigation="true"
+    css-mode="true"
     class="w-full flex flex-col flex-wrap sm:flex-row justify-around space-y-2 items-center"
   >
     {#if $categories.isLoading}
