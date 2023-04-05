@@ -48,8 +48,15 @@ const handleAuth = (async (...args) => {
       async session({ session, user }) {
         const accessToken = await adapterGetAccessTokenByUserId(user.id);
         // eslint-disable-next-line no-param-reassign
-        session.accessToken = accessToken;
-        event.locals.session = session;
+        event.locals.session = {
+          accessToken,
+          expires: new Date(session.expires),
+          user: {
+            name: session.user?.name,
+            email: session.user?.email,
+            image: session.user?.image,
+          },
+        };
         return session;
       },
     },

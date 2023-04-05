@@ -12,9 +12,9 @@
  * }
  * */
 export type IUser = {
-  id: string;
+  id?: string;
   name?: string | null;
-  email: string;
-  emailVerified: Date | null;
+  email?: string | null;
+  emailVerified?: Date | null;
   image?: string | null;
 };
