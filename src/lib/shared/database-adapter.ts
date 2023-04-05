@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { adapterCreateAccount } from '$lib/api/account/mutation';
+import { adapterCreateAccount, adapterDeleteAccount } from '$lib/api/account/mutation';
 import { adapterGetUserByAccount } from '$lib/api/account/query';
 import {
   adapterCreateSession,
@@ -7,7 +7,7 @@ import {
   adapterUpdateSession,
 } from '$lib/api/session/mutation';
 import { adapterGetSessionAndUser } from '$lib/api/session/query';
-import { adapterCreateUser, adapterUpdateUser } from '$lib/api/user/mutation';
+import { adapterCreateUser, adapterDeleteUser, adapterUpdateUser } from '$lib/api/user/mutation';
 import { getUserById } from '$lib/api/user/query';
 import {
   adapterCreateVerificationToken,
@@ -29,7 +29,13 @@ export const DatabaseAdapter: Adapter = {
     providerAccountId: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
   ): Promise<AdapterUser | null> => adapterGetUserByAccount(providerAccountId),
   updateUser: (user: Partial<AdapterUser>): Promise<AdapterUser> => adapterUpdateUser(user),
+  deleteUser: (userId: string) => adapterDeleteUser(userId),
   linkAccount: (account: AdapterAccount) => adapterCreateAccount(account),
+  unlinkAccount: (account: Pick<AdapterAccount, 'provider' | 'providerAccountId'>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { provider, providerAccountId } = account;
+    return adapterDeleteAccount(account);
+  },
   getSessionAndUser: (
     sessionToken: string,
   ): Promise<{

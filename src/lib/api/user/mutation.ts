@@ -22,7 +22,9 @@ export const adapterCreateUser = async (data: Omit<AdapterUser, 'id'>): Promise<
               createUser(input: ${params}) {
                 id,
                 email,
-                emailVerified
+                emailVerified,
+                image,
+                name
               }
           }
       `,
@@ -46,7 +48,9 @@ export const adapterUpdateUser = async (data: Partial<AdapterUser>): Promise<Ada
               updateUser(input: ${params}) {
                 id,
                 email,
-                emailVerified
+                emailVerified,
+                name,
+                image,
               }
           }
       `,
@@ -54,6 +58,27 @@ export const adapterUpdateUser = async (data: Partial<AdapterUser>): Promise<Ada
   });
   throwAuthError('Update User', response);
   return response.data.data.updateUser;
+};
+
+export const adapterDeleteUser = async (id: string) => {
+  const response = await axios({
+    url: PUBLIC_API_ENDPOINT,
+    method: 'post',
+    headers: {
+      Authorization: 'Bearer foo',
+    },
+    data: {
+      query: `
+          mutation {
+              deleteUser(id: "${id}") {
+                success,
+              }
+          }
+      `,
+    },
+  });
+  throwAuthError('Delete User', response);
+  return response.data.data.deleteUser;
 };
 
 export default adapterCreateUser;

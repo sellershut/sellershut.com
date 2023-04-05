@@ -37,4 +37,28 @@ export const adapterCreateAccount = async (account: AdapterAccount) => {
   return response.data.data.createAccount;
 };
 
+export const adapterDeleteAccount = async (
+  account: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
+) => {
+  const params = apiStringify(account);
+  const response = await axios({
+    url: PUBLIC_API_ENDPOINT,
+    method: 'post',
+    headers: {
+      Authorization: 'Bearer foo',
+    },
+    data: {
+      query: `
+          mutation {
+              deleteAccount(${params}) {
+                success
+              }
+          }
+      `,
+    },
+  });
+  throwAuthError('Delete Account', response);
+  return response.data.data.deleteAccount;
+};
+
 export default adapterCreateAccount;
