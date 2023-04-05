@@ -25,7 +25,9 @@ export const adapterGetSessionAndUser = async (
                 user {
                   id,
                   email,
-                  emailVerified
+                  emailVerified,
+                  image,
+                  name
                 }
               }
           }

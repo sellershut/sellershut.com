@@ -22,7 +22,9 @@ export const adapterGetUserByAccount = async (
               ){
                 id,
                 email,
-                emailVerified
+                emailVerified,
+                image,
+                name
               }
             }
       `,

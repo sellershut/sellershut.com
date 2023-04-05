@@ -120,11 +120,24 @@
             <IconSearch />
           </a>
         </li>
-        <li in:scale={{ duration: (9 / 2) * scales, easing: quintOut }} class="hidden md:block">
+        <li
+          in:scale={{ duration: (9 / 2) * scales, easing: quintOut }}
+          class="hidden md:flex items-center justify-center"
+        >
           {#if session === null}
             <button on:click={() => signIn()}>Sign In</button>
           {:else}
-            <button on:click={() => signOut()}>Sign Out</button>
+            <button on:click={() => signOut()}>
+              {#if session.user}
+                <img
+                  alt={`${session.user.name}'s profile picture`}
+                  src={session.user.image}
+                  class="w-7 my-auto aspect-square rounded-full"
+                />
+              {:else}
+                <div>Sign Out</div>
+              {/if}
+            </button>
           {/if}
         </li>
         <li

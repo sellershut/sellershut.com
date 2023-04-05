@@ -23,7 +23,9 @@ export const getUserById = async (
       }: "${id}") {
                 id,
                 email,
-                emailVerified
+                emailVerified,
+                image,
+                name
               }
           }
       `,
@@ -53,6 +55,9 @@ export const getUserByAccountId = async (
               getUserByProvider(id: ${providerAccountId}, name: ${provider}) {
                 id,
                 name,
+                image,
+                email,
+                emailVerified
               }
           }
       `,
