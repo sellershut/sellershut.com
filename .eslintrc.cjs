@@ -5,9 +5,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:svelte/recommended',
-    'prettier',
     'airbnb-base',
     'airbnb-typescript/base',
+    'prettier',
   ],
   plugins: ['@typescript-eslint'],
   ignorePatterns: ['*.cjs'],
@@ -62,5 +62,6 @@ module.exports = {
   },
   rules: {
     'import/extensions': 0,
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
   },
 };

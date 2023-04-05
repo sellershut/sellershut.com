@@ -63,10 +63,15 @@
     pagination="true"
     navigation="true"
     css-mode="true"
-    class="w-full flex flex-col flex-wrap sm:flex-row justify-around space-y-2 items-center"
+    class="w-full flex flex-col flex-wrap sm:flex-row justify-around space-y-2 items-center
+        sm:justify-center"
   >
     {#if $categories.isLoading}
-      <span>Loading</span>
+      {#each Array(limit) as _loadingCategory}
+        <swiper-slide lazy="true">
+          <FeatureCategory />
+        </swiper-slide>
+      {/each}
     {:else if $categories.isSuccess}
       {#each slice($categories.data) as category}
         <swiper-slide lazy="true">
