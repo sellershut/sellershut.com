@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getSubCategories, keyRootCategories } from '$lib/api/category/query';
+  import CategoryList from '$lib/components/categories/category-list.svelte';
   import { createQuery } from '@tanstack/svelte-query';
 
   // This data is cached by prefetchQuery in +page.ts so no fetch actually happens here
@@ -9,4 +10,8 @@
   });
 </script>
 
-<div>{$query.isSuccess}</div>
+<div class="pt-16">
+  {#if $query.isSuccess}
+    <CategoryList categories={$query.data} />
+  {/if}
+</div>

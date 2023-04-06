@@ -45,7 +45,7 @@
 
 <svelte:window bind:innerWidth />
 
-<h1 class="title-font font-bold text-4xl sm:text-5xl">Popular...</h1>
+<h1 class="title-font font-semibold text-4xl sm:text-5xl">Popular...</h1>
 <div
   class="relative flex border border-rose-500/10 shadow-md flex-col space-y-2 bg-gradient-to-br
     dark:border-white/5 bg-opacity-40 from-white/60 to-white/20 p-4 backdrop-blur-md rounded-lg
