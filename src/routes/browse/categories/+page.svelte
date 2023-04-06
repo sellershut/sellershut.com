@@ -1,17 +1,6 @@
 <script lang="ts">
-  import { getSubCategories, keyRootCategories } from '$lib/api/category/query';
-  import CategoryList from '$lib/components/categories/category-list.svelte';
-  import { createQuery } from '@tanstack/svelte-query';
+  import { page } from '$app/stores';
 
-  // This data is cached by prefetchQuery in +page.ts so no fetch actually happens here
-  const query = createQuery({
-    queryKey: [keyRootCategories],
-    queryFn: async () => getSubCategories(),
-  });
+  const data = $page.url.searchParams.get('category');
+  console.log('from slot', data);
 </script>
-
-<div class="pt-16">
-  {#if $query.isSuccess}
-    <CategoryList categories={$query.data} />
-  {/if}
-</div>

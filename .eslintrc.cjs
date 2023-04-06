@@ -21,6 +21,7 @@ module.exports = {
       rules: {
         'import/prefer-default-export': 0,
         'import/no-mutable-exports': 0,
+        'import/no-duplicates': 0,
       },
     },
     {
@@ -39,7 +40,7 @@ module.exports = {
       'eslint-import-resolver-custom-alias': {
         alias: {
           $lib: './src/lib',
-          $app: './.svelte-kit/runtime/app',
+          $app: './node_modules/@sveltejs/kit/src/runtime/app',
           '@sveltejs': './.svelte-kit/dev',
         },
         extensions: ['.ts'],
