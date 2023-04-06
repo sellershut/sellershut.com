@@ -2,11 +2,16 @@
   import type { ICategory } from '$lib/types/category';
   import IconArt from '../icons/icon-art.svelte';
   import IconBaby from '../icons/icon-baby.svelte';
+  import IconBeauty from '../icons/icon-beauty.svelte';
+  import IconCar from '../icons/icon-car.svelte';
   import IconElectronics from '../icons/icon-electronics.svelte';
   import IconGardenHome from '../icons/icon-garden-home.svelte';
   import IconHome from '../icons/icon-home.svelte';
+  import IconLibrary from '../icons/icon-library.svelte';
   import IconPet from '../icons/icon-pet.svelte';
   import IconShirt from '../icons/icon-shirt.svelte';
+  import IconSporting from '../icons/icon-sporting.svelte';
+  import IconToy from '../icons/icon-toy.svelte';
 
   export let categories: ICategory[];
 
@@ -37,19 +42,19 @@
         hashMap.set(category.name, IconHome);
         break;
       case 'toys & recreational':
-        hashMap.set(category.name, IconHome);
+        hashMap.set(category.name, IconToy);
         break;
       case 'vehicles':
-        hashMap.set(category.name, IconHome);
+        hashMap.set(category.name, IconCar);
         break;
       case 'health & beauty':
-        hashMap.set(category.name, IconHome);
+        hashMap.set(category.name, IconBeauty);
         break;
       case 'books, movies & music':
-        hashMap.set(category.name, IconHome);
+        hashMap.set(category.name, IconLibrary);
         break;
       case 'sporting':
-        hashMap.set(category.name, IconHome);
+        hashMap.set(category.name, IconSporting);
         break;
       default:
         hashMap.set(category.name, IconHome);
