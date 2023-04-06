@@ -40,10 +40,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-          APP_SECRET: ${{ secrets.APP_SECRET }}
-          PUBLIC_API_ENDPOINT: api-endpoint
       - name: Install dependencies
         run: pnpm install
       - name: Run svelte-check
@@ -55,3 +51,8 @@ jobs:
       - name: Run unit tests
         run: |
           pnpm run test:unit -- --coverage
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          PUBLIC_API_ENDPOINT: api-endpoint
