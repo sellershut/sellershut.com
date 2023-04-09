@@ -18,17 +18,11 @@
   const toggleMobileNav = () => {
     openMobileNav = !openMobileNav;
   };
-  const openSearchContainer = () => {
-    showSearchContainer = true;
+  const setOpenSearchContainer = (value: boolean) => {
+    showSearchContainer = value;
   };
-  const closeSearchContainer = () => {
-    showSearchContainer = false;
-  };
-  const focusSearch = () => {
-    searchFocused = true;
-  };
-  const unfocusSearch = () => {
-    searchFocused = false;
+  const setSearchFocus = (value: boolean) => {
+    searchFocused = value;
   };
   const scaleFactor = 300;
   const quickLinks = [
@@ -55,22 +49,8 @@
   ];
 </script>
 
-<!-- 
-{#if $categories.isLoading}
-  <span>Loading</span>
-{:else if $categories.isError}
-  <span>Error: {$categories.error.message}</span>
-{:else}
-  <ul>
-    {#each $categories.data.categories as category}
-      <div>{category.name}</div>
-    {/each}
-  </ul>
-{/if}
--->
-
 <nav
-  class={`bg-black/80 backdrop-blur flex ${
+  class={`bg-zinc-950/90 backdrop-blur flex ${
     openMobileNav ? 'h-screen' : 'h-10'
   } text-zinc-100 z-50 text-sm fixed top-0 left-0 right-0`}
 >
@@ -136,7 +116,9 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
           in:scale={{ duration: (8 / 2) * scaleFactor, easing: quintOut }}
           class="hidden md:block"
         >
-          <a href={'#'} on:click={openSearchContainer}><IconSearch /></a>
+          <a href={'#'} on:click={() => setOpenSearchContainer(true)}
+            ><IconSearch /></a
+          >
         </li>
         <li
           in:scale={{ duration: (9 / 2) * scaleFactor, easing: quintOut }}
@@ -180,7 +162,7 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
               </div>
             </form>
           {/if}
-          <a href={'#'} on:click={closeSearchContainer}
+          <a href={'#'} on:click={() => setOpenSearchContainer(false)}
             ><IconX class="text-zinc-300 hover:text-zinc-100" /></a
           >
         </div>
@@ -200,14 +182,14 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
       >
         <input
           type="text"
-          on:focus={focusSearch}
+          on:focus={() => setSearchFocus(true)}
           class="h-10 flex-1 rounded bg-zinc-800 pl-8 w-full"
           placeholder="search sellershut.com"
         />
         <div class="absolute top-2 left-l text-zinc-500"><IconSearch /></div>
         {#if searchFocused}
           <a
-            on:click={unfocusSearch}
+            on:click={() => setSearchFocus(false)}
             href={'#'}
             class="bg-rose-500 hover:bg-rose-600 px-4 py-2">Cancel</a
           >
@@ -251,7 +233,7 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
 
   {#if showSearchContainer}
     <a
-      on:click={closeSearchContainer}
+      on:click={() => setOpenSearchContainer(false)}
       href={'#'}
       transition:fade
       class="h-screen w-screen z-10 bg-zinc-950 bg-opacity-50"><div /></a
