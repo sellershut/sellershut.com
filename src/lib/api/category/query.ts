@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 import type { CategoriesResult } from '$lib/@types/category';
+import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const keyRootCategories = 'rootCategories';
 

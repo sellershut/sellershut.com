@@ -1,4 +1,4 @@
-import findCategories, { keyRootCategories } from '$lib/api/category/query';
+import { findCategories, keyRootCategories } from '$lib/api/category/query';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ parent }) => {
