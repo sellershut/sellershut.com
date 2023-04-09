@@ -183,10 +183,10 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
         <input
           type="text"
           on:focus={() => setSearchFocus(true)}
-          class="h-10 flex-1 rounded bg-zinc-800 pl-8 w-full"
+          class="h-10 flex-1 rounded bg-zinc-800 pl-8 w-full focus:ring-rose-500 focus:border-rose-500"
           placeholder="search sellershut.com"
         />
-        <div class="absolute top-2 left-l text-zinc-500"><IconSearch /></div>
+        <div class="absolute top-2 left-1 text-zinc-500"><IconSearch /></div>
         {#if searchFocused}
           <a
             on:click={() => setSearchFocus(false)}
