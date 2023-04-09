@@ -10,8 +10,8 @@
   import ThemeSwitcher from './theme-switcher.svelte';
 
   const categories = createQuery<CategoriesResult, Error>({
-    queryKey: [keyRootCategories, 7],
-    queryFn: () => findCategories(7, 0, 1),
+    queryKey: [keyRootCategories, 5],
+    queryFn: () => findCategories(5, 0, 1),
   });
   let openMobileNav = false;
   let searchFocused = false;

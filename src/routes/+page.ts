@@ -5,7 +5,7 @@ export const load = (async ({ parent }) => {
   const { tanstackQueryClient } = await parent();
 
   await tanstackQueryClient.prefetchQuery({
-    queryKey: [keyRootCategories, 7],
-    queryFn: () => findCategories(7, 0, 1),
+    queryKey: [keyRootCategories, 5],
+    queryFn: () => findCategories(5, 0, 1),
   });
 }) satisfies PageLoad;
