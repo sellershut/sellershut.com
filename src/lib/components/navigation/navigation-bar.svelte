@@ -5,6 +5,7 @@
   import { fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import IconHome from '../icons/icon-home.svelte';
+  import IconSearch from '../icons/icon-search.svelte';
 
   const categories = createQuery<CategoriesResult, Error>({
     queryKey: [keyRootCategories, 7],
@@ -12,9 +13,12 @@
   });
   let openMobileNav = false;
   const searchFocused = false;
-  const showSearchContainer = false;
+  let showSearchContainer = false;
   const toggleMobileNav = () => {
     openMobileNav = !openMobileNav;
+  };
+  const openSearchContainer = () => {
+    showSearchContainer = true;
   };
   const scaleFactor = 300;
 </script>
@@ -52,16 +56,14 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
             openMobileNav ? '' : 'aspect-square'
           } flex items-center cursor-pointer`}
         >
-          <div class="menu-icon relative w-full">
+          <div class="h-1 relative w-full">
             <span
-              class={`transition-all duration-300 ease absolute h-[2px] rounded w-full
-              aspect-square bg-zinc-100 ${
+              class={`navbar-burger-line ${
                 openMobileNav ? 'top-0 rotate-45' : 'px-4 -top-1'
               }`}
             />
             <span
-              class={`transition-all duration-300 ease absolute h-[2px] rounded w-full
-              aspect-square bg-zinc-100 ${
+              class={`navbar-burger-line ${
                 openMobileNav ? 'top-0 -rotate-45' : 'top-1'
               } `}
             />
@@ -82,11 +84,9 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
         {:else}
           <li
             in:scale={{ duration: scaleFactor, easing: quintOut }}
-            class="hidden md:flex h-full items-center justify-center"
+            class="navbar-link"
           >
-            <a class="mx-4 py-3 opacity-80 hover:opacity-100 inline" href={'/'}
-              >All</a
-            >
+            <a class="navbar-link-a" href={'/'}>All</a>
           </li>
           {#each $categories.data.categories as category, i}
             <li
@@ -94,15 +94,18 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
                 duration: ((3 + i) / 2) * scaleFactor,
                 easing: quintOut,
               }}
-              class="hidden md:flex h-full items-center justify-center"
+              class="navbar-link"
             >
-              <a
-                class="mx-4 py-3 opacity-100 hover:opacity-100 inline"
-                href={'#'}>{category.name}</a
-              >
+              <a class="navbar-link-a" href={'#'}>{category.name}</a>
             </li>
           {/each}
         {/if}
+        <li
+          in:scale={{ duration: (8 / 2) * scaleFactor, easing: quintOut }}
+          class="hidden md:block"
+        >
+          <a href={'#'} on:click={openSearchContainer}><IconSearch /></a>
+        </li>
       {/if}
     </ul>
   {/if}
