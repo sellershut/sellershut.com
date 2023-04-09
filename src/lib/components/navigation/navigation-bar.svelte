@@ -2,17 +2,18 @@
   import { createQuery } from '@tanstack/svelte-query';
   import { findCategories, keyRootCategories } from '$lib/api/category/query';
   import type { CategoriesResult } from '$lib/@types/category';
-  import { fly, scale } from 'svelte/transition';
+  import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import IconHome from '../icons/icon-home.svelte';
   import IconSearch from '../icons/icon-search.svelte';
+  import IconX from '../icons/icon-x.svelte';
 
   const categories = createQuery<CategoriesResult, Error>({
     queryKey: [keyRootCategories, 7],
     queryFn: () => findCategories(7, 0, 1),
   });
   let openMobileNav = false;
-  const searchFocused = false;
+  let searchFocused = false;
   let showSearchContainer = false;
   const toggleMobileNav = () => {
     openMobileNav = !openMobileNav;
@@ -20,7 +21,38 @@
   const openSearchContainer = () => {
     showSearchContainer = true;
   };
+  const closeSearchContainer = () => {
+    showSearchContainer = false;
+  };
+  const focusSearch = () => {
+    searchFocused = true;
+  };
+  const unfocusSearch = () => {
+    searchFocused = false;
+  };
   const scaleFactor = 300;
+  const quickLinks = [
+    {
+      name: 'iPhone',
+      path: '#',
+    },
+    {
+      name: 'MacBook',
+      path: '#',
+    },
+    {
+      name: 'Mechanical Keyboard',
+      path: '#',
+    },
+    {
+      name: 'Cricket Bat',
+      path: '#',
+    },
+    {
+      name: 'Rugby Ball',
+      path: '#',
+    },
+  ];
 </script>
 
 <!-- 
@@ -135,11 +167,94 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
                 class="text-zinc-800 dark:text-zinc-100 absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-zinc-100 dark:bg-zinc-800 shadow-md"
               >
                 <h2 class="px-12 small-caps font-bold">Quick Links</h2>
+                {#each quickLinks as { path, name }, i}
+                  <a
+                    in:fly={{ x: 200, delay: i * 100 }}
+                    class="opacity-80 hover:opacity-100 hover:bg-rose-400 px-12 py-2 inline-block
+                    w-full"
+                    href={path}
+                  >
+                    <span>{name}</span>
+                  </a>
+                {/each}
               </div>
             </form>
           {/if}
+          <a href={'#'} on:click={closeSearchContainer}
+            ><IconX class="text-zinc-300 hover:text-zinc-100" /></a
+          >
         </div>
       {/if}
     </ul>
+  {/if}
+
+  {#if openMobileNav}
+    <div
+      class={`md:hidden absolute top-0 left-0 right-0 transition-all duration-500 w-full ${
+        searchFocused ? 'translate-y-0' : 'translate-y-[40px]'
+      } h-screen flex flex-col`}
+    >
+      <form
+        in:fly={{ y: -200 }}
+        class="relative flex space-x-2 px-2 w-full overscroll-x-none justify-center items-center"
+      >
+        <input
+          type="text"
+          on:focus={focusSearch}
+          class="h-10 flex-1 rounded bg-zinc-800 pl-8 w-full"
+          placeholder="search sellershut.com"
+        />
+        <div class="absolute top-2 left-l text-zinc-500"><IconSearch /></div>
+        {#if searchFocused}
+          <a
+            on:click={unfocusSearch}
+            href={'#'}
+            class="bg-rose-500 hover:bg-rose-600 px-4 py-2">Cancel</a
+          >
+        {/if}
+      </form>
+
+      {#if !searchFocused}
+        {#if $categories.isLoading}
+          <span>Loading</span>
+        {:else if $categories.isError}
+          <span>Error: {$categories.error.message}</span>
+        {:else}
+          {#each $categories.data.categories as category, i}
+            <a
+              href={'#'}
+              in:fly={{
+                x: -20,
+                y: 20,
+                delay: scaleFactor + (i + 1) * 100,
+              }}
+              class="mobile-navbar-link"
+            >
+              {category.name}
+            </a>
+          {/each}
+        {/if}
+      {:else}
+        <h2 transition:fade class="pt-4 px-10 font-bold small-caps">
+          Quick Links
+        </h2>
+        {#each quickLinks as { path, name }, i}
+          <a
+            in:fly={{ x: 20, y: -20, delay: (i + 1) * 100 }}
+            class="mobile-navbar-link"
+            href={path}>{name}</a
+          >
+        {/each}
+      {/if}
+    </div>
+  {/if}
+
+  {#if showSearchContainer}
+    <a
+      on:click={closeSearchContainer}
+      href={'#'}
+      transition:fade
+      class="h-screen w-screen z-10 bg-zinc-950 bg-opacity-50"><div /></a
+    >
   {/if}
 </nav>
