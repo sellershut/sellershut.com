@@ -5,15 +5,15 @@ import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 export const keyRootCategories = 'rootCategories';
 
 export const findCategories = async (
-	maxPerPage: number,
-	id = 0,
-	page = 1
+  maxPerPage: number,
+  id = 0,
+  page = 1,
 ): Promise<CategoriesResult> => {
-	const response = await axios({
-		url: PUBLIC_API_ENDPOINT,
-		method: 'post',
-		data: {
-			query: `
+  const response = await axios({
+    url: PUBLIC_API_ENDPOINT,
+    method: 'post',
+    data: {
+      query: `
             query {
                 findCategoriesInPage(page: ${page}, maxPerPage: ${maxPerPage}, parentId: ${id}){
                     categories {
@@ -22,11 +22,11 @@ export const findCategories = async (
                     pages
                 }
             }
-            `
-		}
-	});
+            `,
+    },
+  });
 
-	return response.data.data.findCategoriesInPage;
+  return response.data.data.findCategoriesInPage;
 };
 
 export default findCategories;
