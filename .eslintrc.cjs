@@ -4,14 +4,25 @@ module.exports = {
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
+		'plugin:svelte/recommended',
 		'airbnb-base',
 		'airbnb-typescript/base',
 		'prettier'
 	],
-	plugins: ['svelte3', '@typescript-eslint'],
+	plugins: ['@typescript-eslint'],
 	ignorePatterns: ['*.cjs', '/*.js', '/*.ts'],
 	overrides: [
-		{ files: ['*.svelte'], processor: 'svelte3/svelte3' },
+		{
+			files: ['*.svelte'],
+			parser: 'svelte-eslint-parser',
+			parserOptions: {
+				parser: '@typescript-eslint/parser'
+			},
+			rules: {
+				'import/no-mutable-exports': 0,
+				'import/prefer-default-export': 0
+			}
+		},
 		{
 			files: ['./src/routes/**/*.ts'],
 			rules: {
@@ -20,7 +31,9 @@ module.exports = {
 		}
 	],
 	settings: {
-		'svelte3/typescript': () => require('typescript')
+		/*
+        'svelte3/typescript': () => require('typescript')
+        */
 	},
 	parserOptions: {
 		sourceType: 'module',
