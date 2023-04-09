@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '../stylesheet.scss';
 	import NavigationBar from '$lib/components/navigation/navigation-bar.svelte';
 	import type { PageData } from './$types';
 	import { QueryClientProvider } from '@tanstack/svelte-query';
