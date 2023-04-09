@@ -48,7 +48,7 @@
       class="z-20 flex w-full lg:w-[1000px] justify-between md:justify-around
 md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
     >
-      <li>
+      <li class="w-1/3 md:hidden">
         <a
           href={'#'}
           on:click={toggleMobileNav}
@@ -106,6 +106,39 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
         >
           <a href={'#'} on:click={openSearchContainer}><IconSearch /></a>
         </li>
+        <li
+          in:scale={{ duration: (9 / 2) * scaleFactor, easing: quintOut }}
+          class="hidden md:flex items-center justify-center"
+        >
+          <button>Sign In</button>
+        </li>
+        <li
+          in:scale={{ duration: (10 / 2) * scaleFactor, easing: quintOut }}
+          class="w-1/3 md:w-auto text-right md:text-left"
+        >
+          <button>Switch Theme</button>
+        </li>
+      {:else}
+        <div class="hidden md:flex items-center justify-center w-full relative">
+          {#if showSearchContainer}
+            <div in:fly={{ x: 200, delay: 500 }}>
+              <IconSearch class="text-zinc-300" />
+            </div>
+            <form class="flex-1 flex flex-col">
+              <input
+                in:fly={{ x: 200, delay: 500 }}
+                type="text"
+                placeholder="search sellershut.com"
+                class="w-full bg-transparent border-transparent focus:ring-transparent focus:border-transparent"
+              />
+              <div
+                class="text-zinc-800 dark:text-zinc-100 absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-zinc-100 dark:bg-zinc-800 shadow-md"
+              >
+                <h2 class="px-12 small-caps font-bold">Quick Links</h2>
+              </div>
+            </form>
+          {/if}
+        </div>
       {/if}
     </ul>
   {/if}
