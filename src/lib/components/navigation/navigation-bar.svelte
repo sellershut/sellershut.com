@@ -7,6 +7,7 @@
   import IconHome from '../icons/icon-home.svelte';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
+  import ThemeSwitcher from './theme-switcher.svelte';
 
   const categories = createQuery<CategoriesResult, Error>({
     queryKey: [keyRootCategories, 7],
@@ -130,7 +131,7 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
           in:scale={{ duration: (10 / 2) * scaleFactor, easing: quintOut }}
           class="w-1/3 md:w-auto text-right md:text-left"
         >
-          <button>Switch Theme</button>
+          <ThemeSwitcher />
         </li>
       {:else}
         <div class="hidden md:flex items-center justify-center w-full relative">
@@ -191,7 +192,7 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
           <a
             on:click={() => setSearchFocus(false)}
             href={'#'}
-            class="bg-rose-500 hover:bg-rose-600 px-4 py-2">Cancel</a
+            class="bg-rose-500 hover:bg-rose-600 px-4 py-2 rounded">Cancel</a
           >
         {/if}
       </form>
