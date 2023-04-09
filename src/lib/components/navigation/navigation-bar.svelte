@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { createQuery } from '@tanstack/svelte-query';
 	import { findCategories, keyRootCategories } from '$lib/api/category/query';
 	import type { CategoriesResult } from '$lib/@types/category';
-	import { createQuery } from '@tanstack/svelte-query';
 
 	const categories = createQuery<CategoriesResult, Error>({
 		queryKey: [keyRootCategories, 7],

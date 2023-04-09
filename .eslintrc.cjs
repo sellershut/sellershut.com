@@ -31,9 +31,15 @@ module.exports = {
 		}
 	],
 	settings: {
-		/*
-        'svelte3/typescript': () => require('typescript')
-        */
+		'import/resolver': {
+			'eslint-import-resolver-custom-alias': {
+				alias: {
+					$app: './node_modules/@sveltejs/kit/src/runtime/app',
+					$lib: './src/lib'
+				},
+				extensions: ['.ts', '.js']
+			}
+		}
 	},
 	parserOptions: {
 		sourceType: 'module',
@@ -47,6 +53,7 @@ module.exports = {
 		node: true
 	},
 	rules: {
+		'import/no-extraneous-dependencies': 0,
 		'import/extensions': 0
 	}
 };
