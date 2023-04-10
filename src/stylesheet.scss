@@ -18,4 +18,7 @@
   .mobile-navbar-link {
     @apply mx-4 py-3 border-b border-zinc-600 opacity-80 hover:opacity-100;
   }
+  .small-caps {
+    font-variant: small-caps;
+  }
 }
