@@ -7,12 +7,22 @@ export const keyNavigationCategories: CategoryFetchKey = {
   max: 5,
   parentId: 0,
   page: 1,
+  returnImages: false,
+};
+
+export const keyFeaturedCategories: CategoryFetchKey = {
+  callType: 'categories',
+  max: 7,
+  parentId: 0,
+  page: 1,
+  returnImages: true,
 };
 
 export const findCategories = async (
   maxPerPage: number,
   parentId = 0,
   page = 1,
+  returnImages = false,
 ): Promise<CategoriesResult> => {
   const response = await axios({
     url: PUBLIC_API_ENDPOINT,
@@ -22,7 +32,8 @@ export const findCategories = async (
             query {
                 findCategoriesInPage(page: ${page}, maxPerPage: ${maxPerPage}, parentId: ${parentId}){
                     categories {
-                        name
+                        name,
+                        ${returnImages ? 'imageUrl,' : ''}
                     },
                     pages
                 }

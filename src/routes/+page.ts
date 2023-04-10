@@ -1,6 +1,7 @@
 import {
   findCategories,
   keyNavigationCategories,
+  keyFeaturedCategories,
 } from '$lib/api/category/query';
 import type { PageLoad } from './$types';
 
@@ -14,6 +15,17 @@ export const load = (async ({ parent }) => {
         keyNavigationCategories.max,
         keyNavigationCategories.parentId,
         keyNavigationCategories.page,
+      ),
+  });
+
+  await tanstackQueryClient.prefetchQuery({
+    queryKey: [keyFeaturedCategories],
+    queryFn: () =>
+      findCategories(
+        keyFeaturedCategories.max,
+        keyFeaturedCategories.parentId,
+        keyFeaturedCategories.page,
+        keyFeaturedCategories.returnImages,
       ),
   });
 }) satisfies PageLoad;

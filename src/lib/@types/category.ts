@@ -5,6 +5,7 @@ export type CategoryFetchKey = {
   max: number;
   parentId?: number;
   page: number;
+  returnImages: boolean;
 };
 export type Category = {
   id: number;
