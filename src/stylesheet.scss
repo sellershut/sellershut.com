@@ -1,3 +1,6 @@
+@import 'node_modules/@glidejs/glide/src/assets/sass/glide.core';
+@import 'node_modules/@glidejs/glide/src/assets/sass/glide.theme';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,4 +24,11 @@
   .small-caps {
     font-variant: small-caps;
   }
+}
+
+.glide__bullet {
+  background: #fda4af !important;
+}
+.glide__bullet--active {
+  background: #f43f5e !important;
 }
