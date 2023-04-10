@@ -24,10 +24,14 @@
   .small-caps {
     font-variant: small-caps;
   }
+  .noise {
+    min-height: 100%;
+    background: repeating-conic-gradient(#000 0 0.0001%, #0000 0 0.0002%);
+  }
 }
 
 .glide__bullet {
-  background: #fda4af !important;
+  background: #fecdd3 !important;
 }
 .glide__bullet--active {
   background: #f43f5e !important;
