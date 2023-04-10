@@ -1,6 +1,9 @@
 <script lang="ts">
   import { createQuery } from '@tanstack/svelte-query';
-  import { findCategories, keyRootCategories } from '$lib/api/category/query';
+  import {
+    findCategories,
+    keyNavigationCategories,
+  } from '$lib/api/category/query';
   import type { CategoriesResult } from '$lib/@types/category';
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
@@ -10,8 +13,13 @@
   import ThemeSwitcher from './theme-switcher.svelte';
 
   const categories = createQuery<CategoriesResult, Error>({
-    queryKey: [keyRootCategories, 5],
-    queryFn: () => findCategories(5, 0, 1),
+    queryKey: [keyNavigationCategories],
+    queryFn: () =>
+      findCategories(
+        keyNavigationCategories.max,
+        keyNavigationCategories.parentId,
+        keyNavigationCategories.page,
+      ),
   });
   let openMobileNav = false;
   let searchFocused = false;

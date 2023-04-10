@@ -1,12 +1,17 @@
 import axios from 'axios';
-import type { CategoriesResult } from '$lib/@types/category';
+import type { CategoriesResult, CategoryFetchKey } from '$lib/@types/category';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
-export const keyRootCategories = 'rootCategories';
+export const keyNavigationCategories: CategoryFetchKey = {
+  callType: 'categories',
+  max: 5,
+  parentId: 0,
+  page: 1,
+};
 
 export const findCategories = async (
   maxPerPage: number,
-  id = 0,
+  parentId = 0,
   page = 1,
 ): Promise<CategoriesResult> => {
   const response = await axios({
@@ -15,7 +20,7 @@ export const findCategories = async (
     data: {
       query: `
             query {
-                findCategoriesInPage(page: ${page}, maxPerPage: ${maxPerPage}, parentId: ${id}){
+                findCategoriesInPage(page: ${page}, maxPerPage: ${maxPerPage}, parentId: ${parentId}){
                     categories {
                         name
                     },
