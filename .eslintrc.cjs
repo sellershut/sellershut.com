@@ -39,6 +39,9 @@ module.exports = {
         },
         extensions: ['.ts', '.js'],
       },
+      typescript: {
+        alwaystrytypes: true,
+      },
     },
   },
   parserOptions: {
