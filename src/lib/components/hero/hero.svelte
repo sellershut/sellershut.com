@@ -13,6 +13,7 @@
         keyFeaturedCategories.max,
         keyFeaturedCategories.parentId,
         keyFeaturedCategories.page,
+        keyFeaturedCategories.returnImages,
       ),
   });
 </script>
@@ -24,15 +25,15 @@
   {:else if $categories.isError}
     <span>{$categories.error.message}</span>
   {:else if $categories.isSuccess}
-    <div class="flex flex-col gap-4 items-center justify-center">
+    <div class="flex flex-col gap-12 items-center justify-center">
       {#each $categories.data.categories as category}
-        <div class="bg-red-500 mx-auto">
+        <div class="mx-auto flex flex-col gap-4">
           <img
-            class="h-48 rounded-full aspect-square bg-green-500"
+            class="h-64 rounded-full aspect-square bg-green-500"
             alt={`${category.name} image`}
             src={category.imageUrl}
           />
-          <p class="small-caps text-center">{category.name}</p>
+          <p class="small-caps text-center font-medium">{category.name}</p>
         </div>
       {/each}
     </div>
