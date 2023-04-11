@@ -24,25 +24,25 @@ export const findCategories = async (
   page = 1,
   returnImages = false,
 ): Promise<CategoriesResult> => {
-  const response = await axios({
-    url: PUBLIC_API_ENDPOINT,
-    method: 'post',
-    data: {
-      query: `
-            query {
-                findCategoriesInPage(page: ${page}, maxPerPage: ${maxPerPage}, parentId: ${parentId}){
-                    categories {
-                        name,
-                        ${returnImages ? 'imageUrl,' : ''}
-                    },
-                    pages
-                }
-            }
-            `,
+  const response = await axios.post(PUBLIC_API_ENDPOINT, {
+    query: ` query getCategories($parentId: Int!, $page: Int!, $maxPerPage: Int!){
+      getCategories(page: $page, maxPerPage: $maxPerPage, parentId: $parentId){
+        categories {
+          name,
+          ${returnImages ? 'imageUrl,' : ''}
+        },
+        pages
+      }
+   }
+   `,
+    variables: {
+      parentId,
+      maxPerPage,
+      page,
     },
   });
 
-  return response.data.data.findCategoriesInPage;
+  return response.data.data.getCategories;
 };
 
 export default findCategories;
