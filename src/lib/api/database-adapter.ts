@@ -5,7 +5,7 @@ import {
   type AdapterUser,
 } from '@auth/core/adapters';
 import type { Awaitable } from '@auth/core/types';
-import apiCreateUser from './user/mutation';
+import { apiCreateUser, apiUpdateUser } from './user/mutation';
 
 export const DatabaseAdapter: Adapter = {
   createUser(user: Omit<AdapterUser, 'id'>): Awaitable<AdapterUser> {
@@ -23,7 +23,7 @@ export const DatabaseAdapter: Adapter = {
     throw new Error('Function not implemented.');
   },
   updateUser(user: Partial<AdapterUser>): Awaitable<AdapterUser> {
-    throw new Error('Function not implemented.');
+    return apiUpdateUser(user);
   },
   linkAccount(
     account: AdapterAccount,
