@@ -79,7 +79,7 @@
                 <a href={'#'} class="group flex flex-col gap-1">
                   <img
                     loading="lazy"
-                    class="h-64 sm:h-60 md:h-56 lg:h-52 aspect-square rounded-full mx-auto group-hover:border-4 group-hover:border-rose-500 duration-300"
+                    class="h-64 sm:h-60 md:h-56 lg:h-52 aspect-square rounded-full mx-auto group-hover:border-4 group-hover:border-rose-500 duration-300 shadow drop-shadow-md"
                     src={category.imageUrl}
                     alt=""
                   />
@@ -97,7 +97,10 @@
         </div>
         <div class="glide__bullets bottom-0" data-glide-el="controls[nav]">
           {#each $categories.data.categories as _category, i}
-            <button class={`glide__bullet`} data-glide-dir={`=${i}`} />
+            <button
+              class={`glide__bullet bg-rose-300 dark:bg-zinc-950/50`}
+              data-glide-dir={`=${i}`}
+            />
           {/each}
         </div>
       </div>
