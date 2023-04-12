@@ -47,4 +47,30 @@ export const apiLinkAccount = async (
   return data.data.data.createAccount;
 };
 
+export const apiUnlinkAccount = async (
+  providerAccountId: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
+): Promise<AdapterAccount | undefined> => {
+  const data = await axios.post(
+    PUBLIC_API_ENDPOINT,
+    {
+      query: `mutation deleteAccount(
+                $provider: String!,
+                $providerAccountId: String!) {
+                    deleteAccount(
+                        providerAccountId: $providerAccountId,
+                        provider: $provider,
+                    )
+                }`,
+      variables: providerAccountId,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  return data.data.data.deleteAccount;
+};
+
 export default apiLinkAccount;

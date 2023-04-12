@@ -11,7 +11,13 @@ import {
   apiGetUserByAccount,
   apiGetUserByEmail,
 } from './user/query';
-import { apiLinkAccount } from './account/mutation';
+import { apiLinkAccount, apiUnlinkAccount } from './account/mutation';
+import { apiGetSessionAndUser } from './session/query';
+import {
+  apiCreateSession,
+  apiDeleteSession,
+  apiUpdateSession,
+} from './session/mutation';
 
 export const DatabaseAdapter: Adapter = {
   createUser(user: Omit<AdapterUser, 'id'>): Awaitable<AdapterUser> {
@@ -36,27 +42,32 @@ export const DatabaseAdapter: Adapter = {
   ): Promise<void> | Awaitable<AdapterAccount | null | undefined> {
     return apiLinkAccount(account);
   },
+  unlinkAccount(
+    providerAccountId: Pick<AdapterAccount, 'provider' | 'providerAccountId'>,
+  ): Promise<void> | Awaitable<AdapterAccount | undefined> {
+    return apiUnlinkAccount(providerAccountId);
+  },
   createSession(session: {
     sessionToken: string;
     userId: string;
     expires: Date;
   }): Awaitable<AdapterSession> {
-    throw new Error('Function not implemented.');
+    return apiCreateSession(session);
   },
   getSessionAndUser(
     sessionToken: string,
   ): Awaitable<{ session: AdapterSession; user: AdapterUser } | null> {
-    throw new Error('Function not implemented.');
+    return apiGetSessionAndUser(sessionToken);
   },
   updateSession(
     session: Partial<AdapterSession> & Pick<AdapterSession, 'sessionToken'>,
   ): Awaitable<AdapterSession | null | undefined> {
-    throw new Error('Function not implemented.');
+    return apiUpdateSession(session);
   },
   deleteSession(
     sessionToken: string,
   ): Promise<void> | Awaitable<AdapterSession | null | undefined> {
-    throw new Error('Function not implemented.');
+    return apiDeleteSession(sessionToken);
   },
 };
 
