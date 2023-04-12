@@ -79,6 +79,9 @@ export const apiGetUserByAccount = async (
       },
     },
   );
+  if (data.data.errors) {
+    return null;
+  }
   return data.data.data.getUserByAccount;
 };
 

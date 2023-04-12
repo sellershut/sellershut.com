@@ -1,5 +1,6 @@
 import type { AdapterSession } from '@auth/core/adapters';
 import axios from 'axios';
+import type { ApiSession } from '$lib/@types/auth/session';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const apiCreateSession = async (session: {
@@ -19,7 +20,12 @@ export const apiCreateSession = async (session: {
     variables: session,
   });
 
-  return response.data.data.createSession;
+  const { createSession }: { createSession: ApiSession } = response.data.data;
+  return {
+    sessionToken: createSession.sessionToken,
+    userId: createSession.userId,
+    expires: new Date(createSession.expires),
+  };
 };
 export const apiUpdateSession = async (
   session: Partial<AdapterSession> & Pick<AdapterSession, 'sessionToken'>,
@@ -36,7 +42,13 @@ export const apiUpdateSession = async (
     variables: session,
   });
 
-  return response.data.data.updateSession;
+  const { updatedSession }: { updatedSession: ApiSession } =
+    response.data.data.updateSession;
+  return {
+    sessionToken: updatedSession.sessionToken,
+    userId: updatedSession.userId,
+    expires: new Date(updatedSession.expires),
+  };
 };
 
 export const apiDeleteSession = async (

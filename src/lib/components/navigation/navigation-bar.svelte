@@ -5,6 +5,7 @@
     keyNavigationCategories,
   } from '$lib/api/category/query';
   import type { CategoriesResult } from '$lib/@types/category';
+  import { signIn } from '@auth/sveltekit/client';
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import IconHome from '../icons/icon-home.svelte';
@@ -133,7 +134,7 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
           in:scale={{ duration: (9 / 2) * scaleFactor, easing: quintOut }}
           class="hidden md:flex items-center justify-center"
         >
-          <button>Sign In</button>
+          <button on:click={signIn}>Sign In</button>
         </li>
         <li
           in:scale={{ duration: (10 / 2) * scaleFactor, easing: quintOut }}

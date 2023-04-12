@@ -1,5 +1,6 @@
 import type { AdapterAccount } from '@auth/core/adapters';
 import axios from 'axios';
+import type { ApiAccount } from '$lib/@types/auth/account';
 import { PUBLIC_API_ENDPOINT } from '$env/static/public';
 
 export const apiLinkAccount = async (
@@ -34,7 +35,19 @@ export const apiLinkAccount = async (
                         expiresIn: $expiresIn,
                         sessionState: $sessionState
                     }
-                )
+                ) {
+
+                        providerAccountId
+                        provider
+                        type
+                        scope
+                        userId
+                        tokenType
+                        idToken
+                        accessToken
+                        refreshToken
+                        expiresAt
+                }
             }`,
       variables: account,
     },
@@ -44,7 +57,20 @@ export const apiLinkAccount = async (
       },
     },
   );
-  return data.data.data.createAccount;
+  const { createAccount }: { createAccount: ApiAccount } = data.data.data;
+
+  return {
+    expires_in: createAccount.expiresAt,
+    providerAccountId: createAccount.providerAccountId,
+    provider: createAccount.provider,
+    type: createAccount.type,
+    scope: createAccount.scope,
+    userId: createAccount.userId,
+    token_type: createAccount.tokenType,
+    id_token: createAccount.idToken,
+    access_token: createAccount.accessToken,
+    refresh_token: createAccount.refreshToken,
+  };
 };
 
 export const apiUnlinkAccount = async (
@@ -59,7 +85,9 @@ export const apiUnlinkAccount = async (
                     deleteAccount(
                         providerAccountId: $providerAccountId,
                         provider: $provider,
-                    )
+                    ) {
+                        rowsAffected
+                    }
                 }`,
       variables: providerAccountId,
     },

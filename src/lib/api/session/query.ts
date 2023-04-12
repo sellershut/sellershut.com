@@ -27,10 +27,19 @@ export const apiGetSessionAndUser = async (
       sessionToken,
     },
   });
+  if (response.data.errors) {
+    return null;
+  }
 
   const { user, session } = response.data.data.getUserAndSession;
-
-  return { user, session };
+  return {
+    user,
+    session: {
+      sessionToken: session.sessionToken,
+      userId: session.userId,
+      expires: new Date(session.expires),
+    },
+  };
 };
 
 export default apiGetSessionAndUser;
