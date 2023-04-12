@@ -11,6 +11,7 @@ import {
   apiGetUserByAccount,
   apiGetUserByEmail,
 } from './user/query';
+import { apiLinkAccount } from './account/mutation';
 
 export const DatabaseAdapter: Adapter = {
   createUser(user: Omit<AdapterUser, 'id'>): Awaitable<AdapterUser> {
@@ -33,7 +34,7 @@ export const DatabaseAdapter: Adapter = {
   linkAccount(
     account: AdapterAccount,
   ): Promise<void> | Awaitable<AdapterAccount | null | undefined> {
-    throw new Error('Function not implemented.');
+    return apiLinkAccount(account);
   },
   createSession(session: {
     sessionToken: string;
