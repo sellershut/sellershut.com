@@ -18,6 +18,14 @@ export const keyFeaturedCategories: CategoryFetchKey = {
   returnImages: true,
 };
 
+export const keyRootCategories: CategoryFetchKey = {
+  callType: 'categories',
+  max: 20, // kind of hacky, but I dont think it's worth making another fetch here
+  parentId: 0,
+  page: 1,
+  returnImages: false,
+};
+
 export const findCategories = async (
   maxPerPage: number,
   parentId = 0,
