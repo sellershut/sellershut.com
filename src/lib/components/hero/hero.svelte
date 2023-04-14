@@ -8,8 +8,8 @@
   import Glide from '@glidejs/glide';
   import { Breakpoints, Autoplay } from '@glidejs/glide/dist/glide.modular.esm';
   import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import { navigate } from '$lib/util/category-navigator';
 
   onMount(() => {
     const glide = new Glide('.glide', {
@@ -53,13 +53,6 @@
         keyFeaturedCategories.returnImages,
       ),
   });
-
-  const navigate = (name: string) => {
-    const url = new URL($page.url);
-    url.pathname = 'browse/categories';
-    url.searchParams.set('category', name);
-    goto(`${url}`);
-  };
 </script>
 
 <div
@@ -94,7 +87,7 @@
               <li class="glide__slide py-4">
                 <a
                   href={'#'}
-                  on:click={() => navigate(category.name)}
+                  on:click={() => navigate(category.name, $page.url)}
                   class="group flex flex-col gap-1"
                 >
                   <img

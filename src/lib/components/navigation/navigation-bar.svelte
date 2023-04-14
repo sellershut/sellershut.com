@@ -5,6 +5,7 @@
     keyNavigationCategories,
   } from '$lib/api/category/query';
   import type { CategoriesResult } from '$lib/@types/category';
+  import { navigate } from '$lib/util/category-navigator';
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { signIn, signOut } from '@auth/sveltekit/client';
@@ -109,7 +110,7 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
             in:scale={{ duration: scaleFactor, easing: quintOut }}
             class="navbar-link"
           >
-            <a class="navbar-link-a" href={'/'}>All</a>
+            <a class="navbar-link-a" href={'/browse/categories'}>All</a>
           </li>
           {#each $categories.data.categories as category, i}
             <li
@@ -119,7 +120,12 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
               }}
               class="navbar-link"
             >
-              <a class="navbar-link-a" href={'#'}>{category.name}</a>
+              <a
+                class="navbar-link-a"
+                href={'#'}
+                on:click={() => navigate(category.name, $page.url)}
+                >{category.name}</a
+              >
             </li>
           {/each}
         {/if}
