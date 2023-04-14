@@ -23,12 +23,12 @@
   href={'#'}
   class={`flex flex-col items-center gap-2 p-3 ${
     $page.url.searchParams.get('category') === category.name
-      ? 'border-b-2 text-zinc-800 dark:text-zinc-200'
-      : 'text-zinc-600 dark:text-zinc-400 '
+      ? 'border-b-2 text-zinc-700 dark:text-zinc-200'
+      : 'text-zinc-500 dark:text-zinc-600 '
   } hover:text-zinc-800 dark:hover:text-zinc-200 transition cursor-pointer hover:border-b-2 border-rose-500`}
 >
-  <svelte:component this={icons.get(category.name)} />
-  <p class="font-bold text-center text-xs whitespace-nowrap">
+  <svelte:component this={icons.get(category.name)} class="scale-90" />
+  <p class="font-semibold text-center text-xs whitespace-nowrap">
     {category.name}
   </p>
 </a>
