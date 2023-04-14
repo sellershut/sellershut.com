@@ -27,9 +27,8 @@ export const handleTheme = (async ({ event, resolve }) => {
   return response;
 }) satisfies Handle;
 
-const handleAuth = (async (...args) => {
-  const [{ event }] = args;
-  return SvelteKitAuth({
+const handleAuth = (async (...args) =>
+  SvelteKitAuth({
     trustHost: true,
     debug: true,
     secret: APP_SECRET,
@@ -42,8 +41,7 @@ const handleAuth = (async (...args) => {
         clientSecret: GOOGLE_CLIENT_SECRET,
       }),
     ],
-  })(...args);
-}) satisfies Handle;
+  })(...args)) satisfies Handle;
 
 export const handle = sequence(handleTheme, handleAuth);
 export default handle;

@@ -5,9 +5,10 @@
     keyNavigationCategories,
   } from '$lib/api/category/query';
   import type { CategoriesResult } from '$lib/@types/category';
-  import { signIn } from '@auth/sveltekit/client';
   import { fade, fly, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
+  import { signIn, signOut } from '@auth/sveltekit/client';
+  import { page } from '$app/stores';
   import IconHome from '../icons/icon-home.svelte';
   import IconSearch from '../icons/icon-search.svelte';
   import IconX from '../icons/icon-x.svelte';
@@ -134,7 +135,19 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
           in:scale={{ duration: (9 / 2) * scaleFactor, easing: quintOut }}
           class="hidden md:flex items-center justify-center"
         >
-          <button on:click={signIn}>Sign In</button>
+          {#if $page.data.session}
+            <button on:click={signOut}>
+              {#if $page.data.session.user?.image}
+                <img
+                  src={`${$page.data.session.user.image}`}
+                  alt={'profile picture'}
+                  class="h-7 aspect-square rounded-full"
+                />
+              {/if}
+            </button>
+          {:else}
+            <button on:click={signIn}>Sign In</button>
+          {/if}
         </li>
         <li
           in:scale={{ duration: (10 / 2) * scaleFactor, easing: quintOut }}

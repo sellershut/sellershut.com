@@ -6,7 +6,7 @@ import {
 import type { PageLoad } from './$types';
 
 export const load = (async ({ parent }) => {
-  const { tanstackQueryClient } = await parent();
+  const { tanstackQueryClient, session } = await parent();
 
   await tanstackQueryClient.prefetchQuery({
     queryKey: [keyNavigationCategories],
@@ -28,4 +28,6 @@ export const load = (async ({ parent }) => {
         keyFeaturedCategories.returnImages,
       ),
   });
+
+  return { tanstackQueryClient, session };
 }) satisfies PageLoad;

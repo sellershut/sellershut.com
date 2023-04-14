@@ -31,7 +31,7 @@ export const apiUpdateSession = async (
   session: Partial<AdapterSession> & Pick<AdapterSession, 'sessionToken'>,
 ): Promise<AdapterSession | null | undefined> => {
   const response = await axios.post(PUBLIC_API_ENDPOINT, {
-    query: ` mutation updateSession($sessionToken: String!, $userId: String, $expired: DateTime){
+    query: ` mutation updateSession($sessionToken: String!, $userId: String, $expires: DateTime){
             updateSession(sessionToken: $sessionToken, userId: $userId, expires: $expires){
                     sessionToken
                     userId
