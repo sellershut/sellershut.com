@@ -1,0 +1,56 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+name: check
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: pnpm / install
+    strategy:
+      matrix:
+        node-version: [18] # Current LTS
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+  linting:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run svelte-check
+        run: |
+          pnpm check
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          PUBLIC_API_ENDPOINT: 'api-endpoint'
+      - name: Run linter
+        run: |
+          pnpm lint
+      - name: Run unit tests
+        run: |
+          pnpm run test:unit -- --coverage
