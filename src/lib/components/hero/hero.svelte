@@ -70,7 +70,14 @@
     <span>{$categories.error.message}</span>
   {:else if $categories.isSuccess}
     <div>
-      <a href={'#'}>View all</a>
+      <a
+        href={'/browse/categories'}
+        class="font-medium duration-200 bg-gradient-to-br dark:from-white/20 dark:to-white/10 backdrop-blur
+      rounded hover:bg-zinc-800/10 hover:text-zinc-800 border border-rose-500/10 dark:border-zinc-800 text-zinc-800
+      dark:text-zinc-300/70 dark:hover:text-zinc-300 py-2 px-6 shadow small-caps"
+        >View All</a
+      >
+
       <div class="glide">
         <div class="glide__track" data-glide-el="track">
           <ul class="glide__slides">
