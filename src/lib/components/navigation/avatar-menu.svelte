@@ -5,6 +5,7 @@
   import IconUser from '../icons/icon-user.svelte';
   import AvatarDropdownItem from './avatar-dropdown-item.svelte';
   import IconShoppingBag from '../icons/icon-shopping-bag.svelte';
+  import IconSignout from '../icons/icon-signout.svelte';
 
   let showDropDownContent = false;
 
@@ -18,7 +19,7 @@
 
   const avatarDropdownContent: AvatarDropDown[] = [
     {
-      text: 'Craft an Ad',
+      text: 'Create an Ad',
       icon: IconShoppingBag,
     },
   ];
@@ -58,7 +59,7 @@
   <div
     class={`${
       showDropDownContent ? '' : 'hidden'
-    } absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-zinc-300/75 dark:bg-zinc-800/75 backdrop-blur text-zinc-800 dark:text-zinc-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+    } absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-zinc-300/60 dark:bg-zinc-800/60 backdrop-blur text-zinc-800 dark:text-zinc-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="menu-button"
@@ -72,10 +73,13 @@
       <button
         type="submit"
         on:click={signOut}
-        class="block w-full px-4 py-2 text-left text-sm"
+        class="px-4 py-2 text-sm inline-flex items-center justify-start gap-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 w-full"
         role="menuitem"
         tabindex="-1"
-        id="menu-item-3">Sign out</button
+        id={` menu-item-${avatarDropdownContent.length}`}
+      >
+        <IconSignout class="scale-75" />
+        Sign out</button
       >
     </div>
   </div>
