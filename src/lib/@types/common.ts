@@ -8,4 +8,5 @@ export type SectionDividerProps = {
 export type AvatarDropDown = {
   text: string;
   icon: typeof SvelteComponent;
+  onClick?: () => void;
 };

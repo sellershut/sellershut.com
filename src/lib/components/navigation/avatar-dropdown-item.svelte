@@ -1,19 +1,19 @@
 <script lang="ts">
-  import type { SvelteComponent } from 'svelte';
+  import type { AvatarDropDown } from '$lib/@types/common';
 
-  export let text: string;
-  export let icon: typeof SvelteComponent;
+  export let entry: AvatarDropDown;
   export let index: number;
 </script>
 
 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
 <a
   href={'#'}
-  class="px-4 py-2 text-sm inline-flex items-center justify-start gap-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 w-full"
+  class="avatar-dropdown-item"
   role="menuitem"
   tabindex="-1"
+  on:click={entry.onClick}
   id={`avatar-menu-item-${index}`}
 >
-  <svelte:component this={icon} class="scale-75" />
-  {text}</a
+  <svelte:component this={entry.icon} class="scale-75" />
+  {entry.text}</a
 >
