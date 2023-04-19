@@ -1,7 +1,10 @@
 <script lang="ts">
   import type { Session } from '@auth/core/types';
-  import { signIn } from '@auth/sveltekit/client';
+  import { signIn, signOut } from '@auth/sveltekit/client';
+  import type { AvatarDropDown } from '$lib/@types/common';
   import IconUser from '../icons/icon-user.svelte';
+  import AvatarDropdownItem from './avatar-dropdown-item.svelte';
+  import IconShoppingBag from '../icons/icon-shopping-bag.svelte';
 
   let showDropDownContent = false;
 
@@ -12,6 +15,13 @@
       showDropDownContent = show;
     }
   };
+
+  const avatarDropdownContent: AvatarDropDown[] = [
+    {
+      text: 'Craft an Ad',
+      icon: IconShoppingBag,
+    },
+  ];
 
   export let session: Session | null;
 </script>
@@ -48,44 +58,25 @@
   <div
     class={`${
       showDropDownContent ? '' : 'hidden'
-    } absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+    } absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-zinc-300/75 dark:bg-zinc-800/75 backdrop-blur text-zinc-800 dark:text-zinc-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="menu-button"
     tabindex="-1"
   >
     <div class="py-1" role="none">
+      {#each avatarDropdownContent as { text, icon }, i}
+        <AvatarDropdownItem {text} {icon} index={i} />
+      {/each}
       <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-      <a
-        href={'#'}
-        class="block px-4 py-2 text-sm"
+      <button
+        type="submit"
+        on:click={signOut}
+        class="block w-full px-4 py-2 text-left text-sm"
         role="menuitem"
         tabindex="-1"
-        id="menu-item-0">Account settings</a
+        id="menu-item-3">Sign out</button
       >
-      <a
-        href={'#'}
-        class="block px-4 py-2 text-sm"
-        role="menuitem"
-        tabindex="-1"
-        id="menu-item-1">Support</a
-      >
-      <a
-        href={'#'}
-        class="block px-4 py-2 text-sm"
-        role="menuitem"
-        tabindex="-1"
-        id="menu-item-2">License</a
-      >
-      <form method="POST" action="#" role="none">
-        <button
-          type="submit"
-          class="block w-full px-4 py-2 text-left text-sm"
-          role="menuitem"
-          tabindex="-1"
-          id="menu-item-3">Sign out</button
-        >
-      </form>
     </div>
   </div>
 </div>
