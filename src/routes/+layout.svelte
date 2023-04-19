@@ -6,7 +6,6 @@
   import { showModal, modalContent } from '$lib/util/modal-store';
   import { toggleModal } from '$lib/util/toggle-modal';
   import type { SvelteComponent } from 'svelte';
-  import ExampleModal from '$lib/components/modals/example-modal.svelte';
   import type { PageData } from './$types';
 
   let modalVisible: boolean;
@@ -30,9 +29,6 @@
     dark:bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] dark:from-rose-900
     dark:via-slate-900 dark:to-zinc-900 text-zinc-800 dark:text-zinc-300"
   >
-    <button class="py-32" on:click={() => toggleModal(ExampleModal)}
-      >Click Me</button
-    >
     <slot />
   </main>
 </QueryClientProvider>
