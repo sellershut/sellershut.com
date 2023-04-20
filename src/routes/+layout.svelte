@@ -31,8 +31,8 @@
   >
     <slot />
   </main>
-</QueryClientProvider>
 
-{#if modalVisible && modalLayout}
-  <Modal on:click={toggleModal} {modalLayout} />
-{/if}
+  {#if modalVisible && modalLayout}
+    <Modal on:click={toggleModal} {modalLayout} />
+  {/if}
+</QueryClientProvider>

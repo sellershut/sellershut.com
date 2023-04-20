@@ -163,13 +163,13 @@ md:mx-auto px-2 fixed top-0 left-0 right-0 h-10 items-center"
                 class="w-full bg-transparent border-transparent focus:ring-transparent focus:border-transparent"
               />
               <div
-                class="text-zinc-800 dark:text-zinc-100 absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-zinc-100 dark:bg-zinc-800 shadow-md"
+                class="text-zinc-800 dark:text-zinc-100 absolute top-10 left-0 w-full px-0 py-8 rounded-b-2xl flex flex-col space-y-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur shadow-md"
               >
                 <h2 class="px-12 small-caps font-bold">Quick Links</h2>
                 {#each quickLinks as { path, name }, i}
                   <a
                     in:fly={{ x: 200, delay: i * 100 }}
-                    class="opacity-80 hover:opacity-100 hover:bg-rose-400 px-12 py-2 inline-block
+                    class="opacity-80 hover:opacity-100 hover:bg-rose-300 dark:hover:bg-rose-600 px-12 py-2 inline-block
                     w-full"
                     href={path}
                   >

@@ -9,6 +9,7 @@
   import IconShoppingBag from '../icons/icon-shopping-bag.svelte';
   import IconSignout from '../icons/icon-signout.svelte';
 
+  export let session: Session | null;
   let showDropDownContent: boolean;
 
   navAvatarDropdownVisible.subscribe((value) => {
@@ -26,11 +27,11 @@
     {
       text: 'Create an Ad',
       icon: IconShoppingBag,
-      onClick: handleCreateAd,
+      onClick: () => {
+        handleCreateAd(session);
+      },
     },
   ];
-
-  export let session: Session | null;
 </script>
 
 <div class="relative inline-block text-left h-full">
@@ -65,7 +66,7 @@
   <div
     class={`${
       showDropDownContent ? '' : 'hidden'
-    } absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-zinc-300/60
+    } absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-zinc-100/60
     dark:bg-zinc-800/60 backdrop-blur text-zinc-800 dark:text-zinc-300 shadow-lg
     ring-1 ring-black ring-opacity-5 focus:outline-none`}
     role="menu"

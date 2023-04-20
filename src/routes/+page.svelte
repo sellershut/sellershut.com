@@ -2,6 +2,8 @@
   import Hero from '$lib/components/hero/hero.svelte';
   import SectionDivider from '$lib/components/section-divider.svelte';
   import Statisitics from '$lib/components/statistics/statisitics.svelte';
+  import { handleCreateAd } from '$lib/util/avatar-dropdown-fn';
+  import { page } from '$app/stores';
 </script>
 
 <div class="container pt-16">
@@ -15,6 +17,7 @@
       </h1>
       <a
         href={'#'}
+        on:click={() => handleCreateAd($page.data.session)}
         class="flex-shrink-0 text-white bg-rose-500 border-0 py-2 px-8 focus:outline-none
         hover:bg-rose-600 rounded text-lg mt-10 sm:mt-0">Get Started</a
       >
