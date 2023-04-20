@@ -36,6 +36,7 @@ export const findCategories = async (
     query: ` query getCategories($parentId: Int!, $page: Int!, $maxPerPage: Int!){
       getCategories(page: $page, maxPerPage: $maxPerPage, parentId: $parentId){
         categories {
+          id,
           name,
           ${returnImages ? 'imageUrl,' : ''}
         },

@@ -19,10 +19,12 @@
         keyRootCategories.returnImages,
       ),
   });
+
+  let selectedCategory: Category | null = null;
 </script>
 
 <div class="p-4 flex flex-col gap-2">
-  <div class="relative pb-3 border-b-[1px]">
+  <div class="relative pb-3 border-b-[1px] dark:border-zinc-700">
     <button on:click class="absolute left-0">
       <IconX class="hover:text-rose-500 transition duration-300 scale-75" />
     </button>
@@ -37,15 +39,26 @@
     {:else}
       <h2 class="font text-zinc-500 dark:text-zinc-400">Pick a category</h2>
       <div
-        class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto"
       >
         {#each sort($categories.data.categories) as category}
-          <div class="col-span-1">
+          <button
+            class="col-span-1 mr-1"
+            on:click={() => {
+              if (selectedCategory === category) {
+                selectedCategory = null;
+              }
+              selectedCategory = category;
+            }}
+          >
             <CategoryModalEntry
               icons={categoryIcons($categories.data.categories)}
               {category}
+              selected={selectedCategory
+                ? selectedCategory.id === category.id
+                : false}
             />
-          </div>
+          </button>
         {/each}
       </div>
       <div class="md:mt-2 flex justify-end">
