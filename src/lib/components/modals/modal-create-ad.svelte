@@ -19,11 +19,9 @@
         keyRootCategories.returnImages,
       ),
   });
-
-  let selectedCategory: Category | null = null;
 </script>
 
-<div class="p-4 flex flex-col gap-2">
+<div class="p-4 flex flex-col gap-2 z-[99]">
   <div class="relative pb-3 border-b-[1px] dark:border-zinc-700">
     <button on:click class="absolute left-0">
       <IconX class="hover:text-rose-500 transition duration-300 scale-75" />
@@ -36,27 +34,16 @@
       <div>Loading</div>
     {:else if $categories.isError}
       <div>{$categories.error.message}</div>
-    {:else}
+    {:else if $categories.isSuccess}
       <h2 class="font text-zinc-500 dark:text-zinc-400">Pick a category</h2>
       <div
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto"
       >
         {#each sort($categories.data.categories) as category}
-          <button
-            class="col-span-1 mr-1"
-            on:click={() => {
-              if (selectedCategory === category) {
-                selectedCategory = null;
-              }
-              selectedCategory = category;
-            }}
-          >
+          <button class="col-span-1 mr-1">
             <CategoryModalEntry
               icons={categoryIcons($categories.data.categories)}
               {category}
-              selected={selectedCategory
-                ? selectedCategory.id === category.id
-                : false}
             />
           </button>
         {/each}
@@ -64,7 +51,7 @@
       <div class="md:mt-2 flex justify-end">
         <a
           href={'#'}
-          class="flex-shrink-0 text-white bg-rose-500 border-0 py-2 px-8 focus:outline-none
+          class="flex-shrink-0 text-white bg-rose-500 border-0 py-1 px-8 focus:outline-none
         hover:bg-rose-600 rounded text-lg mt-10 sm:mt-0">Next</a
         >
       </div>
