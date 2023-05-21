@@ -6,7 +6,7 @@
   export let icons: Map<string, typeof SvelteComponent>;
   export let category: Category;
   export let selected = false;
-  const getRandomNumber = (min = 0, max = 400): number =>
+  const getRandomNumber = (min = 0, max = 300): number =>
     Math.random() * (max - min) + min;
 </script>
 

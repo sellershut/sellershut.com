@@ -40,6 +40,11 @@ export class LinkedList<T> {
     return undefined;
   }
 
+  iterReversed(): T[] {
+    const items = [...this.iter()];
+    return items.reverse();
+  }
+
   remove(index: number) {
     // remove item at level 2
     let temp = this.head;

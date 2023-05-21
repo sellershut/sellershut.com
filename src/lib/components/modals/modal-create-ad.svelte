@@ -1,60 +1,38 @@
 <script lang="ts">
-  import type { CategoriesResult, Category } from '$lib/@types/category';
-  import { findCategories, keyRootCategories } from '$lib/api/category/query';
-  import { createQuery } from '@tanstack/svelte-query';
-  import { categoryIcons } from '$lib/@types/category-icons';
+  import { hideModal } from '$lib/util/toggle-modal';
+  import { selectedCategories } from '$lib/util/stores/create-ad';
+  import { nextEnabled } from '$lib/util/create-ad-stepper';
   import IconX from '../icons/icon-x.svelte';
-  import CategoryModalEntry from '../categories/category-modal-entry.svelte';
+  import Categories from './create-ad/categories.svelte';
 
-  const sort = (arr: Category[]): Category[] =>
-    arr.sort((a, b) => a.name.localeCompare(b.name));
+  $: step = 1;
 
-  const categories = createQuery<CategoriesResult, Error>({
-    queryKey: [keyRootCategories],
-    queryFn: () =>
-      findCategories(
-        keyRootCategories.max,
-        keyRootCategories.parentId,
-        keyRootCategories.page,
-        keyRootCategories.returnImages,
-      ),
-  });
+  const incrementStep = () => {
+    step += 1;
+  };
 </script>
 
 <div class="p-4 flex flex-col gap-2 z-[99]">
   <div class="relative pb-3 border-b-[1px] dark:border-zinc-700">
-    <button on:click class="absolute left-0">
+    <button on:click={hideModal} class="absolute left-0">
       <IconX class="hover:text-rose-500 transition duration-300 scale-75" />
     </button>
     <h1 class="font-semibold text-center small-caps">Create an Ad</h1>
   </div>
   <div class="flex flex-col gap-1">
     <h1 class="font-bold">Which best describes the item you want to sell?</h1>
-    {#if $categories.isLoading}
-      <div>Loading</div>
-    {:else if $categories.isError}
-      <div>{$categories.error.message}</div>
-    {:else if $categories.isSuccess}
-      <h2 class="font text-zinc-500 dark:text-zinc-400">Pick a category</h2>
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto"
+    <Categories />
+    <div class="md:mt-2 flex justify-end">
+      <a
+        href={'#'}
+        on:click={incrementStep}
+        class={`${
+          nextEnabled(step, $selectedCategories)
+            ? 'bg-rose-500 hover:bg-rose-600'
+            : ''
+        } flex-shrink-0 text-white border-0 py-1 px-8 focus:outline-none
+         rounded text-lg mt-10 sm:mt-0`}>Next</a
       >
-        {#each sort($categories.data.categories) as category}
-          <button class="col-span-1 mr-1">
-            <CategoryModalEntry
-              icons={categoryIcons($categories.data.categories)}
-              {category}
-            />
-          </button>
-        {/each}
-      </div>
-      <div class="md:mt-2 flex justify-end">
-        <a
-          href={'#'}
-          class="flex-shrink-0 text-white bg-rose-500 border-0 py-1 px-8 focus:outline-none
-        hover:bg-rose-600 rounded text-lg mt-10 sm:mt-0">Next</a
-        >
-      </div>
-    {/if}
+    </div>
   </div>
 </div>
