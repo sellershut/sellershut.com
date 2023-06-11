@@ -31,6 +31,7 @@ export const findCategories = async (
   parentId = 0,
   page = 1,
   returnImages = false,
+  returnParentId = false,
 ): Promise<CategoriesResult> => {
   const response = await axios.post(PUBLIC_API_ENDPOINT, {
     query: ` query getCategories($parentId: Int!, $page: Int!, $maxPerPage: Int!){
@@ -39,6 +40,7 @@ export const findCategories = async (
           id,
           name,
           ${returnImages ? 'imageUrl,' : ''}
+          ${returnParentId ? 'parentId,' : ''}
         },
         pages
       }

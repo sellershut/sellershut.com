@@ -12,7 +12,7 @@
 <button
   class="border border-zinc-300 dark:border-zinc-800 duration-200 hover:border-rose-500 dark:hover:border-rose-500 rounded flex p-4 gap-2 items-center"
   on:click={() => {
-    dispatch('message', category.id);
+    dispatch('message', category);
   }}
 >
   {#if icon}
