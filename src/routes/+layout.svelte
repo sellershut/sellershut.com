@@ -15,7 +15,6 @@
     };
   };
 
-  // initialise modal state and content
   export let data: PageData;
 </script>
 
