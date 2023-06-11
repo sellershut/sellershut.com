@@ -4,6 +4,8 @@
   import type { AvatarDropDown } from '$lib/@types/common';
   import { navAvatarDropdownVisible } from '$lib/util/stores/nav-avatar-dropdown';
   import { clickOutside } from '$lib/util/click-outside';
+  import { modal } from '$lib/util/stores/modal';
+  import CreateAd from '$lib/components/modal/create-ad.svelte';
   import IconUser from '../icons/icon-user.svelte';
   import AvatarDropdownItem from './avatar-dropdown-item.svelte';
   import IconShoppingBag from '../icons/icon-shopping-bag.svelte';
@@ -22,6 +24,11 @@
       icon: IconShoppingBag,
       onClick: () => {
         // open dialog
+        $navAvatarDropdownVisible = false;
+        $modal = {
+          isVisible: true,
+          content: CreateAd,
+        };
       },
     },
   ];

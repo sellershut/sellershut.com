@@ -4,7 +4,7 @@
   import { goto } from '$app/navigation';
   import type { Category } from '$lib/@types/category';
 
-  export let icons: Map<string, typeof SvelteComponent>;
+  export let icons: Map<string, typeof SvelteComponent | undefined>;
   export let category: Category;
 
   export const updateQuery = () => {
@@ -27,7 +27,9 @@
       : 'text-zinc-500 dark:text-zinc-600 '
   } hover:text-zinc-800 dark:hover:text-zinc-200 transition cursor-pointer hover:border-b-2 border-rose-500`}
 >
-  <svelte:component this={icons.get(category.name)} class="scale-90" />
+  {#if icons.get(category.name)}
+    <svelte:component this={icons.get(category.name)} class="scale-90" />
+  {/if}
   <p class="font-semibold text-center text-xs whitespace-nowrap">
     {category.name}
   </p>

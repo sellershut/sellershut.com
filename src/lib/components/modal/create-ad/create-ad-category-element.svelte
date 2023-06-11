@@ -1,19 +1,24 @@
 <script lang="ts">
   import type { Category } from '$lib/@types/category';
   import { createEventDispatcher } from 'svelte';
+  import type { SvelteComponent } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
   export let category: Category;
+  export let icon: typeof SvelteComponent | undefined;
 </script>
 
-<div class="border">
-  <button
-    class="text-sm"
-    on:click={() => {
-      dispatch('message', category.id);
-    }}
-  >
-    {category.name}</button
-  >
-</div>
+<button
+  class="border border-zinc-300 dark:border-zinc-800 duration-200 hover:border-rose-500 dark:hover:border-rose-500 rounded flex p-4 gap-2 items-center"
+  on:click={() => {
+    dispatch('message', category.id);
+  }}
+>
+  {#if icon}
+    <svelte:component this={icon} />
+  {/if}
+  <p class="text-sm text-left">
+    {category.name}
+  </p>
+</button>

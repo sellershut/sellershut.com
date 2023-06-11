@@ -15,8 +15,8 @@ import type { Category } from './category';
 
 export const categoryIcons = (
   categories: Category[],
-): Map<string, typeof SvelteComponent> => {
-  const icons = new Map<string, typeof SvelteComponent>();
+): Map<string, typeof SvelteComponent | undefined> => {
+  const icons = new Map<string, typeof SvelteComponent | undefined>();
 
   for (let index = 0; index < categories.length; index += 1) {
     const category = categories[index];
@@ -58,7 +58,7 @@ export const categoryIcons = (
         icons.set(category.name, IconSporting);
         break;
       default:
-        icons.set(category.name, IconHome);
+        icons.set(category.name, undefined);
     }
   }
 
