@@ -1,16 +1,16 @@
 <script lang="ts">
   import Hero from '$lib/components/hero/hero.svelte';
+  import CreateAd from '$lib/components/modal/create-ad.svelte';
   import SectionDivider from '$lib/components/section-divider.svelte';
   import Statisitics from '$lib/components/statistics/statisitics.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { modal } from '$lib/util/stores/modal';
 
-  const dispatch = createEventDispatcher();
   // import { page } from '$app/stores'; -> check if session is valid before creating ad
-
-  const createAd = () => {
-    dispatch('openModal', {
-      component: 'CreateAd',
-    });
+  const showModal = () => {
+    $modal = {
+      isVisible: true,
+      content: CreateAd,
+    };
   };
 </script>
 
@@ -24,7 +24,7 @@
         Something's taking up space? Get your ad live in a few...
       </h1>
       <a
-        on:click={createAd}
+        on:click={showModal}
         href={'#'}
         class="flex-shrink-0 text-white bg-rose-500 border-0 py-2 px-8 focus:outline-none
         hover:bg-rose-600 rounded text-lg mt-10 sm:mt-0">Get Started</a

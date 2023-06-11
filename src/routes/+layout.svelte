@@ -4,18 +4,18 @@
   import NavigationBar from '$lib/components/navigation/navigation-bar.svelte';
   import type { SvelteComponent } from 'svelte';
   import Modal from '$lib/components/modal.svelte';
+  import { modal } from '$lib/util/stores/modal';
   import type { PageData } from './$types';
-
-  // initialise modal state and content
-  let showModal = false;
-  let modalContent: typeof SvelteComponent;
 
   // pass in component as parameter and toggle modal state
   const toggleModal = (component: typeof SvelteComponent) => {
-    modalContent = component;
-    showModal = !showModal;
+    $modal = {
+      isVisible: !$modal.isVisible,
+      content: component,
+    };
   };
 
+  // initialise modal state and content
   export let data: PageData;
 </script>
 
@@ -29,7 +29,7 @@
     <slot />
   </main>
 
-  {#if showModal}
-    <Modal on:click={toggleModal} {modalContent} />
+  {#if $modal.isVisible && $modal.content}
+    <Modal on:click={toggleModal} modalContent={$modal.content} />
   {/if}
 </QueryClientProvider>
