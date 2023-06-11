@@ -1,14 +1,13 @@
 <script lang="ts">
-  import type { CategoriesResult, Category } from '$lib/@types/category';
+  import type { CategoriesResult } from '$lib/@types/category';
   import { categoryIcons } from '$lib/@types/category-icons';
   import type { CreateQueryResult } from '@tanstack/svelte-query';
+  import { byTextAscending } from '$lib/util/sort/sorter';
   import CategoriesListEntry from './categories-list-entry.svelte';
   import IconChevronRight from '../icons/icon-chevron-right.svelte';
   import IconChevronLeft from '../icons/icon-chevron-left.svelte';
 
   export let categories: CreateQueryResult<CategoriesResult, Error>;
-  const sort = (arr: Category[]): Category[] =>
-    arr.sort((a, b) => a.name.localeCompare(b.name));
 
   const sideScroll = (
     direction: 'left' | 'right',
@@ -45,7 +44,7 @@
         id="cat-container"
         class="flex container overflow-x-auto justify-between relative scrollbar-hide"
       >
-        {#each sort($categories.data.categories) as category}
+        {#each $categories.data.categories.sort(byTextAscending((cat) => cat.name)) as category}
           <CategoriesListEntry
             icons={categoryIcons($categories.data.categories)}
             {category}

@@ -2,6 +2,8 @@
   import type { CategoriesResult } from '$lib/@types/category';
   import { findCategories } from '$lib/api/category/query';
   import { createQuery } from '@tanstack/svelte-query';
+  import { byTextAscending } from '$lib/util/sort/sorter';
+  import CreateAdCategoryElement from './create-ad/create-ad-category-element.svelte';
 
   let parentId = 0;
   $: categories = createQuery<CategoriesResult, Error>({
@@ -10,30 +12,26 @@
   });
 </script>
 
-<div>
-  <h3 class="text-3xl font-medium title-font">Select Category</h3>
-  <p>What kind of item do you want to sell?</p>
+<div class="flex flex-col gap-4">
+  <div>
+    <h3 class="text-xl font-medium title-font">Select Category</h3>
+    <p class="text-sm">What kind of item do you want to sell?</p>
+  </div>
   <div>
     {#if $categories.isLoading}
       <div>Loading</div>
     {:else if $categories.isError}
       <div>{$categories.error.message}</div>
     {:else if $categories.isSuccess}
-      <div class="relative">
-        <div
-          id="cat-container"
-          class="flex container overflow-x-auto justify-between relative scrollbar-hide"
-        >
-          {#each $categories.data.categories as category}
-            <button
-              on:click={() => {
-                parentId = category.id;
-              }}
-            >
-              {category.name}</button
-            >
-          {/each}
-        </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
+        {#each $categories.data.categories.sort(byTextAscending((category) => category.name)) as category}
+          <CreateAdCategoryElement
+            on:message={(event) => {
+              parentId = event.detail;
+            }}
+            {category}
+          />
+        {/each}
       </div>
     {/if}
   </div>
