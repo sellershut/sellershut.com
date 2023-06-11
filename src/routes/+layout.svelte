@@ -2,23 +2,20 @@
   import '../stylesheet.scss';
   import { QueryClientProvider } from '@tanstack/svelte-query';
   import NavigationBar from '$lib/components/navigation/navigation-bar.svelte';
-  import Modal from '$lib/components/modals/modal.svelte';
-  import { showModal, modalContent } from '$lib/util/stores/modal';
-  import { toggleModal } from '$lib/util/toggle-modal';
   import type { SvelteComponent } from 'svelte';
+  import Modal from '$lib/components/modal.svelte';
   import type { PageData } from './$types';
 
-  let modalVisible: boolean;
+  // initialise modal state and content
+  let showModal = false;
+  let modalContent: typeof SvelteComponent;
 
-  showModal.subscribe((value) => {
-    modalVisible = value;
-  });
+  // pass in component as parameter and toggle modal state
+  const toggleModal = (component: typeof SvelteComponent) => {
+    modalContent = component;
+    showModal = !showModal;
+  };
 
-  let modalLayout: undefined | typeof SvelteComponent;
-
-  modalContent.subscribe((value) => {
-    modalLayout = value;
-  });
   export let data: PageData;
 </script>
 
@@ -32,7 +29,7 @@
     <slot />
   </main>
 
-  {#if modalVisible && modalLayout}
-    <Modal on:click={toggleModal} {modalLayout} />
+  {#if showModal}
+    <Modal on:click={toggleModal} {modalContent} />
   {/if}
 </QueryClientProvider>

@@ -2,25 +2,18 @@
   import type { Session } from '@auth/core/types';
   import { signIn, signOut } from '@auth/sveltekit/client';
   import type { AvatarDropDown } from '$lib/@types/common';
-  import { handleCreateAd } from '$lib/util/avatar-dropdown-fn';
   import { navAvatarDropdownVisible } from '$lib/util/stores/nav-avatar-dropdown';
+  import { clickOutside } from '$lib/util/click-outside';
   import IconUser from '../icons/icon-user.svelte';
   import AvatarDropdownItem from './avatar-dropdown-item.svelte';
   import IconShoppingBag from '../icons/icon-shopping-bag.svelte';
   import IconSignout from '../icons/icon-signout.svelte';
 
   export let session: Session | null;
-  let showDropDownContent: boolean;
 
-  navAvatarDropdownVisible.subscribe((value) => {
-    showDropDownContent = value;
-  });
   const toggleDropDownContent = (show?: boolean) => {
-    if (show === undefined) {
-      navAvatarDropdownVisible.set(!showDropDownContent);
-    } else {
-      navAvatarDropdownVisible.set(show);
-    }
+    $navAvatarDropdownVisible =
+      show === undefined ? !$navAvatarDropdownVisible : show;
   };
 
   const avatarDropdownContent: AvatarDropDown[] = [
@@ -28,7 +21,7 @@
       text: 'Create an Ad',
       icon: IconShoppingBag,
       onClick: () => {
-        handleCreateAd(session);
+        // open dialog
       },
     },
   ];
@@ -65,7 +58,7 @@
   </div>
   <div
     class={`${
-      showDropDownContent ? '' : 'hidden'
+      $navAvatarDropdownVisible ? '' : 'hidden'
     } absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-zinc-100/60
     dark:bg-zinc-800/60 backdrop-blur text-zinc-800 dark:text-zinc-300 shadow-lg
     ring-1 ring-black ring-opacity-5 focus:outline-none`}
@@ -73,6 +66,10 @@
     aria-orientation="vertical"
     aria-labelledby="menu-button"
     tabindex="-1"
+    use:clickOutside
+    on:click_outside={() => {
+      $navAvatarDropdownVisible = false;
+    }}
   >
     <div class="py-1" role="none">
       {#each avatarDropdownContent as entry, i}
