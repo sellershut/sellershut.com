@@ -4,6 +4,7 @@
   import { createQuery } from '@tanstack/svelte-query';
   import { byTextAscending } from '$lib/util/sort/sorter';
   import { categoryIcons } from '$lib/@types/category-icons';
+  import { scale, slide } from 'svelte/transition';
   import CreateAdCategoryElement from './create-ad/create-ad-category-element.svelte';
   import IconBackCircle from '../icons/icon-back-circle.svelte';
   import IconXCircle from '../icons/icon-x-circle.svelte';
@@ -15,26 +16,41 @@
   });
   let selectedCategories: Category[];
   $: selectedCategories = [];
+
+  const clearCategoriesFromIndex = (index: number) => {
+    if (index === 0) {
+      selectedCategories = [];
+      parentId = 0;
+    } else {
+      selectedCategories.length = index;
+      const lastItem = selectedCategories[selectedCategories.length - 1];
+      if (lastItem) {
+        parentId = lastItem.id;
+      }
+      selectedCategories = [...selectedCategories];
+    }
+  };
+
+  const addSubCategory = (event: { detail: Category }) => {
+    const currentCategory = event.detail;
+    // have to reassign to trigger svelte reactivity
+    selectedCategories = [...selectedCategories, currentCategory];
+    parentId = currentCategory.id;
+  };
+
+  const removeLastAddedCategory = () => {
+    const lastItem = selectedCategories.pop();
+    parentId = lastItem ? lastItem.parentId : 0;
+    selectedCategories = [...selectedCategories];
+  };
 </script>
 
 <div class="hidden lg:flex gap-2">
   {#each selectedCategories as category, i}
-    <div class="border rounded px-4 py-2 relative">
+    <div transition:scale class="border rounded px-4 py-2 relative">
       <button
         class="absolute top-0 right-0 scale-75"
-        on:click={() => {
-          if (i === 0) {
-            selectedCategories = [];
-            parentId = 0;
-          } else {
-            selectedCategories.length = i;
-            const lastItem = selectedCategories[selectedCategories.length - 1];
-            if (lastItem) {
-              parentId = lastItem.id;
-            }
-            selectedCategories = [...selectedCategories];
-          }
-        }}
+        on:click={() => clearCategoriesFromIndex(i)}
       >
         <IconXCircle />
       </button>
@@ -45,36 +61,38 @@
   {/each}
 </div>
 <div
-  class="flex-1 px-3 overflow-y-auto overscroll-contain grid gap-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+  class={`flex-1 px-3 overscroll-contain grid gap-1 grid-cols-1 ${
+    $categories.isSuccess
+      ? 'sm:grid-cols-2 md:grid-cols-3 overflow-y-auto'
+      : 'overflow-hidden'
+  }`}
 >
   {#if $categories.isLoading}
-    <div>Loading</div>
+    <div class="flex items-center justify-center space-x-4">
+      {#each [1, 2, 3] as i}
+        <div
+          transition:slide={{ duration: i * 100 }}
+          class="animate-spin h-5 aspect-square bg-rose-500"
+        />
+      {/each}
+    </div>
   {:else if $categories.isError}
     <div>{$categories.error.message}</div>
   {:else if $categories.isSuccess}
     {#each $categories.data.categories.sort(byTextAscending((category) => category.name)) as category}
       <CreateAdCategoryElement
         icon={categoryIcons($categories.data.categories).get(category.name)}
-        on:message={(event) => {
-          const currentCategory = event.detail;
-          // have to reassign to trigger svelte reactivity
-          selectedCategories = [...selectedCategories, currentCategory];
-          parentId = currentCategory.id;
-        }}
+        on:message={addSubCategory}
         {category}
       />
     {/each}
   {/if}
 </div>
 {#if selectedCategories.length}
-  <div class="flex justify-between px-4 py-2">
+  <div transition:slide class="flex justify-between px-4 py-2">
     <button
       class="inline-flex items-center hover:text-rose-500 duration-200"
-      on:click={() => {
-        const lastItem = selectedCategories.pop();
-        parentId = lastItem ? lastItem.parentId : 0;
-        selectedCategories = [...selectedCategories];
-      }}
+      on:click={removeLastAddedCategory}
     >
       <IconBackCircle />
       Back</button
