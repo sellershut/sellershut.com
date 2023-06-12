@@ -26,6 +26,8 @@
       const lastItem = selectedCategories[selectedCategories.length - 1];
       if (lastItem) {
         parentId = lastItem.id;
+      } else {
+        parentId = 0;
       }
       selectedCategories = [...selectedCategories];
     }
@@ -79,10 +81,11 @@
   {:else if $categories.isError}
     <div>{$categories.error.message}</div>
   {:else if $categories.isSuccess}
-    {#each $categories.data.categories.sort(byTextAscending((category) => category.name)) as category}
+    {#each $categories.data.categories.sort(byTextAscending((category) => category.name)) as category, pos}
       <CreateAdCategoryElement
         icon={categoryIcons($categories.data.categories).get(category.name)}
         on:message={addSubCategory}
+        {pos}
         {category}
       />
     {/each}
