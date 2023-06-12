@@ -29,6 +29,10 @@
   </main>
 
   {#if $modal.isVisible && $modal.content}
-    <Modal on:click={toggleModal} modalContent={$modal.content} />
+    <Modal
+      on:click={toggleModal}
+      modalContent={$modal.content}
+      title={$modal.title}
+    />
   {/if}
 </QueryClientProvider>

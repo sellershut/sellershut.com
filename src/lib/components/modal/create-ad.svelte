@@ -17,55 +17,45 @@
 </script>
 
 <div
-  class={`flex flex-col ${
-    selectedCategories.length ? 'justify-between' : ''
-  } gap-4 h-full`}
+  class="flex-1 px-3 overflow-y-auto overscroll-contain grid gap-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
 >
-  <div>
-    <h3 class="text-xl font-medium title-font">Select Category</h3>
-    <p class="text-sm">What best describes the item you want to sell?</p>
-  </div>
-  <div class="overflow-y-auto overscroll-contain">
-    {#if $categories.isLoading}
-      <div>Loading</div>
-    {:else if $categories.isError}
-      <div>{$categories.error.message}</div>
-    {:else if $categories.isSuccess}
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
-        {#each $categories.data.categories.sort(byTextAscending((category) => category.name)) as category}
-          <CreateAdCategoryElement
-            icon={categoryIcons($categories.data.categories).get(category.name)}
-            on:message={(event) => {
-              const currentCategory = event.detail;
-              selectedCategories.push(currentCategory);
-              parentId = currentCategory.id;
-            }}
-            {category}
-          />
-        {/each}
-      </div>
-    {/if}
-  </div>
-  {#if selectedCategories.length}
-    <div class="flex justify-between px-4">
-      <button
-        class="inline-flex hover:text-rose-500 duration-200"
-        on:click={() => {
-          const lastItem = selectedCategories.pop();
-          parentId = lastItem ? lastItem.parentId : 0;
+  {#if $categories.isLoading}
+    <div>Loading</div>
+  {:else if $categories.isError}
+    <div>{$categories.error.message}</div>
+  {:else if $categories.isSuccess}
+    {#each $categories.data.categories.sort(byTextAscending((category) => category.name)) as category}
+      <CreateAdCategoryElement
+        icon={categoryIcons($categories.data.categories).get(category.name)}
+        on:message={(event) => {
+          const currentCategory = event.detail;
+          selectedCategories.push(currentCategory);
+          parentId = currentCategory.id;
         }}
-      >
-        <IconBackCircle />
-        Back</button
-      >
-      <button
-        class="inline-flex hover:text-rose-500 duration-200"
-        on:click={() => {
-          // fill in ad info
-        }}
-        >Looks Good
-        <IconBackCircle class="rotate-180" />
-      </button>
-    </div>
+        {category}
+      />
+    {/each}
   {/if}
 </div>
+{#if selectedCategories.length}
+  <div class="flex justify-between px-4 py-2">
+    <button
+      class="inline-flex items-center hover:text-rose-500 duration-200"
+      on:click={() => {
+        const lastItem = selectedCategories.pop();
+        parentId = lastItem ? lastItem.parentId : 0;
+      }}
+    >
+      <IconBackCircle />
+      Back</button
+    >
+    <button
+      class="inline-flex items-center hover:text-rose-500 duration-200"
+      on:click={() => {
+        // fill in ad info
+      }}
+      >Looks Good
+      <IconBackCircle class="rotate-180" />
+    </button>
+  </div>
+{/if}

@@ -10,6 +10,10 @@
     $modal = {
       isVisible: true,
       content: CreateAd,
+      title: {
+        value: 'Select Category',
+        subTitle: 'What best describes the item you want to sell?',
+      },
     };
   };
 </script>
