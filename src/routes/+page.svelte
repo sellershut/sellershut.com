@@ -1,9 +1,9 @@
 <script lang="ts">
   import Hero from '$lib/components/hero/hero.svelte';
-  import CreateAd from '$lib/components/modal/create-ad.svelte';
   import SectionDivider from '$lib/components/section-divider.svelte';
   import Statisitics from '$lib/components/statistics/statisitics.svelte';
   import { modal } from '$lib/util/stores/modal';
+  import CreateAd from '$lib/components/modal/create-ad/create-ad.svelte';
 
   // import { page } from '$app/stores'; -> check if session is valid before creating ad
   const showModal = () => {

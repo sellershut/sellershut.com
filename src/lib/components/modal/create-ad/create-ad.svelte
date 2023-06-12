@@ -5,9 +5,9 @@
   import { byTextAscending } from '$lib/util/sort/sorter';
   import { categoryIcons } from '$lib/@types/category-icons';
   import { scale, slide } from 'svelte/transition';
-  import CreateAdCategoryElement from './create-ad/create-ad-category-element.svelte';
-  import IconBackCircle from '../icons/icon-back-circle.svelte';
-  import IconXCircle from '../icons/icon-x-circle.svelte';
+  import IconBackCircle from '$lib/components/icons/icon-back-circle.svelte';
+  import IconXCircle from '$lib/components/icons/icon-x-circle.svelte';
+  import CreateAdCategoryElement from './create-ad-category-element.svelte';
 
   let parentId = 0;
   $: categories = createQuery<CategoriesResult, Error>({

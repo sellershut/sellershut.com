@@ -3,7 +3,7 @@
   import { QueryClientProvider } from '@tanstack/svelte-query';
   import NavigationBar from '$lib/components/navigation/navigation-bar.svelte';
   import type { SvelteComponent } from 'svelte';
-  import Modal from '$lib/components/modal.svelte';
+  import Modal from '$lib/components/modal/modal.svelte';
   import { modal } from '$lib/util/stores/modal';
   import type { PageData } from './$types';
 
