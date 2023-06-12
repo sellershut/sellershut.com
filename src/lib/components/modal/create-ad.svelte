@@ -6,6 +6,7 @@
   import { categoryIcons } from '$lib/@types/category-icons';
   import CreateAdCategoryElement from './create-ad/create-ad-category-element.svelte';
   import IconBackCircle from '../icons/icon-back-circle.svelte';
+  import IconXCircle from '../icons/icon-x-circle.svelte';
 
   let parentId = 0;
   $: categories = createQuery<CategoriesResult, Error>({
@@ -16,6 +17,33 @@
   $: selectedCategories = [];
 </script>
 
+<div class="hidden lg:flex gap-2">
+  {#each selectedCategories as category, i}
+    <div class="border rounded px-4 py-2 relative">
+      <button
+        class="absolute top-0 right-0 scale-75"
+        on:click={() => {
+          if (i === 0) {
+            selectedCategories = [];
+            parentId = 0;
+          } else {
+            selectedCategories.length = i;
+            const lastItem = selectedCategories[selectedCategories.length - 1];
+            if (lastItem) {
+              parentId = lastItem.id;
+            }
+            selectedCategories = [...selectedCategories];
+          }
+        }}
+      >
+        <IconXCircle />
+      </button>
+      <p class="text-xs whitespace-nowrap overflow-hidden w-20 text-ellipsis">
+        {category.name}
+      </p>
+    </div>
+  {/each}
+</div>
 <div
   class="flex-1 px-3 overflow-y-auto overscroll-contain grid gap-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
 >
@@ -29,7 +57,8 @@
         icon={categoryIcons($categories.data.categories).get(category.name)}
         on:message={(event) => {
           const currentCategory = event.detail;
-          selectedCategories.push(currentCategory);
+          // have to reassign to trigger svelte reactivity
+          selectedCategories = [...selectedCategories, currentCategory];
           parentId = currentCategory.id;
         }}
         {category}
@@ -44,6 +73,7 @@
       on:click={() => {
         const lastItem = selectedCategories.pop();
         parentId = lastItem ? lastItem.parentId : 0;
+        selectedCategories = [...selectedCategories];
       }}
     >
       <IconBackCircle />

@@ -18,8 +18,8 @@
         <p>What best describes the item you want to sell?</p>
       </div>
     {/if}
-    <div class="h-64 flex flex-col">
-      <svelte:component this={modalContent} on:click class="h-64" />
+    <div class="h-64 flex flex-col space-y-2">
+      <svelte:component this={modalContent} on:click />
     </div>
   </div>
 </button>
