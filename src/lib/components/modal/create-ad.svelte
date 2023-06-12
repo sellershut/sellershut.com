@@ -49,12 +49,15 @@
 
 <div class="hidden lg:flex gap-2">
   {#each selectedCategories as category, i}
-    <div transition:scale class="border rounded px-4 py-2 relative">
+    <div
+      transition:scale
+      class="border border-zinc-300 dark:border-zinc-800 rounded px-4 py-2 relative"
+    >
       <button
         class="absolute top-0 right-0 scale-75"
         on:click={() => clearCategoriesFromIndex(i)}
       >
-        <IconXCircle />
+        <IconXCircle class="hover:text-rose-500" />
       </button>
       <p class="text-xs whitespace-nowrap overflow-hidden w-20 text-ellipsis">
         {category.name}
