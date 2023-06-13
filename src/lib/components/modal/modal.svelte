@@ -17,9 +17,9 @@
   >
     {#if title}
       <div>
-        <h3 class="title-font text-xl font-medium">{title.value}</h3>
+        <h3 class="title-font text-xl font-bold">{title.value}</h3>
         {#if title.subTitle}
-          <p>{title.subTitle}</p>
+          <p class="text-zinc-600 dark:text-zinc-400">{title.subTitle}</p>
         {/if}
       </div>
     {/if}

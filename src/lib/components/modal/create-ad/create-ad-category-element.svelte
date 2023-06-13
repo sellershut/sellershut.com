@@ -13,7 +13,7 @@
 
 <button
   in:scale={{ delay: pos * 30 }}
-  class="border w-full border-zinc-300 dark:border-zinc-800 duration-200 hover:border-rose-500 dark:hover:border-rose-500 rounded flex p-4 gap-2 items-center"
+  class="border transition w-full border-zinc-300 dark:border-zinc-800 duration-100 hover:bg-rose-500 hover:text-zinc-100 hover:border-rose-500 dark:hover:border-rose-500 rounded flex p-4 gap-2 items-center"
   on:click={() => {
     dispatch('message', category);
   }}
