@@ -109,7 +109,7 @@
   {/if}
 </div>
 {#if selectedCategories.length}
-  <div transition:slide class="flex justify-between px-4 py-2">
+  <div in:slide class="flex justify-between px-4 py-2">
     <Button
       icon={IconBackCircle}
       text={'Back'}

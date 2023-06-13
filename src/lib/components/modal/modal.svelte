@@ -16,7 +16,7 @@
     class="flex flex-col space-y-4 p-4 rounded-lg w-10/12 lg:w-8/12 xl:w-1/2 text-xs md:text-sm bg-zinc-50/80 dark:bg-zinc-950/80 backdrop-blur-3xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
   >
     {#if title}
-      <div>
+      <div class="dark:bg-zinc-900 bg-zinc-300 rounded shadow drop-shadow p-2">
         <h3 class="title-font text-xl font-bold">{title.value}</h3>
         {#if title.subTitle}
           <p class="text-zinc-600 dark:text-zinc-400">{title.subTitle}</p>
