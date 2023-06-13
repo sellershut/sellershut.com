@@ -2,20 +2,8 @@
   import Hero from '$lib/components/hero/hero.svelte';
   import SectionDivider from '$lib/components/section-divider.svelte';
   import Statisitics from '$lib/components/statistics/statisitics.svelte';
-  import { modal } from '$lib/util/stores/modal';
-  import CreateAd from '$lib/components/modal/create-ad/create-ad.svelte';
-
-  // import { page } from '$app/stores'; -> check if session is valid before creating ad
-  const showModal = () => {
-    $modal = {
-      isVisible: true,
-      content: CreateAd,
-      title: {
-        value: 'Select Category',
-        subTitle: 'What best describes the item you want to sell?',
-      },
-    };
-  };
+  import { showModal } from '$lib/util/modal/driver';
+  import { selectCategory } from '$lib/util/modal/create-ad/select-category';
 </script>
 
 <div class="container pt-16">
@@ -28,7 +16,7 @@
         Something's taking up space? Get your ad live in a few...
       </h1>
       <a
-        on:click={showModal}
+        on:click={() => showModal(selectCategory)}
         href={'#'}
         class="flex-shrink-0 text-white bg-rose-500 border-0 py-2 px-8 focus:outline-none
         hover:bg-rose-600 rounded text-lg mt-10 sm:mt-0">Get Started</a

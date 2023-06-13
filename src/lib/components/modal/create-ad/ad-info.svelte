@@ -1,8 +1,16 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
+  import Button from '$lib/components/button.svelte';
+  import Step from '$lib/components/step.svelte';
+  import createAdSteps from '$lib/util/steps';
+  import IconBackCircle from '$lib/components/icons/icon-back-circle.svelte';
+  import { fade, slide } from 'svelte/transition';
+  import { showModal } from '$lib/util/modal/driver';
+  import { selectCategory } from '$lib/util/modal/create-ad/select-category';
 
   let title = '';
   let titleEdited = false;
+
+  const currentStep = 0;
 
   $: titleInvalid = !title.trim().length && titleEdited;
 </script>
@@ -11,13 +19,14 @@
   <div
     class="flex space-x-2 bg-zinc-900 p-2 rounded shadow drop-shadow items-center justify-center"
   >
-    <div class="flex flex-col space-y-1">
-      <span class="block w-full border border-zinc-600 border-t" />
-      <div>
-        <p>Step 1</p>
-        <p>General Information</p>
-      </div>
-    </div>
+    {#each createAdSteps as text, index}
+      <Step
+        num={index + 1}
+        {text}
+        isCurrent={index === currentStep}
+        max={createAdSteps.length}
+      />
+    {/each}
   </div>
   <div transition:fade class="flex flex-col flex-1 text-left space-y-4">
     <div class="flex flex-col space-y-2">
@@ -49,5 +58,15 @@
         placeholder="Don't shy away from the details now :)"
       />
     </div>
+  </div>
+
+  <div in:slide class="flex justify-between px-4 py-2">
+    <Button
+      icon={IconBackCircle}
+      text={'Back'}
+      isPrimary={false}
+      eventHandler={() => showModal(selectCategory)}
+    />
+    <Button icon={IconBackCircle} text={'Proceed'} styles="rotate-180" />
   </div>
 </div>

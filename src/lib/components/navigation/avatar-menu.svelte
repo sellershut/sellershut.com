@@ -5,7 +5,7 @@
   import { navAvatarDropdownVisible } from '$lib/util/stores/nav-avatar-dropdown';
   import { clickOutside } from '$lib/util/click-outside';
   import { modal } from '$lib/util/stores/modal';
-  import CreateAd from '$lib/components/modal/create-ad/create-ad.svelte';
+  import SelectCategory from '$lib/components/modal/create-ad/select-category.svelte';
   import IconUser from '../icons/icon-user.svelte';
   import AvatarDropdownItem from './avatar-dropdown-item.svelte';
   import IconShoppingBag from '../icons/icon-shopping-bag.svelte';
@@ -27,7 +27,7 @@
         $navAvatarDropdownVisible = false;
         $modal = {
           isVisible: true,
-          content: CreateAd,
+          content: SelectCategory,
         };
       },
     },

@@ -7,10 +7,10 @@
   import { scale, slide } from 'svelte/transition';
   import IconBackCircle from '$lib/components/icons/icon-back-circle.svelte';
   import IconXCircle from '$lib/components/icons/icon-x-circle.svelte';
-  import { modal } from '$lib/util/stores/modal';
   import Button from '$lib/components/button.svelte';
+  import { showModal } from '$lib/util/modal/driver';
+  import { adInfo } from '$lib/util/modal/create-ad/ad-info';
   import CreateAdCategoryElement from './create-ad-category-element.svelte';
-  import AdInfo from './ad-info.svelte';
 
   let parentId = 0;
   $: categories = createQuery<CategoriesResult, Error>({
@@ -47,17 +47,6 @@
     const lastItem = selectedCategories.pop();
     parentId = lastItem ? lastItem.parentId : 0;
     selectedCategories = [...selectedCategories];
-  };
-
-  const showNextModal = () => {
-    $modal = {
-      isVisible: true,
-      content: AdInfo,
-      title: {
-        value: 'Details',
-        subTitle: 'Tell us all you can about what you want to sell',
-      },
-    };
   };
 </script>
 
@@ -120,7 +109,9 @@
       icon={IconBackCircle}
       text={'Proceed'}
       styles="rotate-180"
-      eventHandler={showNextModal}
+      eventHandler={() => {
+        showModal(adInfo);
+      }}
     />
   </div>
 {/if}

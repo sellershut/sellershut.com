@@ -23,7 +23,7 @@
         {/if}
       </div>
     {/if}
-    <div class="h-64 flex flex-col space-y-2">
+    <div class="h-72 flex flex-col space-y-2">
       <svelte:component this={modalContent} on:click />
     </div>
   </div>
