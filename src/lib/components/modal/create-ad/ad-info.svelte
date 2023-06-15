@@ -10,13 +10,22 @@
   import AdPrice from './ad-info/ad-price.svelte';
 
   let title = '';
+  let amount = 0;
   let titleEdited = false;
+  let amountEdited = false;
 
   let currentStep = 0;
+
+  let isInvalid = true;
 
   const titleChanged = (e: CustomEvent<string>): void => {
     titleEdited = true;
     title = e.detail;
+  };
+
+  const amountChanged = (e: CustomEvent<number>): void => {
+    amountEdited = true;
+    amount = e.detail;
   };
 
   const navigator = (isBack: boolean) => {
@@ -29,6 +38,7 @@
         }
         break;
       case createAdSteps.length - 1:
+        // you're in the last slide now, so next should
         if (!isBack) {
           // go to next slide
         } else {
@@ -44,15 +54,20 @@
     }
   };
 
-  $: isInvalid = (): boolean => {
+  $: {
     switch (currentStep) {
       case 0:
-        return !title.trim().length && titleEdited;
+        isInvalid = !title.trim().length && titleEdited;
+        break;
+
+      case 1:
+        isInvalid = !amountEdited || amount == null;
+        break;
 
       default:
-        return true;
+        isInvalid = true;
     }
-  };
+  }
 </script>
 
 <div class="h-full flex flex-col space-y-2">
@@ -70,13 +85,13 @@
   </div>
 
   {#if currentStep === 0}
-    <AdTitle
-      {title}
-      titleInvalid={isInvalid()}
-      on:titleChanged={titleChanged}
-    />
+    <AdTitle {title} titleInvalid={isInvalid} on:titleChanged={titleChanged} />
   {:else if currentStep === 1}
-    <AdPrice />
+    <AdPrice
+      {amount}
+      amountInvalid={isInvalid}
+      on:amountChanged={amountChanged}
+    />
   {/if}
 
   <div in:slide class="flex justify-between px-4 py-2">
@@ -86,7 +101,7 @@
       isPrimary={false}
       eventHandler={() => navigator(true)}
     />
-    {#if !isInvalid()}
+    {#if titleEdited && !isInvalid}
       <Button
         icon={IconBackCircle}
         text={'Proceed'}
