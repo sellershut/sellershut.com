@@ -17,12 +17,12 @@
 
 <div class="h-full flex flex-col space-y-2">
   <div
-    class="flex space-x-2 bg-zinc-900 p-2 rounded shadow drop-shadow items-center justify-center"
+    class="flex space-x-2 p-2 rounded shadow drop-shadow items-center justify-center dark:bg-zinc-900 bg-zinc-300"
   >
-    {#each createAdSteps as text, index}
+    {#each createAdSteps as step, index}
       <Step
         num={index + 1}
-        {text}
+        {step}
         isCurrent={index === currentStep}
         max={createAdSteps.length}
       />
