@@ -16,12 +16,12 @@
   <div class="flex flex-col items-start justify-start">
     <div class="lg:hidden">
       {#if step.icon}
-        <svelte:component this={step.icon} />
+        <svelte:component this={step.icon} class="opacity-90" />
       {/if}
     </div>
-    <div class="hidden lg:block">
-      <span class="text-xs">Step {num} of {max}</span>
-      <p>{step.text}</p>
+    <div class="hidden lg:block text-xs">
+      <span>Step {num} of {max}</span>
+      <p class="font-medium">{step.text}</p>
     </div>
   </div>
 </div>

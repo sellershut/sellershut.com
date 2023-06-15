@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { SvelteComponent } from 'svelte';
+  import { fade } from 'svelte/transition';
 
   export let text: string;
   export let icon: typeof SvelteComponent | undefined;
@@ -9,6 +10,7 @@
 </script>
 
 <button
+  transition:fade
   on:click={eventHandler}
   class={`${
     isPrimary

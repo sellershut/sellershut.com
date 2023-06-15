@@ -1,18 +1,58 @@
 <script lang="ts">
   import Button from '$lib/components/button.svelte';
   import Step from '$lib/components/step.svelte';
+  import { selectCategory } from '$lib/util/modal/create-ad/select-category';
+  import { showModal } from '$lib/util/modal/driver';
+  import { slide } from 'svelte/transition';
   import createAdSteps from '$lib/util/steps';
   import IconBackCircle from '$lib/components/icons/icon-back-circle.svelte';
-  import { fade, slide } from 'svelte/transition';
-  import { showModal } from '$lib/util/modal/driver';
-  import { selectCategory } from '$lib/util/modal/create-ad/select-category';
+  import AdTitle from './ad-info/ad-title.svelte';
+  import AdPrice from './ad-info/ad-price.svelte';
 
   let title = '';
   let titleEdited = false;
 
-  const currentStep = 0;
+  let currentStep = 0;
 
-  $: titleInvalid = !title.trim().length && titleEdited;
+  const titleChanged = (e: CustomEvent<string>): void => {
+    titleEdited = true;
+    title = e.detail;
+  };
+
+  const navigator = (isBack: boolean) => {
+    switch (currentStep) {
+      case 0:
+        if (isBack) {
+          showModal(selectCategory);
+        } else {
+          currentStep += 1;
+        }
+        break;
+      case createAdSteps.length - 1:
+        if (!isBack) {
+          // go to next slide
+        } else {
+          currentStep -= 1;
+        }
+        break;
+      default:
+        if (isBack) {
+          currentStep -= 1;
+        } else {
+          currentStep += 1;
+        }
+    }
+  };
+
+  $: isInvalid = (): boolean => {
+    switch (currentStep) {
+      case 0:
+        return !title.trim().length && titleEdited;
+
+      default:
+        return true;
+    }
+  };
 </script>
 
 <div class="h-full flex flex-col space-y-2">
@@ -28,45 +68,31 @@
       />
     {/each}
   </div>
-  <div transition:fade class="flex flex-col flex-1 text-left space-y-4">
-    <div class="flex flex-col space-y-2">
-      <p class="inline-flex gap-2">
-        Title <span
-          transition:fade
-          class={`${
-            titleInvalid ? 'block' : 'hidden'
-          } font-light text-red-500 italic`}
-          >(your title is empty or too short)</span
-        >
-      </p>
-      <input
-        type="text"
-        bind:value={title}
-        on:input={() => {
-          titleEdited = true;
-        }}
-        class={`w-full ${
-          titleInvalid ? 'border-2 border-red-500' : ''
-        } focus:ring-rose-500 focus:border-rose-500 rounded bg-transparent text-sm`}
-        placeholder="My ad title"
-      />
-    </div>
-    <div class="flex flex-col space-y-2 flex-1">
-      <p>Description</p>
-      <textarea
-        class="w-full flex-1 focus:ring-rose-500 focus:border-rose-500 rounded bg-transparent text-sm"
-        placeholder="Don't shy away from the details now :)"
-      />
-    </div>
-  </div>
+
+  {#if currentStep === 0}
+    <AdTitle
+      {title}
+      titleInvalid={isInvalid()}
+      on:titleChanged={titleChanged}
+    />
+  {:else if currentStep === 1}
+    <AdPrice />
+  {/if}
 
   <div in:slide class="flex justify-between px-4 py-2">
     <Button
       icon={IconBackCircle}
       text={'Back'}
       isPrimary={false}
-      eventHandler={() => showModal(selectCategory)}
+      eventHandler={() => navigator(true)}
     />
-    <Button icon={IconBackCircle} text={'Proceed'} styles="rotate-180" />
+    {#if !isInvalid()}
+      <Button
+        icon={IconBackCircle}
+        text={'Proceed'}
+        styles="rotate-180"
+        eventHandler={() => navigator(false)}
+      />
+    {/if}
   </div>
 </div>
