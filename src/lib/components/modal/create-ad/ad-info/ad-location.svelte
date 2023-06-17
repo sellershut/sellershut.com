@@ -12,14 +12,16 @@
   onMount(() => {
     isDark = document.documentElement.classList.contains('dark');
   });
+
+  $: background = isDark ? zinc800 : zinc300;
 </script>
 
 <Select
   --border={`2px solid ${rose400}`}
   --border-hover={`2px solid ${rose500}`}
   --border-focused={`2px solid ${rose500}`}
-  --background={isDark ? { zinc800 } : { zinc300 }}
-  --list-background={isDark ? { zinc800 } : { zinc300 }}
+  --background={background}
+  --list-background={background}
   --item-hover-bg={`${rose500}`}
   items={formattedCountries}
   bind:value
