@@ -1,4 +1,4 @@
-import AdPrice from '$lib/components/modal/create-ad/ad-price.svelte';
+import AdPrice from '$lib/components/modal/create-ad/ad-info/ad-price.svelte';
 import type { ModalStatus } from '../../stores/modal';
 
 export const adPrice: Pick<ModalStatus, 'content' | 'title'> = {

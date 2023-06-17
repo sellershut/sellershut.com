@@ -4,12 +4,12 @@
   import { createQuery } from '@tanstack/svelte-query';
   import { byTextAscending } from '$lib/util/sort/sorter';
   import { categoryIcons } from '$lib/@types/category-icons';
-  import { scale, slide } from 'svelte/transition';
   import IconBackCircle from '$lib/components/icons/icon-back-circle.svelte';
   import IconXCircle from '$lib/components/icons/icon-x-circle.svelte';
   import Button from '$lib/components/button.svelte';
   import { showModal } from '$lib/util/modal/driver';
-  import { adInfo } from '$lib/util/modal/create-ad/ad-info';
+  import { adInfo } from '$lib/util/modal/create-ad/ad-info/ad-info';
+  import { fade, scale } from 'svelte/transition';
   import CreateAdCategoryElement from './create-ad-category-element.svelte';
 
   let parentId = 0;
@@ -50,10 +50,10 @@
   };
 </script>
 
-<div class="hidden lg:flex gap-2">
+<div class="hidden lg:flex gap-2 px-2">
   {#each selectedCategories as category, i}
     <div
-      transition:scale
+      in:scale
       class="border border-zinc-300 dark:border-zinc-800 rounded px-4 py-2 relative"
     >
       <button
@@ -69,7 +69,7 @@
   {/each}
 </div>
 <div
-  class={`flex-1 px-3 overscroll-contain grid gap-1 grid-cols-1 ${
+  class={`flex-1 px-3 max-h-[50vh] overscroll-contain grid gap-1 grid-cols-1 ${
     $categories.isSuccess
       ? 'sm:grid-cols-2 md:grid-cols-3 overflow-y-auto'
       : 'overflow-hidden'
@@ -77,9 +77,9 @@
 >
   {#if $categories.isLoading}
     <div class="flex items-center justify-center space-x-4">
-      {#each [1, 2, 3] as i}
+      {#each [...Array(3).keys()] as i}
         <div
-          transition:slide={{ duration: i * 100 }}
+          in:fade={{ duration: i * 50 }}
           class="animate-spin h-5 aspect-square bg-rose-500"
         />
       {/each}
@@ -98,7 +98,7 @@
   {/if}
 </div>
 {#if selectedCategories.length}
-  <div in:slide class="flex justify-between px-4 py-2">
+  <div class="flex justify-between px-4 py-2">
     <Button
       icon={IconBackCircle}
       text={'Back'}

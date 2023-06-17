@@ -7,11 +7,10 @@
   export let titleInvalid: boolean;
 </script>
 
-<div transition:fade class="flex flex-col flex-1 text-left space-y-4">
+<div in:fade={{ delay: 70 }} class="flex flex-col flex-1 text-left space-y-4">
   <div class="flex flex-col space-y-2">
     <p class="inline-flex gap-2 text-xs">
       Title <span
-        transition:fade
         class={`${
           titleInvalid ? 'block' : 'hidden'
         } font-light text-red-500 italic`}

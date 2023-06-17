@@ -3,9 +3,11 @@
   import Step from '$lib/components/step.svelte';
   import { selectCategory } from '$lib/util/modal/create-ad/select-category';
   import { showModal } from '$lib/util/modal/driver';
-  import { slide } from 'svelte/transition';
   import createAdSteps from '$lib/util/steps';
   import IconBackCircle from '$lib/components/icons/icon-back-circle.svelte';
+  import { modal } from '$lib/util/stores/modal';
+  import { adPrice } from '$lib/util/modal/create-ad/ad-price';
+  import { adInfoTitle } from '$lib/util/modal/create-ad/ad-info/ad-info-title';
   import AdTitle from './ad-info/ad-title.svelte';
   import AdPrice from './ad-info/ad-price.svelte';
 
@@ -38,7 +40,7 @@
         }
         break;
       case createAdSteps.length - 1:
-        // you're in the last slide now, so next should
+        // you're in the last slide now, so next should handle event
         if (!isBack) {
           // go to next slide
         } else {
@@ -57,10 +59,12 @@
   $: {
     switch (currentStep) {
       case 0:
+        $modal.title = adInfoTitle;
         isInvalid = !title.trim().length && titleEdited;
         break;
 
       case 1:
+        $modal.title = adPrice.title;
         isInvalid = !amountEdited || amount == null;
         break;
 
@@ -94,7 +98,7 @@
     />
   {/if}
 
-  <div in:slide class="flex justify-between px-4 py-2">
+  <div class="flex justify-between px-4 py-2">
     <Button
       icon={IconBackCircle}
       text={'Back'}
