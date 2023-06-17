@@ -8,6 +8,7 @@
   import { modal } from '$lib/util/stores/modal';
   import { adPrice } from '$lib/util/modal/create-ad/ad-price';
   import { adInfoTitle } from '$lib/util/modal/create-ad/ad-info/ad-info-title';
+  import { adLocation } from '$lib/util/modal/create-ad/ad-location/ad-location';
   import AdTitle from './ad-info/ad-title.svelte';
   import AdPrice from './ad-info/ad-price.svelte';
 
@@ -47,6 +48,11 @@
           currentStep -= 1;
         }
         break;
+      case 1:
+        if (!isBack) {
+          showModal(adLocation);
+        }
+        break;
       default:
         if (isBack) {
           currentStep -= 1;
@@ -65,6 +71,11 @@
 
       case 1:
         $modal.title = adPrice.title;
+        isInvalid = !amountEdited || amount == null;
+        break;
+
+      case 2:
+        $modal.title = adLocation.title;
         isInvalid = !amountEdited || amount == null;
         break;
 
