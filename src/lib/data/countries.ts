@@ -1,13 +1,11 @@
+import type { Country } from '$lib/@types/country';
 import countries from 'world-countries';
 
-export const formattedCountries = countries.map((country) => ({
+export const formattedCountries: Country[] = countries.map((country) => ({
   value: country.cca2,
   label: country.name.common,
   icon: country.flag,
-  coordinates: {
-    lat: country.latlng[0],
-    lo: country.latlng[1],
-  },
+  latlng: country.latlng,
   region: country.region,
 }));
 
