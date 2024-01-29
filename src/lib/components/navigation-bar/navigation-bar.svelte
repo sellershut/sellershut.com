@@ -15,7 +15,7 @@
 </script>
 
 <header
-  class="sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2"
+  class="sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 overflow-x-hidden"
 >
   <div class="container flex items-center gap-2 border-b dark:border-muted pb-2">
     <a href="/" class="inline-flex gap-1">

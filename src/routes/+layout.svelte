@@ -6,9 +6,9 @@
   export let data: PageData;
 </script>
 
-<div class="bg-background/90 text-foreground overflow-x-hidden">
+<div class="bg-background/90 text-foreground">
   <NavigationBar darkMode={data.darkMode} />
-  <main class="min-h-screen container">
+  <main class="min-h-screen container overflow-x-hidden">
     <slot />
   </main>
 </div>
