@@ -1,18 +1,28 @@
 <script lang="ts">
-  import * as DropdownMenu from '$components/ui/dropdown-menu';
   import { Button } from '$components/ui/button';
+  import { Moon, Sun } from 'radix-icons-svelte';
 
-  let position = 'bottom';
+  let { darkMode } = $props<{ darkMode: boolean }>();
+
+  let darkModeEnabled = $state(darkMode);
+
+  function setTheme(isDark: boolean) {
+    const theme = isDark ? 'dark' : 'light';
+    document.documentElement.setAttribute('class', theme);
+    document.cookie = `siteTheme=${theme};max-age=31557600;path='/';SameSite=Strict`;
+  }
 </script>
 
-<DropdownMenu.Root>
-  <DropdownMenu.Trigger asChild let:builder>
-    <Button variant="outline" builders={[builder]}>Open</Button>
-  </DropdownMenu.Trigger>
-  <DropdownMenu.Content>
-    <DropdownMenu.RadioGroup bind:value={position}>
-      <DropdownMenu.RadioItem value="light">Light</DropdownMenu.RadioItem>
-      <DropdownMenu.RadioItem value="dark">Dark</DropdownMenu.RadioItem>
-    </DropdownMenu.RadioGroup>
-  </DropdownMenu.Content>
-</DropdownMenu.Root>
+<Button
+  variant="outline"
+  on:click={() => {
+    darkModeEnabled = !darkModeEnabled;
+    setTheme(darkModeEnabled);
+  }}
+>
+  {#if darkModeEnabled}
+    <Sun />
+  {:else}
+    <Moon />
+  {/if}
+</Button>

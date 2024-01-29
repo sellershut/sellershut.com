@@ -29,5 +29,5 @@
   {data.text}
 </a>
 <div
-  class={`mt-2 h-[2px] w-full rounded-full bg-rose-400 ${searchParams === data.text ? '' : 'invisible'} `}
+  class={`mt-2 h-[2px] w-full rounded-full bg-primary ${searchParams === data.text ? '' : 'invisible'} `}
 />
