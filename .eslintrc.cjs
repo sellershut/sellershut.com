@@ -10,7 +10,14 @@ module.exports = {
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ['/*.cjs', '/*.js', '/*.ts'],
+  ignorePatterns: [
+    '/*.cjs',
+    '/*.js',
+    '/*.ts',
+    '**/components/ui/**/*.svelte',
+    '**/components/ui/**/*.ts',
+    'src/lib/utils.ts',
+  ],
   plugins: ['@typescript-eslint'],
   parserOptions: {
     sourceType: 'module',
