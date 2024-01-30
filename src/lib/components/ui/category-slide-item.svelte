@@ -23,7 +23,7 @@
 
 <a
   href={routePage(data.text)}
-  class={`flex flex-col items-center justify-center text-xs text-center transition ${searchParams === data.text ? '' : 'opacity-80'} hover:opacity-100`}
+  class={`flex flex-col items-center justify-center text-xs text-center transition ${searchParams === data.text ? 'font-medium' : 'opacity-80'} hover:opacity-100`}
 >
   <svelte:component this={data.icon ?? QuestionMarkCircled} />
   {data.text}
