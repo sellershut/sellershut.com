@@ -113,4 +113,6 @@ const sliderCategories = [
   },
 ];
 
+export const findIcon = (category?: string) =>
+  sliderCategories.find(({ text }) => text === category)?.icon;
 export default sliderCategories;

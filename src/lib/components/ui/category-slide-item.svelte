@@ -1,10 +1,10 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { QuestionMarkCircled } from 'radix-icons-svelte';
-  import type { ComponentType } from 'svelte';
+  import type { SliderCategory } from '$lib/api/categories';
 
   let { data } = $props<{
-    data: { text: string; path: string; icon?: ComponentType };
+    data: SliderCategory;
   }>();
 
   let searchParams = $state();

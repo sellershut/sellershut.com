@@ -4,7 +4,7 @@
 
   let { component, data } = $props<{
     component: ComponentType;
-    data: { text: string; icon: ComponentType }[];
+    data: { text: string; icon?: ComponentType }[];
   }>();
 </script>
 
