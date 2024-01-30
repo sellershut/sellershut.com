@@ -1,16 +1,19 @@
 <script lang="ts">
   import IconLogo from '$components/icons/logo.svelte';
   import { Button } from '$components/ui/button';
-  import { MagnifyingGlass, MixerHorizontal } from 'radix-icons-svelte';
+  import { MagnifyingGlass } from 'radix-icons-svelte';
   import * as Avatar from '$components/ui/avatar';
   import Glider from '$components/ui/glider.svelte';
   import CategorySlideItem from '$components/ui/category-slide-item.svelte';
   import sliderCategories from '$lib/content/slider-categories';
   import { page } from '$app/stores';
   import ThemeSwitcher from '$components/ui/theme-switcher.svelte';
+  import FilterDialog from './filter-dialog.svelte';
 
   const { darkMode } = $props<{ darkMode: boolean }>();
 
+  // NOTE: https://github.com/sveltejs/eslint-plugin-svelte/issues/652
+  // eslint-disable-next-line svelte/valid-compile
   const isRootPage = $derived($page.route.id === '/');
 </script>
 
@@ -36,10 +39,7 @@
     <div
       class="flex items-center w-screen justify-center md:justify-around md:flex-row-reverse flex-col gap-2 md:gap-4 pt-2 px-4 md:px-8 lg:px-12 2xl:px-16"
     >
-      <Button variant="outline" class="inline-flex gap-2">
-        <MixerHorizontal />
-        Filter</Button
-      >
+      <FilterDialog />
       <Glider component={CategorySlideItem} data={sliderCategories} />
     </div>
   {/if}
