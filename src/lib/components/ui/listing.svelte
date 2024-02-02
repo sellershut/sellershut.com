@@ -4,6 +4,8 @@
   import * as Avatar from '$components/ui/avatar';
   import * as HoverCard from '$components/ui/hover-card';
 
+  const limit: number = 80;
+
   let text =
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ullam eos ratione magni quos eligendi sapiente error, suscipit id illo ex cupiditate commodi totam reiciendis corrupti? Earum maxime ea perspiciatis?';
 </script>
@@ -24,11 +26,13 @@
       <h2 class="title-font text-lg font-medium">The Catalyzer</h2>
     </div>
   </Card.Title>
-  <Card.Description>
-    <p class="mt-1 text-xs">{text.slice(0, 80)}{text.length >= 80 ? '...' : ''}</p>
-  </Card.Description>
+  <Card.Content>
+    <p class="mt-1 text-xs text-muted-foreground">
+      {text.slice(0, limit)}{text.length >= limit ? '...' : ''}
+    </p>
+  </Card.Content>
   <Card.Footer>
-    <div class="flex justify-between w-full mt-4">
+    <div class="flex justify-between w-full">
       <p>$16.00</p>
       <div class="flex flex-col">
         <p class="text-xs font-semibold">Some Area</p>
