@@ -10,6 +10,7 @@
   import type { SliderCategory } from '$lib/api/categories';
   import { createQuery } from '@tanstack/svelte-query';
   import { api } from '$lib/api/categories/api';
+  import NavSearch from '$components/ui/nav-search.svelte';
   import FilterDialog from './filter-dialog.svelte';
 
   const { darkMode } = $props<{ darkMode: boolean }>();
@@ -23,34 +24,51 @@
     queryFn: () => api().getParentCategories({ first: 100 }),
   });
   const cats = $derived($categories.data);
+
+  let searchOpen = $state(true);
+  const showScrollbar = $derived(!searchOpen);
+
+  $effect(() => {
+    document.body.style.overflowY = showScrollbar ? '' : 'hidden';
+  });
+
+  const toggleSearch = () => {
+    searchOpen = !searchOpen;
+  };
 </script>
 
-<header
-  class="sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-2 overflow-x-hidden"
->
-  <div class="container flex items-center gap-2 border-b dark:border-muted pb-2">
-    <a href="/" class="inline-flex gap-1">
-      <IconLogo class="text-primary" />
-      <span class="font-bold tracking-normal">sellershut</span>
-    </a>
-    <div class="flex-1" />
-    <Button variant="outline">
-      <MagnifyingGlass />
-    </Button>
-    <ThemeSwitcher {darkMode} />
-    <Avatar.Root>
-      <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
-      <Avatar.Fallback>CN</Avatar.Fallback>
-    </Avatar.Root>
-  </div>
-  {#if isRootPage}
-    <div
-      class="flex items-center w-screen justify-center md:justify-around md:flex-row-reverse flex-col gap-2 md:gap-4 pt-2 px-4 md:px-8 lg:px-12 2xl:px-16"
-    >
-      <FilterDialog />
-      {#if cats}
-        <Glider component={CategorySlideItem} data={cats} />
-      {/if}
+<div class="relative">
+  <header
+    class="sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90 p-2 overflow-x-hidden"
+  >
+    <div class="container flex items-center gap-2 border-b dark:border-muted pb-2">
+      <a href="/" class="inline-flex gap-1">
+        <IconLogo class="text-primary" />
+        <span class="font-bold tracking-normal">sellershut</span>
+      </a>
+      <div class="flex-1" />
+      <Button variant="outline" on:click={toggleSearch}>
+        <MagnifyingGlass />
+      </Button>
+      <ThemeSwitcher {darkMode} />
+      <Avatar.Root>
+        <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
+        <Avatar.Fallback>CN</Avatar.Fallback>
+      </Avatar.Root>
     </div>
+    {#if isRootPage && !searchOpen}
+      <div
+        class="flex items-center w-screen justify-center md:justify-around md:flex-row-reverse flex-col gap-2 md:gap-4 pt-2 px-4 md:px-8 lg:px-12 2xl:px-16"
+      >
+        <FilterDialog />
+        {#if cats}
+          <Glider component={CategorySlideItem} data={cats} />
+        {/if}
+      </div>
+    {/if}
+  </header>
+
+  {#if searchOpen}
+    <NavSearch />
   {/if}
-</header>
+</div>
