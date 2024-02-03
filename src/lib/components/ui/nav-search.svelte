@@ -40,8 +40,13 @@
 <div
   class={`${searchOpen ? '' : 'hidden'} -mt-3 absolute z-20 top-full min-h-screen w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90`}
 >
-  <div class="bg-background shadow rounded-b-xl pt-3">
-    <div role="menu" tabindex="0" class="container flex flex-col" on:mouseleave={close}>
+  <div
+    role="menu"
+    tabindex="0"
+    class="bg-background shadow rounded-b-xl pt-3"
+    on:mouseleave={close}
+  >
+    <div class="container flex flex-col">
       <Button variant="ghost" class="place-self-end md:hidden" on:click={close}>
         <Cross2 />
       </Button>
