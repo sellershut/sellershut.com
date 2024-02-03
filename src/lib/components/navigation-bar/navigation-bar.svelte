@@ -25,7 +25,7 @@
   });
   const cats = $derived($categories.data);
 
-  let searchOpen = $state(true);
+  let searchOpen = $state(false);
   const showScrollbar = $derived(!searchOpen);
   const showSlider = $derived(isRootPage && !searchOpen);
 
@@ -69,5 +69,5 @@
     </div>
   </header>
 
-  <NavSearch {searchOpen} />
+  <NavSearch {searchOpen} on:close={toggleSearch} />
 </div>

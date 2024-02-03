@@ -1,18 +1,22 @@
 <script lang="ts">
   import { Button } from '$components/ui/button';
   import { Cross2, MagnifyingGlass } from 'radix-icons-svelte';
-  import { Input } from '$components/ui/input';
-  import { SearchIcon } from 'lucide-svelte';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   let { searchOpen } = $props<{ searchOpen: boolean }>();
+  const close = () => {
+    dispatch('close', { text: 'mouse left search overlay' });
+  };
 </script>
 
 <div
   class={`${searchOpen ? '' : 'hidden'} -mt-3 absolute z-20 top-full min-h-screen w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90`}
 >
   <div class="bg-background shadow rounded-b-xl pt-3">
-    <div class="container flex flex-col">
-      <Button variant="ghost" class="place-self-end md:hidden">
+    <div role="menu" tabindex="0" class="container flex flex-col" on:mouseleave={close}>
+      <Button variant="ghost" class="place-self-end md:hidden" on:click={close}>
         <Cross2 />
       </Button>
       <div class="px-2 md:px-8 lg:px-16 xl:px-32 py-4">
