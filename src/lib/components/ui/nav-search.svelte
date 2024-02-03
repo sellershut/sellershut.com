@@ -5,6 +5,7 @@
   import type { Edge } from '$lib/api/response/graphql';
   import { Cross2, MagnifyingGlass } from 'radix-icons-svelte';
   import { createEventDispatcher } from 'svelte';
+  import LoadingSpinner from './loading-spinner.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -30,7 +31,7 @@
   function handleSearch() {
     searching = true;
     if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(getCategories, 300);
+    timeout = setTimeout(getCategories, 500);
   }
 
   function getCategories() {
@@ -42,12 +43,11 @@
     api()
       .search({ first: 10 }, searchInput)
       .then((res) => {
-        console.log(searchInput);
         searchResults = res.data?.data?.search.edges ?? [];
         searching = false;
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -89,8 +89,18 @@
           </div>
         </form>
         <div class="px-8 pb-4">
-          {#if validInput}
-            <div>{searchInput}</div>
+          {#if validInput && searching}
+            <LoadingSpinner />
+          {:else if validInput && searchResults.length}
+            <ul>
+              {#each searchResults as { node }}
+                <li>
+                  <p>{node.name}</p>
+                </li>
+              {/each}
+            </ul>
+          {:else if validInput && !searchResults.length}
+            <div>No results available</div>
           {:else}
             <h1 class="text-2xl font-bold pb-4">Popular Now</h1>
             <ul class="flex flex-col px-2 text-popover-foreground">
