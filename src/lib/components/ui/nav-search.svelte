@@ -2,19 +2,22 @@
   import { Button } from '$components/ui/button';
   import type { Category } from '$lib/api/categories';
   import api from '$lib/api/categories/api';
-  import type { Edge, GraphQLPaginatedResult } from '$lib/api/response/graphql';
-  import { createQuery } from '@tanstack/svelte-query';
+  import type { Edge } from '$lib/api/response/graphql';
   import { Cross2, MagnifyingGlass } from 'radix-icons-svelte';
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
   let { searchOpen } = $props<{ searchOpen: boolean }>();
-  const close = () => {
-    dispatch('close', { text: 'mouse left search overlay' });
-  };
 
   let searchInput = $state('');
+  let searching = $state(false);
+  let timeout: number;
+
+  const close = () => {
+    searchInput = '';
+    dispatch('close', { text: 'mouse left search overlay' });
+  };
 
   const validateInput = (query: string): boolean => {
     return query.trim().length != 0;
@@ -22,19 +25,36 @@
 
   let validInput = $derived(validateInput(searchInput));
 
-  let categories = $derived(
-    validInput
-      ? createQuery<GraphQLPaginatedResult<Partial<Category>>, Error>({
-          queryKey: ['search', searchInput],
-          queryFn: () => api().search({ first: 10 }, searchInput),
-        })
-      : null
-  );
+  let searchResults: Edge<Partial<Category>>[] = $state([]);
 
-  let searchResults: Edge<Partial<Category>>[] = [];
-  $effect(() => {
-    searchResults = $categories?.data?.data?.data.search.edges ?? [];
-  });
+  function handleSearch() {
+    searching = true;
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(getCategories, 300);
+  }
+
+  function getCategories() {
+    if (!validInput) {
+      reset();
+      return;
+    }
+
+    api()
+      .search({ first: 10 }, searchInput)
+      .then((res) => {
+        console.log(searchInput);
+        searchResults = res.data?.data?.search.edges ?? [];
+        searching = false;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function reset() {
+    searchResults = [];
+    searching = false;
+  }
 </script>
 
 <div
@@ -59,6 +79,7 @@
             </div>
             <input
               bind:value={searchInput}
+              on:input={handleSearch}
               type="search"
               id="default-search"
               class="block w-full p-4 ps-10 font-semibold text-xl focus:outline-none bg-transparent focus:ring-0 focus:border-primary focus:border-none"
@@ -69,7 +90,7 @@
         </form>
         <div class="px-8 pb-4">
           {#if validInput}
-            <div>Hello</div>
+            <div>{searchInput}</div>
           {:else}
             <h1 class="text-2xl font-bold pb-4">Popular Now</h1>
             <ul class="flex flex-col px-2 text-popover-foreground">
