@@ -4,7 +4,7 @@
 </script>
 
 <section class="px-5 py-8 mx-auto">
-  <div class="flex flex-wrap -m-4">
+  <ul class="flex flex-wrap -m-4">
     <Listing />
     <Listing />
     <Listing />
@@ -17,7 +17,7 @@
     <Listing />
     <Listing />
     <Listing />
-  </div>
+  </ul>
 </section>
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
