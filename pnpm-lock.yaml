@@ -24,8 +24,8 @@ dependencies:
     specifier: 8.0.0-rc22
     version: 8.0.0-rc22(svelte@5.0.0-next.40)
   lucide-svelte:
-    specifier: ^0.316.0
-    version: 0.316.0(svelte@5.0.0-next.40)
+    specifier: ^0.321.0
+    version: 0.321.0(svelte@5.0.0-next.40)
   radix-icons-svelte:
     specifier: ^1.2.1
     version: 1.2.1
@@ -92,8 +92,8 @@ devDependencies:
     specifier: ^1.70.0
     version: 1.70.0
   shadcn-svelte:
-    specifier: ^0.6.1
-    version: 0.6.1(typescript@5.3.3)
+    specifier: ^0.7.0
+    version: 0.7.0(typescript@5.3.3)
   svelte:
     specifier: ^5.0.0-next.1
     version: 5.0.0-next.40
@@ -2618,10 +2618,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /lucide-svelte@0.316.0(svelte@5.0.0-next.40):
-    resolution: {integrity: sha512-6mtBw/aU1IIVXfN6AXLSwsbeCFX/2/tTy84rrDTDsOq7BEijFbvObQsPEWPxJ0EyCjUXOYfAvfkZzMosYjyGqA==}
+  /lucide-svelte@0.321.0(svelte@5.0.0-next.40):
+    resolution: {integrity: sha512-sp5ogKKo8Oth6mcsIwN1HGudeshzSjtTGVwtISD/GdEjBaG4z3fwF6JupnnLEVPXC+TCETwcn6y3Y/Z3ljbs/Q==}
     peerDependencies:
-      svelte: '>=3 <5'
+      svelte: ^3 || ^4 || ^5.0.0-next.42
     dependencies:
       svelte: 5.0.0-next.40
     dev: false
@@ -3329,8 +3329,8 @@ packages:
       has-property-descriptors: 1.0.1
     dev: true
 
-  /shadcn-svelte@0.6.1(typescript@5.3.3):
-    resolution: {integrity: sha512-0IquU+3PlEQPK2sKqFXhh0zmwNTmHx2bHJOFyG1fqPlo/Y1L9U2cMTEeuTxw9YvEC5fM65hrb5/9dWRnDx4B9w==}
+  /shadcn-svelte@0.7.0(typescript@5.3.3):
+    resolution: {integrity: sha512-Ob+umTjCSxsV/KLhwNVOU76kr4aO28xiYWV89w/MNf7FPzMx4TZm7z/HsOQIVTWDqRXYS8k2/HNbLcQGRlT9JA==}
     hasBin: true
     peerDependencies:
       typescript: ^4.0.0 || ^5.0.0
