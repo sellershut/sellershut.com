@@ -11,14 +11,13 @@
         "lint-staged",
         "prettier"
       ],
-      "automerge": true,
-      "groupName": "linting"
+      "groupName": "linters"
     },
     {
       "matchPackagePatterns": [
         "svelte"
       ],
-      "groupName": "svelte"
+      "groupName": "svelte-pkgs"
     },
     {
       "matchPackagePatterns": [
