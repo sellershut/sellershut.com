@@ -1,6 +1,8 @@
 <script lang="ts">
-  import emblaCarouselSvelte from 'embla-carousel-svelte';
+  import * as Carousel from '$lib/components/ui/carousel';
   import type { ComponentType } from 'svelte';
+
+  const gapSize = 4;
 
   let { component, data } = $props<{
     component: ComponentType;
@@ -8,12 +10,16 @@
   }>();
 </script>
 
-<div class="overflow-hidden w-screen md:w-auto" use:emblaCarouselSvelte>
-  <ul class="flex gap-2 pb-1">
+<Carousel.Root class="w-screen md:max-w-screen-2xl py-2">
+  <Carousel.Content class={`-ml-${gapSize}`}>
     {#each data as content}
-      <li class="place-self-center max-w-24 min-w-24 flex-shrink-0 flex-grow-0 basis-auto">
+      <Carousel.Item
+        class={`place-self-center basis-auto min-w-24 pl-${gapSize}`}
+      >
         <svelte:component this={component} data={content} />
-      </li>
+      </Carousel.Item>
     {/each}
-  </ul>
-</div>
+  </Carousel.Content>
+  <Carousel.Previous />
+  <Carousel.Next />
+</Carousel.Root>

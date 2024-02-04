@@ -84,6 +84,7 @@ export const api = () => ({
                 node {
                   id,
                   name,
+                  parentId
                 }
               },
             }
