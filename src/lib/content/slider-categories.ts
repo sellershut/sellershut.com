@@ -1,11 +1,13 @@
 import {
   ArmchairIcon,
   BabyIcon,
+  BadgeDollarSignIcon,
   BotIcon,
   BuildingIcon,
   CameraIcon,
   ComputerIcon,
   Disc2,
+  FactoryIcon,
   Gamepad2Icon,
   KeyboardIcon,
   LibraryIcon,
@@ -20,12 +22,21 @@ import {
   StampIcon,
   StarIcon,
   TicketIcon,
+  TrophyIcon,
 } from 'lucide-svelte';
 
 const sliderCategories = [
   {
     text: 'Consumer Electronics',
     icon: Plug2Icon,
+  },
+  {
+    text: 'Business & Industrial',
+    icon: FactoryIcon,
+  },
+  {
+    text: 'Coins & Paper Money',
+    icon: BadgeDollarSignIcon,
   },
   {
     text: 'Pet Supplies',
@@ -101,7 +112,7 @@ const sliderCategories = [
   },
   {
     text: 'Collectibles',
-    icon: StarIcon,
+    icon: TrophyIcon,
   },
   {
     text: 'Home & Garden',

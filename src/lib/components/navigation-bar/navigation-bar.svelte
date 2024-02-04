@@ -1,8 +1,7 @@
 <script lang="ts">
   import IconLogo from '$components/icons/logo.svelte';
   import { Button } from '$components/ui/button';
-  import { MagnifyingGlass } from 'radix-icons-svelte';
-  import * as Avatar from '$components/ui/avatar';
+  import { Bell, ChatBubble, MagnifyingGlass, Plus } from 'radix-icons-svelte';
   import Glider from '$components/ui/glider.svelte';
   import CategorySlideItem from '$components/ui/category-slide-item.svelte';
   import { page } from '$app/stores';
@@ -12,6 +11,7 @@
   import { api } from '$lib/api/categories/api';
   import NavSearch from '$components/ui/nav-search.svelte';
   import FilterDialog from './filter-dialog.svelte';
+  import AvatarButton from './avatar-button.svelte';
 
   const { darkMode } = $props<{ darkMode: boolean }>();
 
@@ -38,36 +38,46 @@
   };
 </script>
 
-<div class="relative">
-  <header
-    class={`${searchOpen ? 'hidden md:block' : ''} transition-transform transform ease-in-out duration-300 sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90 p-2 overflow-x-hidden`}
-  >
-    <div
-      class={`container flex items-center gap-2 transition ${searchOpen ? 'border-opacity-0' : 'border-opacity-100'} dark:border-muted border-b  pb-2`}
+<div class="sticky top-0 z-10 w-full">
+  <div class="relative">
+    <header
+      class={`${searchOpen ? 'hidden md:block' : ''} transition-transform transform ease-in-out duration-300  border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90 p-2 overflow-x-hidden`}
     >
-      <a href="/" class="inline-flex gap-1">
-        <IconLogo class="text-primary" />
-        <span class="font-bold tracking-normal">sellershut</span>
-      </a>
-      <div class="flex-1" />
-      <Button variant="outline" on:click={toggleSearch}>
-        <MagnifyingGlass />
-      </Button>
-      <ThemeSwitcher {darkMode} />
-      <Avatar.Root>
-        <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
-        <Avatar.Fallback>CN</Avatar.Fallback>
-      </Avatar.Root>
-    </div>
-    <div
-      class={`${showSlider ? 'flex ' : 'hidden'} items-center w-screen justify-center md:justify-around md:flex-row-reverse flex-col gap-2 md:gap-4 pt-2 px-4 md:px-8 lg:px-12 2xl:px-16`}
-    >
-      <FilterDialog />
-      {#if cats}
-        <Glider component={CategorySlideItem} data={cats} />
-      {/if}
-    </div>
-  </header>
+      <div
+        class={`container flex items-center gap-2 transition ${searchOpen ? 'border-opacity-0' : 'border-opacity-100'} dark:border-muted border-b  pb-2`}
+      >
+        <a href="/" class="inline-flex gap-1">
+          <IconLogo class="text-primary" />
+          <span class="font-bold tracking-normal">sellershut</span>
+        </a>
+        <div class="flex-1" />
+        <Button variant="outline" on:click={toggleSearch}>
+          <MagnifyingGlass />
+        </Button>
+        <ThemeSwitcher {darkMode} />
+        <AvatarButton />
+        <Button variant="default" class="hidden sm:block">
+          <Plus />
+        </Button>
+        {#each [Bell, ChatBubble] as icon}
+          <Button variant="outline" class="hidden sm:block">
+            <div class="relative">
+              <svelte:component this={icon} />
+              <div class="absolute -top-1 -right-1 h-2 w-2 bg-primary rounded-full" />
+            </div>
+          </Button>
+        {/each}
+      </div>
+      <div
+        class={`${showSlider ? 'flex ' : 'hidden'} items-center w-screen justify-center md:justify-around md:flex-row-reverse flex-col gap-2 md:gap-4 pt-2 px-4 md:px-8 lg:px-12 2xl:px-16`}
+      >
+        <FilterDialog />
+        {#if cats}
+          <Glider component={CategorySlideItem} data={cats} />
+        {/if}
+      </div>
+    </header>
 
-  <NavSearch {searchOpen} on:close={toggleSearch} />
+    <NavSearch {searchOpen} on:close={toggleSearch} />
+  </div>
 </div>
