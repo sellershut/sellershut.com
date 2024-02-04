@@ -124,6 +124,12 @@ const sliderCategories = [
   },
 ];
 
-export const findIcon = (category?: string) =>
-  sliderCategories.find(({ text }) => text === category)?.icon;
-export default sliderCategories;
+const mappedSliderCategories = new Map(
+  sliderCategories.map((category) => [category.text, category.icon])
+);
+
+export const findIcon = (category?: string) => {
+  const val = category ? mappedSliderCategories.get(category) : undefined;
+  return val;
+};
+export default Object.freeze(mappedSliderCategories);

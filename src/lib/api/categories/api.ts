@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { findIcon } from '$lib/content/slider-categories';
 import type { GraphQLPaginatedResult, GraphQLPaginationProps } from '$lib/api/response/graphql';
 import type { Category, SliderCategory } from '.';
 import { PUBLIC_CATEGORIES_API } from '$env/static/public';
@@ -13,8 +12,7 @@ export const api = () => ({
 
     const names = categories.data?.data.subCategories.edges.map((category) => {
       const { name } = category.node;
-      const icon = findIcon(name);
-      return { text: name!, icon };
+      return { id: category.node.id!, text: name! };
     });
     return names;
   },
@@ -54,7 +52,7 @@ export const api = () => ({
             }
           }`,
         variables: {
-          id: id ?? undefined,
+          id,
           after: after ?? undefined,
           before: before ?? undefined,
           first: first ?? undefined,

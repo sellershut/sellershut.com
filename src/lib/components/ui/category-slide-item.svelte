@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import { QuestionMarkCircled } from 'radix-icons-svelte';
   import type { SliderCategory } from '$lib/api/categories';
+  import { findIcon } from '$lib/content/slider-categories';
 
   let { data } = $props<{
     data: SliderCategory;
@@ -25,7 +26,7 @@
   href={routePage(data.text)}
   class={`flex flex-col items-center justify-center text-xs text-center transition ${searchParams === data.text ? 'font-medium' : 'opacity-80'} hover:opacity-100`}
 >
-  <svelte:component this={data.icon ?? QuestionMarkCircled} />
+  <svelte:component this={findIcon(data.text) ?? QuestionMarkCircled} />
   {data.text}
 </a>
 <div

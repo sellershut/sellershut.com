@@ -1,28 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":semanticCommits"
-  ],
+  "extends": ["config:recommended", ":semanticCommits"],
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "eslint",
-        "lint-staged",
-        "prettier"
-      ],
+      "matchPackagePatterns": ["eslint", "lint-staged", "prettier"],
       "groupName": "linters"
     },
     {
-      "matchPackagePatterns": [
-        "svelte"
-      ],
+      "matchPackagePatterns": ["svelte"],
       "groupName": "svelte-pkgs"
     },
     {
-      "matchPackagePatterns": [
-        "actions/"
-      ],
+      "matchPackagePatterns": ["actions/"],
       "groupName": "github-actions"
     }
   ]

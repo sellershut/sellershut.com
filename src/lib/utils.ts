@@ -54,3 +54,7 @@ export const flyAndScale = (
     easing: cubicOut,
   };
 };
+
+export const nonWhitespaceInput = (query: string): boolean => {
+  return query.trim().length != 0;
+};

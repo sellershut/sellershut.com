@@ -1,7 +1,7 @@
 <script lang="ts">
   import IconLogo from '$components/icons/logo.svelte';
   import { Button } from '$components/ui/button';
-  import { Bell, ChatBubble, MagnifyingGlass, Plus } from 'radix-icons-svelte';
+  import { Bell, ChatBubble, MagnifyingGlass } from 'radix-icons-svelte';
   import Glider from '$components/ui/glider.svelte';
   import CategorySlideItem from '$components/ui/category-slide-item.svelte';
   import { page } from '$app/stores';
@@ -10,6 +10,7 @@
   import { createQuery } from '@tanstack/svelte-query';
   import { api } from '$lib/api/categories/api';
   import NavSearch from '$components/ui/nav-search.svelte';
+  import NewListing from '$components/new-listing/new-listing.svelte';
   import FilterDialog from './filter-dialog.svelte';
   import AvatarButton from './avatar-button.svelte';
 
@@ -23,7 +24,7 @@
     queryKey: ['slider-categories'],
     queryFn: () => api().getParentCategories({ first: 100 }),
   });
-  const cats = $derived($categories.data);
+  const cats = $derived($categories.data ?? []);
 
   let searchOpen = $state(false);
   const showScrollbar = $derived(!searchOpen);
@@ -56,9 +57,7 @@
         </Button>
         <ThemeSwitcher {darkMode} />
         <AvatarButton />
-        <Button variant="default" class="hidden sm:block">
-          <Plus />
-        </Button>
+        <NewListing />
         {#each [Bell, ChatBubble] as icon}
           <Button variant="outline" class="hidden sm:block">
             <div class="relative">

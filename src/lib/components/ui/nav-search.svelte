@@ -6,6 +6,7 @@
   import { Cross2, MagnifyingGlass } from 'radix-icons-svelte';
   import { createEventDispatcher } from 'svelte';
   import LoadingSpinner from './loading-spinner.svelte';
+  import { nonWhitespaceInput } from '$lib/utils';
 
   const dispatch = createEventDispatcher();
 
@@ -20,11 +21,7 @@
     dispatch('close', { text: 'mouse left search overlay' });
   };
 
-  const validateInput = (query: string): boolean => {
-    return query.trim().length != 0;
-  };
-
-  let validInput = $derived(validateInput(searchInput));
+  let validInput = $derived(nonWhitespaceInput(searchInput));
 
   let searchResults: Edge<Partial<Category>>[] = $state([]);
 
