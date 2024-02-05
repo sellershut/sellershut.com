@@ -18,7 +18,7 @@
   const validInput = $derived(nonWhitespaceInput(searchQuery));
   const whitespaceOnly = $derived(searchQuery.length && !validInput);
 
-  type IdExtract = Pick<Category, 'name' | 'id' | 'parentId'>;
+  type IdExtract = Pick<Category, 'name' | 'id' | 'subCategories'>;
   let selectedCategories: IdExtract[] = $state([]);
 
   const pushCategory = (evt: CustomEvent<IdExtract>) => {
@@ -63,9 +63,11 @@
   };
 
   $effect(() => {
-    if (lastItem?.parentId != null) {
+    if (lastItem && !lastItem.subCategories?.length) {
       // send message that this slide is ok
       dispatch('slideValid', { categoryId: lastItem.id, slide: 1 });
+    } else {
+      dispatch('invalidate');
     }
   });
 </script>

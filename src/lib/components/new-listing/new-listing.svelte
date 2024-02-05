@@ -22,6 +22,10 @@
   const previousSlide = () => {
     activeIndex += 1;
   };
+
+  const invalidate = () => {
+    stepValid = false;
+  };
 </script>
 
 <Dialog.Root closeOnOutsideClick={false} open={true}>
@@ -35,7 +39,11 @@
       <Dialog.Title>New Listing</Dialog.Title>
       <Progress value={progress} />
     </Dialog.Header>
-    <svelte:component this={slides[activeIndex]} on:slideValid={stepIsValid} />
+    <svelte:component
+      this={slides[activeIndex]}
+      on:slideValid={stepIsValid}
+      on:invalidate={invalidate}
+    />
     <div class="flex gap-2">
       <Button
         variant="outline"

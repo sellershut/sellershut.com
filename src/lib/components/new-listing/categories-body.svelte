@@ -10,7 +10,7 @@
   import { fly } from 'svelte/transition';
 
   const { selectedCategories, searchQuery, searching, searchResults } = $props<{
-    selectedCategories: Pick<Category, 'id' | 'name'>[];
+    selectedCategories: Pick<Category, 'id' | 'name' | 'subCategories'>[];
     searchQuery: string;
     searching: boolean;
     searchResults: Edge<Partial<{ category: Partial<Category>; parentName?: string }>>[];
@@ -28,8 +28,8 @@
 
   const dispatch = createEventDispatcher();
 
-  const sendCategory = (name: string, id: string, parentId?: string) => {
-    dispatch('sendCategory', { name, id, parentId });
+  const sendCategory = (name: string, id: string, subCategories?: string[]) => {
+    dispatch('sendCategory', { name, id, subCategories });
   };
 </script>
 
@@ -40,8 +40,8 @@
         variant="outline"
         class="text-xs justify-start gap-2 text-wrap text-foreground w-full"
         on:click={() => {
-      sendCategory(node.name!, node.id!, node.parentId);
-      }}
+          sendCategory(node.name!, node.id!, node.subCategories);
+        }}
       >
         {node.name}
       </Button>
@@ -56,8 +56,8 @@
         variant="outline"
         class="text-xs justify-start gap-2 text-wrap text-foreground w-full"
         on:click={() => {
-  sendCategory(category!.name!, category!.id!, category?.parentId);
-}}
+          sendCategory(category!.name!, category!.id!, category?.subCategories);
+        }}
       >
         {category?.name}
         <span class="text-muted-foreground">{parentName ? ` in ${parentName}` : ''}</span>

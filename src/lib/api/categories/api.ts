@@ -43,7 +43,8 @@ export const api = () => ({
                   id,
                   name,
                   imageUrl,
-                  parentId
+                  parentId,
+                  subCategories
                 }
               },
               pageInfo {
@@ -123,7 +124,8 @@ export const api = () => ({
                   category {
                     id,
                     name,
-                    parentId
+                    parentId,
+                    subCategories
                   },
                   parentName
                 }
