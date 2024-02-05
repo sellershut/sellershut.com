@@ -14,8 +14,6 @@
   import FilterDialog from './filter-dialog.svelte';
   import AvatarButton from './avatar-button.svelte';
 
-  const { darkMode } = $props<{ darkMode: boolean }>();
-
   // NOTE: https://github.com/sveltejs/eslint-plugin-svelte/issues/652
   // eslint-disable-next-line svelte/valid-compile
   const isRootPage = $derived($page.route.id === '/');
@@ -55,7 +53,7 @@
         <Button variant="outline" on:click={toggleSearch}>
           <MagnifyingGlass />
         </Button>
-        <ThemeSwitcher {darkMode} />
+        <ThemeSwitcher />
         <AvatarButton />
         <NewListing />
         {#each [Bell, ChatBubble] as icon}

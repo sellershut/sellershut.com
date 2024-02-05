@@ -1,8 +1,9 @@
 <script lang="ts">
   import { Button } from '$components/ui/button';
   import { Moon, Sun } from 'radix-icons-svelte';
+  import { getContext } from 'svelte';
 
-  let { darkMode } = $props<{ darkMode: boolean }>();
+  let darkMode = getContext<boolean>('darkModeEnabled');
 
   let darkModeEnabled = $state(darkMode);
 
