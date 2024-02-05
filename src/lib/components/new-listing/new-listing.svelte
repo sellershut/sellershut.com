@@ -6,12 +6,21 @@
   import { Button } from '$components/ui/button';
 
   const slides = [SlideSelectCategory];
-  const activeIndex = $state(0);
+  let activeIndex = $state(0);
   const progress = $derived((activeIndex / slides.length) * 100);
   let stepValid = $state(false);
 
-  const stepIsValid = () => {
+  const stepIsValid = (/* event: CustomEvent<{ categoryId: string; slide: number }> */) => {
     stepValid = true;
+  };
+
+  const nextSlide = () => {
+    activeIndex -= 1;
+    stepValid = false;
+  };
+
+  const previousSlide = () => {
+    activeIndex += 1;
   };
 </script>
 
@@ -26,10 +35,14 @@
       <Dialog.Title>New Listing</Dialog.Title>
       <Progress value={progress} />
     </Dialog.Header>
-    <svelte:component this={slides[activeIndex]} on:stepCompleted={stepIsValid} />
+    <svelte:component this={slides[activeIndex]} on:slideValid={stepIsValid} />
     <div class="flex gap-2">
-      <Button variant="outline" class={`${activeIndex ? 'w-1/2' : 'hidden'}`}>Previous</Button>
-      <Button class="flex-1" disabled={!stepValid}>Next</Button>
+      <Button
+        variant="outline"
+        class={`${activeIndex ? 'w-1/2' : 'hidden'}`}
+        on:click={previousSlide}>Previous</Button
+      >
+      <Button class="flex-1" disabled={!stepValid} on:click={nextSlide}>Next</Button>
     </div>
   </Dialog.Content>
 </Dialog.Root>

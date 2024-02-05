@@ -28,8 +28,8 @@
 
   const dispatch = createEventDispatcher();
 
-  const sendCategory = (name: string, id: string) => {
-    dispatch('sendCategory', { name, id });
+  const sendCategory = (name: string, id: string, parentId?: string) => {
+    dispatch('sendCategory', { name, id, parentId });
   };
 </script>
 
@@ -40,7 +40,7 @@
         variant="outline"
         class="text-xs justify-start gap-2 text-wrap text-foreground w-full"
         on:click={() => {
-      sendCategory(node.name!, node.id!);
+      sendCategory(node.name!, node.id!, node.parentId);
       }}
       >
         {node.name}
@@ -56,7 +56,7 @@
         variant="outline"
         class="text-xs justify-start gap-2 text-wrap text-foreground w-full"
         on:click={() => {
-  sendCategory(category!.name!, category!.id!);
+  sendCategory(category!.name!, category!.id!, category?.parentId);
 }}
       >
         {category?.name}

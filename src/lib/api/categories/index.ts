@@ -5,6 +5,7 @@ export type Category = {
   subCategories: string[];
   name: string;
   imageUrl: string;
+  parentId?: string;
 };
 
 export type SliderCategory = {

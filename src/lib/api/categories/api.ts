@@ -42,7 +42,8 @@ export const api = () => ({
                 node {
                   id,
                   name,
-                  imageUrl
+                  imageUrl,
+                  parentId
                 }
               },
               pageInfo {

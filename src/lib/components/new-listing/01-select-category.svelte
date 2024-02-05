@@ -9,13 +9,16 @@
   import { scale } from 'svelte/transition';
   import { api } from '$lib/api/categories/api';
   import type { Edge } from '$lib/api/response/graphql';
+  import { createEventDispatcher } from 'svelte';
   import CategoriesBody from './categories-body.svelte';
+
+  const dispatch = createEventDispatcher();
 
   let searchQuery = $state('');
   const validInput = $derived(nonWhitespaceInput(searchQuery));
   const whitespaceOnly = $derived(searchQuery.length && !validInput);
 
-  type IdExtract = Pick<Category, 'name' | 'id'>;
+  type IdExtract = Pick<Category, 'name' | 'id' | 'parentId'>;
   let selectedCategories: IdExtract[] = $state([]);
 
   const pushCategory = (evt: CustomEvent<IdExtract>) => {
@@ -29,6 +32,7 @@
     []
   );
 
+  const lastItem = $derived(selectedCategories[selectedCategories.length - 1]);
   const reset = () => {
     searchResults = [];
     searching = false;
@@ -44,6 +48,7 @@
       .searchWithParentName({ first: 100 }, searchQuery)
       .then((res) => {
         searchResults = res.data?.data?.searchWithParentName.edges ?? [];
+        console.log(searchResults);
         searching = false;
       })
       .catch((error) => {
@@ -56,6 +61,13 @@
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(getCategories, 500);
   };
+
+  $effect(() => {
+    if (lastItem?.parentId != null) {
+      // send message that this slide is ok
+      dispatch('slideValid', { categoryId: lastItem.id, slide: 1 });
+    }
+  });
 </script>
 
 <Dialog.Description>Which category best suits your item?</Dialog.Description>
