@@ -23,7 +23,9 @@
 
   let validInput = $derived(nonWhitespaceInput(searchInput));
 
-  let searchResults: Edge<Partial<Category>>[] = $state([]);
+  let searchResults: Edge<Partial<{ category: Partial<Category>; parentName?: string }>>[] = $state(
+    []
+  );
 
   function handleSearch() {
     searching = true;
@@ -38,9 +40,9 @@
     }
 
     api()
-      .search({ first: 10 }, searchInput)
+      .searchWithParentName({ first: 10 }, searchInput)
       .then((res) => {
-        searchResults = res.data?.data?.search.edges ?? [];
+        searchResults = res.data?.data?.searchWithParentName.edges ?? [];
         searching = false;
       })
       .catch((error) => {
@@ -52,6 +54,10 @@
     searchResults = [];
     searching = false;
   }
+
+  $effect(() => {
+    console.log(searchResults);
+  });
 </script>
 
 <div
@@ -90,10 +96,19 @@
             <LoadingSpinner />
           {:else if validInput && searchResults.length}
             <ul>
-              {#each searchResults as { node }}
-                <li>
-                  <p>{node.name}</p>
-                </li>
+              {#each searchResults as { node: { category, parentName } }}
+                {#if category && parentName}
+                  <li class="text-sm py-2 md:text-base md:py-1 w-full">
+                    <a href={'#'}>
+                      <span class="font-medium"
+                        >{category.name}
+                        <span class="text-muted-foreground font-normal"
+                          >{parentName ? `in ${parentName}` : ''}</span
+                        >
+                      </span>
+                    </a>
+                  </li>
+                {/if}
               {/each}
             </ul>
           {:else if validInput && !searchResults.length}

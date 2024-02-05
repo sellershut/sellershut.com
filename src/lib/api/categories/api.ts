@@ -99,6 +99,47 @@ export const api = () => ({
 
     return response;
   },
+
+  searchWithParentName: async (
+    pagination: Partial<GraphQLPaginationProps>,
+    query: string
+  ): Promise<
+    GraphQLPaginatedResult<Partial<{ category: Partial<Category>; parentName?: string }>>
+  > => {
+    const { first, last, before, after } = pagination;
+
+    const response: GraphQLPaginatedResult<
+      Partial<{ category: Partial<Category>; parentName?: string }>
+    > = await axios.post(PUBLIC_CATEGORIES_API, {
+      /* headers: {
+        traceparent,
+      }, */
+      query: `query search($query: String, $after: String, $before: String, $first: Int, $last: Int){
+            searchWithParentName(query: $query, first: $first, last: $last, before: $before, after: $after){
+              edges {
+                cursor
+                node {
+                  category {
+                    id,
+                    name,
+                    parentId
+                  },
+                  parentName
+                }
+              },
+            }
+          }`,
+      variables: {
+        query,
+        after: after ?? undefined,
+        before: before ?? undefined,
+        first: first ?? 10,
+        last: last ?? undefined,
+      },
+    });
+
+    return response;
+  },
 });
 
 export default api;

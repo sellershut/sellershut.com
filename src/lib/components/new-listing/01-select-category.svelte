@@ -42,7 +42,7 @@
       {#each selectedCategories as category}
         <div transition:scale>
           <Button
-            class="relative"
+            class="relative text-foreground"
             variant="outline"
             size="sm"
             on:click={() => {

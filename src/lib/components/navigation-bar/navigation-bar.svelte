@@ -49,7 +49,7 @@
       >
         <a href="/" class="inline-flex gap-1">
           <IconLogo class="text-primary" />
-          <span class="font-bold tracking-normal">sellershut</span>
+          <span class="font-bold tracking-normal hidden sm:block">sellershut</span>
         </a>
         <div class="flex-1" />
         <Button variant="outline" on:click={toggleSearch}>
