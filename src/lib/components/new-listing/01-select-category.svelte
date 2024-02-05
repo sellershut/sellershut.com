@@ -29,12 +29,12 @@
     []
   );
 
-  function reset() {
+  const reset = () => {
     searchResults = [];
     searching = false;
-  }
+  };
 
-  function getCategories() {
+  const getCategories = () => {
     if (!validInput) {
       reset();
       return;
@@ -43,20 +43,19 @@
     api()
       .searchWithParentName({ first: 100 }, searchQuery)
       .then((res) => {
-        console.log('searching');
         searchResults = res.data?.data?.searchWithParentName.edges ?? [];
         searching = false;
       })
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
-  function handleSearch() {
+  const handleSearch = () => {
     searching = true;
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(getCategories, 500);
-  }
+  };
 </script>
 
 <Dialog.Description>Which category best suits your item?</Dialog.Description>
@@ -75,7 +74,7 @@
   </p>
 </div>
 <Separator class="my-2 md:my-4" />
-<div class="grid gap-1 max-h-56 overflow-y-auto">
+<div class="grid gap-1 max-h-64">
   {#if selectedCategories.length}
     <div class="flex text-xs gap-2 flex-wrap">
       {#each selectedCategories as category}
@@ -101,11 +100,13 @@
     </div>
     <Separator class="my-2 md:my-4" />
   {/if}
-  <CategoriesBody
-    bind:searching
-    bind:searchQuery
-    bind:searchResults
-    {selectedCategories}
-    on:sendCategory={pushCategory}
-  />
+  <div class="h-full overflow-y-auto">
+    <CategoriesBody
+      bind:searching
+      bind:searchQuery
+      bind:searchResults
+      {selectedCategories}
+      on:sendCategory={pushCategory}
+    />
+  </div>
 </div>

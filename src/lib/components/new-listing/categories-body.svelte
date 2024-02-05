@@ -50,11 +50,10 @@
 {:else if searching}
   <LoadingSpinner />
 {:else if !selectedCategories.length}
-  {#each searchResults as { node: { category, parentName } }}
-    <div>
+  {#each searchResults as { node: { category, parentName } }, index}
+    <div transition:fly={{ y: 50, duration: index * 300, delay: 100 }} class="w-full">
       <Button
         variant="outline"
-        size="sm"
         class="text-xs justify-start gap-2 text-wrap text-foreground w-full"
         on:click={() => {
   sendCategory(category!.name!, category!.id!);
