@@ -3,10 +3,11 @@
   import * as Dialog from '$components/ui/dialog';
   import { Progress } from '$components/ui/progress';
   import SlideSelectCategory from '$components/new-listing/01-select-category.svelte';
+  import SlideSelectArea from '$components/new-listing/02-select-location.svelte';
   import { Button } from '$components/ui/button';
 
-  const slides = [SlideSelectCategory];
-  let activeIndex = $state(0);
+  const slides = [SlideSelectCategory, SlideSelectArea];
+  let activeIndex = $state(1);
   const progress = $derived((activeIndex / slides.length) * 100);
   let stepValid = $state(false);
 
@@ -15,12 +16,12 @@
   };
 
   const nextSlide = () => {
-    activeIndex -= 1;
+    activeIndex += 1;
     stepValid = false;
   };
 
   const previousSlide = () => {
-    activeIndex += 1;
+    activeIndex -= 1;
   };
 
   const invalidate = () => {
@@ -35,9 +36,9 @@
     <Plus />
   </Dialog.Trigger>
   <Dialog.Content>
-    <Dialog.Header>
-      <Dialog.Title>New Listing</Dialog.Title>
+    <Dialog.Header class="p-2">
       <Progress value={progress} />
+      <Dialog.Title>New Listing</Dialog.Title>
     </Dialog.Header>
     <svelte:component
       this={slides[activeIndex]}
