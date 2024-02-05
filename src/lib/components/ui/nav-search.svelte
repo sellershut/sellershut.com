@@ -54,10 +54,6 @@
     searchResults = [];
     searching = false;
   }
-
-  $effect(() => {
-    console.log(searchResults);
-  });
 </script>
 
 <div

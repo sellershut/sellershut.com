@@ -7,6 +7,8 @@
   import type { Category } from '$lib/api/categories';
   import { Cross2 } from 'radix-icons-svelte';
   import { scale } from 'svelte/transition';
+  import { api } from '$lib/api/categories/api';
+  import type { Edge } from '$lib/api/response/graphql';
   import CategoriesBody from './categories-body.svelte';
 
   let searchQuery = $state('');
@@ -19,6 +21,42 @@
   const pushCategory = (evt: CustomEvent<IdExtract>) => {
     selectedCategories.push(evt.detail);
   };
+
+  let timeout: number;
+  let searching = $state(false);
+
+  let searchResults: Edge<Partial<{ category: Partial<Category>; parentName?: string }>>[] = $state(
+    []
+  );
+
+  function reset() {
+    searchResults = [];
+    searching = false;
+  }
+
+  function getCategories() {
+    if (!validInput) {
+      reset();
+      return;
+    }
+
+    api()
+      .searchWithParentName({ first: 100 }, searchQuery)
+      .then((res) => {
+        console.log('searching');
+        searchResults = res.data?.data?.searchWithParentName.edges ?? [];
+        searching = false;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  function handleSearch() {
+    searching = true;
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(getCategories, 500);
+  }
 </script>
 
 <Dialog.Description>Which category best suits your item?</Dialog.Description>
@@ -27,6 +65,7 @@
 >
   <Input
     type="text"
+    on:input={handleSearch}
     placeholder="search for a category instead"
     bind:value={searchQuery}
     class="w-full"
@@ -62,5 +101,11 @@
     </div>
     <Separator class="my-2 md:my-4" />
   {/if}
-  <CategoriesBody {selectedCategories} on:sendCategory={pushCategory} />
+  <CategoriesBody
+    bind:searching
+    bind:searchQuery
+    bind:searchResults
+    {selectedCategories}
+    on:sendCategory={pushCategory}
+  />
 </div>
