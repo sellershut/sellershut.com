@@ -1,33 +1,70 @@
 <script lang="ts">
   import * as Dialog from '$components/ui/dialog';
-  import Map from 'ol/Map';
-  import View from 'ol/View';
-  import OSM from 'ol/source/OSM';
-  import TileLayer from 'ol/layer/Tile';
-  import { Attribution, defaults as defaultControls } from 'ol/control';
+  import myCountries from '$lib/content/country-list';
+  import * as Command from '$components/ui/command';
+  import * as Popover from '$components/ui/popover';
+  import { Button } from '$components/ui/button';
+  import { cn } from '$lib/utils';
+  import { CaretSort, Check } from 'radix-icons-svelte';
+  import { tick } from 'svelte';
+  import MapComponent from './map.svelte';
 
-  let map: Map;
+  const countryList = myCountries();
 
-  $effect(() => {
-    const attribution = new Attribution({
-      collapsible: false,
+  let selectedValue: string | null = $state(null);
+  const country = $derived(countryList.find((val) => val.name.common === selectedValue));
+  let open = $state(false);
+
+  const closeAndFocusTrigger = (triggerId: string) => {
+    open = false;
+    tick().then(() => {
+      document.getElementById(triggerId)?.focus();
     });
-    map = new Map({
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-      target: 'map',
-      view: new View({
-        center: [0, 0],
-        zoom: 2,
-      }),
-    });
-  });
+  };
+
 </script>
 
-<Dialog.Description>Which city are you located in?</Dialog.Description>
+<div class="space-y-1 text-center">
+  <h4 class="text-sm font-medium leading-none">Location</h4>
+  <Dialog.Description>Please select your region...</Dialog.Description>
+</div>
 
-<div id="map" class="h-64 aspect-auto map"></div>
+<Popover.Root bind:open let:ids>
+  <Popover.Trigger asChild let:builder>
+    <Button
+      builders={[builder]}
+      variant="outline"
+      role="combobox"
+      aria-expanded={open}
+      class="w-[200px] justify-between mx-auto"
+    >
+      {country ? `${country.flag} ${country.name.common}` : 'Select a country...'}
+      <CaretSort class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+    </Button>
+  </Popover.Trigger>
+  <Popover.Content class="w-52 p-0">
+    <Command.Root>
+      <Command.Input placeholder="Search country..." />
+      <Command.Empty>No country found.</Command.Empty>
+      <Command.Group class="max-h-48">
+        {#each countryList as { name: { common }, flag }}
+          <Command.Item
+            value={common}
+            onSelect={(currentValue) => {
+              selectedValue = currentValue;
+              closeAndFocusTrigger(ids.trigger);
+            }}
+          >
+            <Check class={cn('mr-2 h-4 w-4', selectedValue !== common && 'text-transparent')} />
+            {flag}
+            {common}
+          </Command.Item>
+        {/each}
+      </Command.Group>
+    </Command.Root>
+  </Popover.Content>
+</Popover.Root>
 
+{#if country}
+  <MapComponent {country} />
+{/if}
