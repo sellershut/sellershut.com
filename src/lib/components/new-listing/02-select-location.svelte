@@ -6,7 +6,7 @@
   import { Button } from '$components/ui/button';
   import { cn } from '$lib/utils';
   import { CaretSort, Check } from 'radix-icons-svelte';
-  import { tick } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
   import MapComponent from './map.svelte';
 
   const countryList = myCountries();
@@ -22,6 +22,11 @@
     });
   };
 
+  const dispatch = createEventDispatcher();
+
+  const pointSelected = (event: CustomEvent<number[]>) => {
+    dispatch('slideValid', event.detail);
+  };
 </script>
 
 <div class="space-y-1 text-center">
@@ -66,5 +71,5 @@
 </Popover.Root>
 
 {#if country}
-  <MapComponent {country} />
+  <MapComponent {country} on:pointSelected={pointSelected} />
 {/if}

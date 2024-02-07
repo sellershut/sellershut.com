@@ -4,7 +4,7 @@
   import OSM from 'ol/source/OSM';
   import TileLayer from 'ol/layer/Tile';
   import { useGeographic } from 'ol/proj';
-  import { onDestroy, onMount } from 'svelte';
+  import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   import 'ol/ol.css';
   import VectorLayer from 'ol/layer/Vector';
   import VectorSource from 'ol/source/Vector';
@@ -15,6 +15,7 @@
   const { country } = $props<{ country: MyCountry }>();
   const coords = $state(country.latlng.toReversed());
   const point = $state(new Point(coords));
+  const dispatch = createEventDispatcher();
 
   const createMarker = () =>
     new VectorLayer({
@@ -70,7 +71,7 @@
 
       map.on('click', (e) => {
         point.setCoordinates(e.coordinate);
-    //    map?.render();
+        dispatch('pointSelected', e.coordinate);
       });
     }
   });
