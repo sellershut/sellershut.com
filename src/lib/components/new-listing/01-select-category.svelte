@@ -11,6 +11,7 @@
   import type { Edge } from '$lib/api/response/graphql';
   import { createEventDispatcher } from 'svelte';
   import CategoriesBody from './categories-body.svelte';
+  import SlideTitle from './slide-title.svelte'
 
   const dispatch = createEventDispatcher();
 
@@ -72,10 +73,7 @@
   });
 </script>
 
-<div class="space-y-1 text-center">
-  <h4 class="text-sm font-medium leading-none">Category</h4>
-  <Dialog.Description>Which category best suits your item?</Dialog.Description>
-</div>
+<SlideTitle title={"Category"} description={"Which category best suits your item?"}/>
 <div
   class={`grid w-full items-center gap-1.5 ${selectedCategories.length ? 'hidden' : ''}`}
 >

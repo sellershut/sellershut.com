@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Dialog from '$components/ui/dialog';
   import myCountries from '$lib/content/country-list';
   import * as Command from '$components/ui/command';
   import * as Popover from '$components/ui/popover';
@@ -8,6 +7,7 @@
   import { CaretSort, Check } from 'radix-icons-svelte';
   import { createEventDispatcher, tick } from 'svelte';
   import MapComponent from './map.svelte';
+  import SlideTitle from './slide-title.svelte';
 
   const countryList = myCountries();
 
@@ -29,10 +29,7 @@
   };
 </script>
 
-<div class="space-y-1 text-center">
-  <h4 class="text-sm font-medium leading-none">Location</h4>
-  <Dialog.Description>Please select your region...</Dialog.Description>
-</div>
+<SlideTitle title={'Location'} description={'Please select your region...'} />
 
 <Popover.Root bind:open let:ids>
   <Popover.Trigger asChild let:builder>
