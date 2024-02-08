@@ -12,6 +12,9 @@
   const descriptionValid = $state(false);
 
   let active = $state(false);
+  let negotiable = $state(false);
+
+  let price = $state('');
 
   const slideValid = $derived(titleValid && descriptionValid);
   const dispatch = createEventDispatcher();
@@ -36,7 +39,7 @@
 <div class="grid w-full items-center gap-1.5">
   <Label for="post-name">Title</Label>
   <Input
-    type="email"
+    type="text"
     id="post-name"
     placeholder=""
     bind:value={title}
@@ -47,9 +50,20 @@
   <p class="text-xs text-muted-foreground">Give your listing a title</p>
 </div>
 <div class="grid w-full mitems-center gap-1.5">
-  <Label for="post-name">Description</Label>
-  <Input type="email" id="post-name" placeholder="" bind:value={description} />
+  <Label for="post-description">Description</Label>
+  <Input type="text" id="post-description" placeholder="" bind:value={description} />
   <p class="text-xs text-muted-foreground">Information supplementary to the title</p>
+</div>
+<div class="flex w-full mitems-center gap-1.5">
+  <div class="flex-1">
+    <Label for="post-price">Price</Label>
+    <Input type="text" id="post-price" placeholder="" bind:value={price} />
+    <p class="text-xs text-muted-foreground">How much is this going for</p>
+  </div>
+  <div class="place-self-center flex gap-2 pt-2">
+    <Checkbox bind:checked={negotiable} />
+    <p class="text-xs text-muted-foreground">Negotiable?</p>
+  </div>
 </div>
 <div
   class="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-muted p-4 shadow bg-card"
@@ -58,7 +72,7 @@
   <div class="space-y-1 leading-none text-xs font-normal flex flex-col">
     <Label>Mark as active</Label>
     <Label class="text-muted-foreground text-xs font-normal">
-      Enabling this will make your listing visible to the world upon creation
+      Enabling this will make your listing visible to others
     </Label>
   </div>
 </div>

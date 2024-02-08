@@ -5,10 +5,11 @@
   import SlideSelectCategory from '$components/new-listing/01-select-category.svelte';
   import SlideSelectArea from '$components/new-listing/02-select-location.svelte';
   import SlideListingInfo from '$components/new-listing/03-listing-info.svelte';
+  import SlideImages from '$components/new-listing/04-images.svelte';
   import { Button } from '$components/ui/button';
 
-  const slides = [SlideSelectCategory, SlideSelectArea, SlideListingInfo];
-  let activeIndex = $state(2);
+  const slides = [SlideSelectCategory, SlideSelectArea, SlideListingInfo, SlideImages];
+  let activeIndex = $state(3);
   const progress = $derived((activeIndex / slides.length) * 100);
   let stepValid = $state(false);
 
