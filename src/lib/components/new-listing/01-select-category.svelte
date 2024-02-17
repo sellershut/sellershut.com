@@ -11,7 +11,7 @@
   import type { Edge } from '$lib/api/response/graphql';
   import { createEventDispatcher } from 'svelte';
   import CategoriesBody from './categories-body.svelte';
-  import SlideTitle from './slide-title.svelte'
+  import SlideTitle from './slide-title.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -49,7 +49,6 @@
       .searchWithParentName({ first: 100 }, searchQuery)
       .then((res) => {
         searchResults = res.data?.data?.searchWithParentName.edges ?? [];
-        console.log(searchResults);
         searching = false;
       })
       .catch((error) => {
@@ -73,10 +72,8 @@
   });
 </script>
 
-<SlideTitle title={"Category"} description={"Which category best suits your item?"}/>
-<div
-  class={`grid w-full items-center gap-1.5 ${selectedCategories.length ? 'hidden' : ''}`}
->
+<SlideTitle title={'Category'} description={'Which category best suits your item?'} />
+<div class={`grid w-full items-center gap-1.5 ${selectedCategories.length ? 'hidden' : ''}`}>
   <Input
     type="text"
     on:input={handleSearch}

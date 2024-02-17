@@ -5,15 +5,15 @@ let options: pino.LoggerOptions = {};
 
 if (dev) {
   options = {
-    level: 'debug',
+    level: 'trace',
     transport: {
       target: 'pino-pretty',
       options: {
-        colorize: true
-      }
-    }
+        colorize: true,
+      },
+    },
   };
 }
 
 export const logger = pino(options);
-export default logger
+export default logger;

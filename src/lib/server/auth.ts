@@ -1,35 +1,36 @@
-import { GitHub } from "arctic";
-import { Lucia } from "lucia";
-import AuthAdapter from "$lib/api/auth/auth-adapter";
-import { dev } from "$app/environment";
-import { AUTH_GITHUB_ID, AUTH_GITHUB_SECRET } from "$env/static/private";
+import { GitHub } from 'arctic';
+import { Lucia } from 'lucia';
+import AuthAdapter from '$lib/api/auth/auth-adapter';
+import { dev } from '$app/environment';
+import { AUTH_GITHUB_ID, AUTH_GITHUB_SECRET } from '$env/static/private';
 
-export const github = new GitHub(
-  AUTH_GITHUB_ID,
-  AUTH_GITHUB_SECRET
-);
+export const github = new GitHub(AUTH_GITHUB_ID, AUTH_GITHUB_SECRET);
 export const lucia = new Lucia(new AuthAdapter(), {
   sessionCookie: {
     attributes: {
-      secure: !dev
-    }
+      secure: !dev,
+    },
   },
   getUserAttributes: (attributes) => ({
     username: attributes.username,
-  })
+    email: attributes.email,
+    avatar: attributes.avatar,
+    name: attributes.name,
+  }),
 });
 
-declare module "lucia" {
+declare module 'lucia' {
   interface Register {
     Lucia: typeof lucia;
-    DatabaseUserAttributes: DatabaseUserAttributes
+    DatabaseUserAttributes: DatabaseUserAttributes;
   }
 }
 
 interface DatabaseUserAttributes {
   username: string;
+  email: string;
+  avatar?: string;
+  name?: string;
 }
-
-
 
 export default github;
