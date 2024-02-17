@@ -6,12 +6,14 @@ const myCountries = (): MyCountry[] => {
   const worldCountries: MyCountry[] = countries.map((country: Country) => {
     const { flag, cca2, name, latlng } = country;
     const myCountry: MyCountry = {
-      name, flag, cca2, latlng
-    }
-    return myCountry
+      name,
+      flag,
+      cca2,
+      latlng,
+    };
+    return myCountry;
   });
-  return worldCountries
-
-}
+  return worldCountries;
+};
 
 export default myCountries;

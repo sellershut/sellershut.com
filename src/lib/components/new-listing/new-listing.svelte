@@ -6,10 +6,11 @@
   import SlideSelectArea from '$components/new-listing/02-select-location.svelte';
   import SlideListingInfo from '$components/new-listing/03-listing-info.svelte';
   import SlideImages from '$components/new-listing/04-images.svelte';
+  import SlideTags from '$components/new-listing/05-tags-finish.svelte';
   import { Button } from '$components/ui/button';
 
-  const slides = [SlideSelectCategory, SlideSelectArea, SlideListingInfo, SlideImages];
-  let activeIndex = $state(3);
+  const slides = [SlideSelectCategory, SlideSelectArea, SlideListingInfo, SlideImages, SlideTags];
+  let activeIndex = $state(4);
   const progress = $derived((activeIndex / slides.length) * 100);
   let stepValid = $state(false);
 
@@ -31,7 +32,7 @@
   };
 </script>
 
-<Dialog.Root closeOnOutsideClick={false} open={true} preventScroll={true}>
+<Dialog.Root closeOnOutsideClick={false} preventScroll={true}>
   <Dialog.Trigger
     class="inline-flex items-center justify-center rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 bg-primary text-primary-foreground shadow hover:bg-primary/90"
   >

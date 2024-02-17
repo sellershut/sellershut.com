@@ -2,6 +2,7 @@
   import { buttonVariants } from '$components/ui/button';
   import * as Dialog from '$components/ui/dialog';
   import { MixerHorizontal } from 'radix-icons-svelte';
+  import DateRange from './filter/date-range.svelte';
 </script>
 
 <Dialog.Root>
@@ -11,6 +12,7 @@
   <Dialog.Content>
     <Dialog.Header>
       <Dialog.Title>Are you sure absolutely sure?</Dialog.Title>
+      <DateRange />
       <Dialog.Description>
         This action cannot be undone. This will permanently delete your account and remove your data
         from our servers.

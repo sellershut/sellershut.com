@@ -42,6 +42,9 @@
   },
   "type": "module",
   "dependencies": {
+    "@auth/core": "^0.27.0",
+    "@auth/sveltekit": "^0.13.0",
+    "@internationalized/date": "^3.5.1",
     "@tanstack/svelte-query": "^5.18.0",
     "@tanstack/svelte-query-devtools": "^5.18.0",
     "axios": "^1.6.7",
