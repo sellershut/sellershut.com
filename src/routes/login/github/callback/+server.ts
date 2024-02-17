@@ -138,6 +138,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
       });
     } else {
       const user: DatabaseUser = await createUserFn(githubUser.login);
+      console.log('user', user);
       await createOauthAccount(user.id, "github", githubUser.id.toString());
       const session = await lucia.createSession(user.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);

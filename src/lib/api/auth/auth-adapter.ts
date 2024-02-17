@@ -30,13 +30,11 @@ export default class AuthAdapter implements Adapter {
           sessionId,
         },
       });
-    console.info('sessionAndUser', resp.data);
+    logger.debug('sessionAndUser', resp.data);
     if (resp.data.data.userAndSession) {
       const { user, session } = resp.data.data.userAndSession;
-      console.log('user', user);
-      console.log('session', session);
       const sessionValue: DatabaseSession = {
-        id: session.Id,
+        id: session.sessionToken,
         userId: session.user,
         expiresAt: new Date(session.expiresAt),
         attributes: {}
@@ -47,7 +45,35 @@ export default class AuthAdapter implements Adapter {
   }
 
   async getUserSessions(userId: string): Promise<DatabaseSession[]> {
-    throw new Error("Method not implemented.");
+    const response = await axios
+      .post(USERS_API, {
+        query: `query userSessions(
+            $userId: String
+          ) {
+          userSessions(
+            userId: $userId,
+          ) {
+            id,
+            expiresAt,
+            user,
+            sessionToken
+          }
+        }`,
+        variables: {
+          userId
+        },
+      });
+
+    logger.debug('userSessions', response.data);
+    if (response.data.data.userSessions) {
+      return response.data.data.userSessions.map((val: { sessionToken: string; user: string; expiresAt: string | number | Date; }) => ({
+        id: val.sessionToken,
+        userId: val.user,
+        expiresAt: new Date(val.expiresAt),
+      }))
+    }
+    return []
+
   }
 
   async setSession(session: DatabaseSession): Promise<void> {
