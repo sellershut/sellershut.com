@@ -50,8 +50,10 @@
         >
         <DropdownMenu.SubContent class="dark:border-muted">
           <DropdownMenu.Item class={gap}><ChatBubble />Messages</DropdownMenu.Item>
-          <DropdownMenu.Item class={gap}><MixerVertical /> Settings</DropdownMenu.Item>
-          <DropdownMenu.Item disabled>Sign Out</DropdownMenu.Item>
+          <DropdownMenu.Item disabled class={gap}><MixerVertical /> Settings</DropdownMenu.Item>
+          <DropdownMenu.Item>
+            <a href="/login/github">Sign In</a>
+          </DropdownMenu.Item>
         </DropdownMenu.SubContent>
       </DropdownMenu.Sub>
     </DropdownMenu.Group>
