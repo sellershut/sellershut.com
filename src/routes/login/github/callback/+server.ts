@@ -2,9 +2,13 @@ import { github, lucia } from '$lib/server/auth';
 import { OAuth2RequestError } from 'arctic';
 import { type DatabaseUser } from 'lucia';
 import type { RequestEvent } from '@sveltejs/kit';
-import axios from 'axios';
 import { logger } from '$lib/server/logger';
-import { USERS_API } from '$env/static/private';
+import {
+  createOauthAccount,
+  createUserFn,
+  getUserByEmail,
+  usernameFromEmail,
+} from '$lib/api/auth/auth-adapter';
 
 /* const getExistingUser = async (providerAccountId: string, provider: string): Promise<DatabaseUser | undefined> => {
   const response = await axios
@@ -48,120 +52,6 @@ import { USERS_API } from '$env/static/private';
   return undefined
 
 } */
-
-const getUserByEmail = async (email: string): Promise<DatabaseUser | undefined> => {
-  const response = await axios.post(USERS_API, {
-    query: `query userByEmail(
-            $email: String,
-          ) {
-          userByEmail(
-            email: $email,
-          ) {
-            id,
-            username,
-            name,
-            email,
-            avatar
-          }
-        }`,
-    variables: {
-      email,
-    },
-  });
-
-  const { data } = response;
-  logger.debug('existingUserByEmail', data);
-  const userData = data.data.userByEmail;
-  if (userData) {
-    const user: DatabaseUser = {
-      id: userData.id,
-      attributes: {
-        username: userData.username,
-        email: data.email,
-        avatar: data.avatar,
-        name: data.name,
-      },
-    };
-    return user;
-  }
-  return undefined;
-};
-
-const createUserFn = async (
-  username: string,
-  email?: string,
-  avatar?: string,
-  name?: string
-): Promise<DatabaseUser> => {
-  const response = await axios.post(USERS_API, {
-    query: `mutation createUser(
-            $username: String,
-            $email: String,
-            $avatar: String,
-            $name: String,
-          ) {
-          createUser(
-            input: {
-              username: $username,
-              email: $email,
-              avatar: $avatar
-              name: $name
-            }
-          ) {
-            id,
-            username,
-            email,
-            avatar,
-            name
-          }
-        }`,
-    variables: {
-      username,
-      email,
-      avatar,
-      name,
-    },
-  });
-
-  const data = response.data.data.createUser;
-  logger.debug('createUser', data);
-  const user: DatabaseUser = {
-    id: data.id,
-    attributes: {
-      username: data.username,
-      email: data.email,
-      avatar: data.avatar,
-      name: data.name,
-    },
-  };
-  return user;
-};
-
-const createOauthAccount = async (user: string, provider: string, providerAccountId: string) => {
-  const response = await axios.post(USERS_API, {
-    query: `mutation createAccount(
-            $user: String,
-            $provider: String,
-            $providerAccountId: String,
-          ) {
-          createAccount(
-            input: {
-              user: $user,
-              provider: $provider,
-              providerAccountId: $providerAccountId,
-            }
-          ) {
-            id,
-          }
-        }`,
-    variables: {
-      user,
-      provider,
-      providerAccountId,
-    },
-  });
-  return response.data.data.createAccount;
-};
 
 export async function GET(event: RequestEvent): Promise<Response> {
   const code = event.url.searchParams.get('code');
@@ -217,7 +107,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
       });
     } else {
       const user: DatabaseUser = await createUserFn(
-        githubUser.login,
+        usernameFromEmail(primaryEmail.email),
         primaryEmail.email,
         githubUser.avatar_url,
         githubUser.name

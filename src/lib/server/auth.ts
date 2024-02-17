@@ -1,10 +1,20 @@
-import { GitHub } from 'arctic';
+import { GitHub, Google } from 'arctic';
 import { Lucia } from 'lucia';
 import AuthAdapter from '$lib/api/auth/auth-adapter';
 import { dev } from '$app/environment';
-import { AUTH_GITHUB_ID, AUTH_GITHUB_SECRET } from '$env/static/private';
+import {
+  AUTH_GITHUB_ID,
+  AUTH_GITHUB_SECRET,
+  AUTH_GOOGLE_ID,
+  AUTH_GOOGLE_SECRET,
+} from '$env/static/private';
 
 export const github = new GitHub(AUTH_GITHUB_ID, AUTH_GITHUB_SECRET);
+export const google = new Google(
+  AUTH_GOOGLE_ID,
+  AUTH_GOOGLE_SECRET,
+  'http://localhost:5173/login/google/callback'
+);
 export const lucia = new Lucia(new AuthAdapter(), {
   sessionCookie: {
     attributes: {

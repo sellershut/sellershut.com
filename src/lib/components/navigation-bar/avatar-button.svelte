@@ -52,7 +52,7 @@
           <DropdownMenu.Item class={gap}><ChatBubble />Messages</DropdownMenu.Item>
           <DropdownMenu.Item disabled class={gap}><MixerVertical /> Settings</DropdownMenu.Item>
           <DropdownMenu.Item>
-            <a href="/login/github">Sign In</a>
+            <a href="/login/google">Sign In</a>
           </DropdownMenu.Item>
         </DropdownMenu.SubContent>
       </DropdownMenu.Sub>

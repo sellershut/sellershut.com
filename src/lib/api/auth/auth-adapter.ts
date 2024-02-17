@@ -2,6 +2,7 @@
 import axios from 'axios';
 import type { Adapter, DatabaseSession, DatabaseUser } from 'lucia';
 import { logger } from '$lib/server/logger';
+import { generateFromEmail } from 'unique-username-generator';
 import { USERS_API } from '$env/static/private';
 
 export default class AuthAdapter implements Adapter {
@@ -179,3 +180,126 @@ export default class AuthAdapter implements Adapter {
     logger.debug(response.data, 'deleteExpiredSession');
   }
 }
+
+export const getUserByEmail = async (email: string): Promise<DatabaseUser | undefined> => {
+  const response = await axios.post(USERS_API, {
+    query: `query userByEmail(
+            $email: String,
+          ) {
+          userByEmail(
+            email: $email,
+          ) {
+            id,
+            username,
+            name,
+            email,
+            avatar
+          }
+        }`,
+    variables: {
+      email,
+    },
+  });
+
+  const { data } = response;
+  logger.debug('existingUserByEmail', data);
+  const userData = data.data.userByEmail;
+  if (userData) {
+    const user: DatabaseUser = {
+      id: userData.id,
+      attributes: {
+        username: userData.username,
+        email: data.email,
+        avatar: data.avatar,
+        name: data.name,
+      },
+    };
+    return user;
+  }
+  return undefined;
+};
+
+export const createUserFn = async (
+  username: string,
+  email?: string,
+  avatar?: string,
+  name?: string
+): Promise<DatabaseUser> => {
+  const response = await axios.post(USERS_API, {
+    query: `mutation createUser(
+            $username: String,
+            $email: String,
+            $avatar: String,
+            $name: String,
+          ) {
+          createUser(
+            input: {
+              username: $username,
+              email: $email,
+              avatar: $avatar
+              name: $name
+            }
+          ) {
+            id,
+            username,
+            email,
+            avatar,
+            name
+          }
+        }`,
+    variables: {
+      username,
+      email,
+      avatar,
+      name,
+    },
+  });
+
+  const data = response.data.data.createUser;
+  logger.debug('createUser', data);
+  const user: DatabaseUser = {
+    id: data.id,
+    attributes: {
+      username: data.username,
+      email: data.email,
+      avatar: data.avatar,
+      name: data.name,
+    },
+  };
+  return user;
+};
+
+export const createOauthAccount = async (
+  user: string,
+  provider: string,
+  providerAccountId: string
+) => {
+  const response = await axios.post(USERS_API, {
+    query: `mutation createAccount(
+            $user: String,
+            $provider: String,
+            $providerAccountId: String,
+          ) {
+          createAccount(
+            input: {
+              user: $user,
+              provider: $provider,
+              providerAccountId: $providerAccountId,
+            }
+          ) {
+            id,
+          }
+        }`,
+    variables: {
+      user,
+      provider,
+      providerAccountId,
+    },
+  });
+  return response.data.data.createAccount;
+};
+
+export const usernameFromEmail = (email: string) => {
+  const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+  return generateFromEmail(email, random(3, 5));
+};
