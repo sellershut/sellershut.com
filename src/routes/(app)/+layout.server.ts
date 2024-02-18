@@ -8,5 +8,5 @@ export const load: LayoutServerLoad = async ({ cookies, locals }) => {
   logger.debug(locals.user, 'user');
   logger.debug(locals.session, 'session');
 
-  return { darkMode };
+  return { darkMode, user: locals.user, session: locals.session };
 };

@@ -3,7 +3,7 @@ import { browser } from '$app/environment';
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ data }) => {
-  const { darkMode } = data;
+  const { darkMode, user, session } = data;
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -13,5 +13,5 @@ export const load: LayoutLoad = async ({ data }) => {
     },
   });
 
-  return { darkMode, queryClient };
+  return { darkMode, queryClient, user, session };
 };
