@@ -9,31 +9,34 @@
     'border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground text-foreground';
 </script>
 
-<div class="container flex h-screen">
-  <Card.Root class="w-[350px] md:w-[420px] lg:w-[450px] m-auto">
-    <Card.Header>
-      <Card.Title class="text-center text-2xl md:text-4xl"
-        >Welcome to <span class="text-primary/90 font-bold">SellersHut</span></Card.Title
-      >
-      <Card.Description class="text-center">Please select a sign in method below</Card.Description>
-    </Card.Header>
-    <Card.Content>
-      <div class="grid grid-cols-1 gap-2">
-        <a
-          href="/login/google"
-          class={`${base} ${outline} w-full inline-flex gap-4 items-center py-2 font-bold`}
+<div class="backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90">
+  <div class="container flex h-screen">
+    <Card.Root class="w-[350px] md:w-[420px] lg:w-[450px] m-auto border-foreground/60">
+      <Card.Header>
+        <Card.Title class="text-center text-2xl md:text-4xl"
+          >Welcome to <span class="dark:text-primary/90 text-primary font-black tracking-tight">SellersHut.</span></Card.Title
         >
-          <IconGoogle class="h-4 w-4 text-foreground" />
-          Google</a
+        <Card.Description class="text-center">Please select a sign in method below</Card.Description
         >
-        <a
-          href="/login/github"
-          class={`${base} ${outline} w-full inline-flex gap-4 items-center py-2 font-bold`}
-        >
-          <IconGitHub class="h-4 w-4 text-foreground" />
-          GitHub</a
-        >
-      </div>
-    </Card.Content>
-  </Card.Root>
+      </Card.Header>
+      <Card.Content>
+        <div class="grid grid-cols-1 gap-2">
+          <a
+            href="/login/google"
+            class={`${base} ${outline} w-full inline-flex gap-4 items-center py-2 font-bold`}
+          >
+            <IconGoogle class="h-4 w-4 text-foreground" />
+            Google</a
+          >
+          <a
+            href="/login/github"
+            class={`${base} ${outline} w-full inline-flex gap-4 items-center py-2 font-bold`}
+          >
+            <IconGitHub class="h-4 w-4 text-foreground" />
+            GitHub</a
+          >
+        </div>
+      </Card.Content>
+    </Card.Root>
+  </div>
 </div>
