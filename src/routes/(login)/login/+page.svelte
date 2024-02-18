@@ -9,12 +9,16 @@
     'border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground text-foreground';
 </script>
 
-<div class="backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90">
+<div
+  class="backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:supports-[backdrop-filter]:bg-background/90"
+>
   <div class="container flex h-screen">
     <Card.Root class="w-[350px] md:w-[420px] lg:w-[450px] m-auto border-foreground/60">
       <Card.Header>
         <Card.Title class="text-center text-2xl md:text-4xl"
-          >Welcome to <span class="dark:text-primary/90 text-primary font-black tracking-tight">SellersHut.</span></Card.Title
+          >Welcome to <span class="dark:text-primary/90 text-primary font-black tracking-tight"
+            >SellersHut.</span
+          ></Card.Title
         >
         <Card.Description class="text-center">Please select a sign in method below</Card.Description
         >

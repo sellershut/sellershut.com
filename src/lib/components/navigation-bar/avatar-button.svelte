@@ -87,5 +87,9 @@
     </DropdownMenu.Content>
   </DropdownMenu.Root>
 {:else}
-  <a href="/login" class="rounded-full p-3 bg-muted border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground text-foreground"><Avatar class="scale-125 text-foreground/70" /></a>
+  <a
+    href="/login"
+    class="rounded-full p-3 bg-muted border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground text-foreground"
+    ><Avatar class="scale-125 text-foreground/70" /></a
+  >
 {/if}

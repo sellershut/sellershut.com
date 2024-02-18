@@ -228,7 +228,7 @@ export const createUserFn = async (
   email?: string,
   avatar?: string,
   name?: string,
-  userType?: string,
+  userType?: string
 ): Promise<DatabaseUser> => {
   const response = await axios.post(USERS_API, {
     query: `mutation createUser(
@@ -260,7 +260,7 @@ export const createUserFn = async (
       email,
       avatar,
       name,
-      userType: userType ?? 'INDIVIDUAL'
+      userType: userType ?? 'INDIVIDUAL',
     },
   });
 
@@ -273,7 +273,7 @@ export const createUserFn = async (
       email: data.email,
       avatar: data.avatar,
       name: data.name,
-      userType: data.userType
+      userType: data.userType,
     },
   };
   return user;

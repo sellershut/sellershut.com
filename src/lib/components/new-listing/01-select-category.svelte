@@ -2,7 +2,6 @@
   import { Input } from '$components/ui/input';
   import { Separator } from '$components/ui/separator';
   import { Button } from '$components/ui/button';
-  import * as Dialog from '$components/ui/dialog';
   import { nonWhitespaceInput } from '$lib/utils';
   import type { Category } from '$lib/api/categories';
   import { Cross2 } from 'radix-icons-svelte';

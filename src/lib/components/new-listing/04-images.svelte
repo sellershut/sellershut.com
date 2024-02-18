@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Card from '$components/ui/card/index.js';
   import * as Carousel from '$components/ui/carousel/index.js';
   import SlideTitle from './slide-title.svelte';
 </script>
