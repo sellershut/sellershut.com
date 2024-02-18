@@ -11,7 +11,7 @@
   import type { Session, User } from 'lucia';
 
   const slides = [SlideSelectCategory, SlideSelectArea, SlideListingInfo, SlideImages];
-  let activeIndex = $state(3);
+  let activeIndex = $state(0);
   const progress = $derived((activeIndex / slides.length) * 100);
   let stepValid = $state(false);
 

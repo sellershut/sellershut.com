@@ -26,7 +26,8 @@ export default class AuthAdapter implements Adapter {
               username,
               avatar,
               name,
-              email
+              email,
+              userType
             }
           }
         }`,
@@ -50,6 +51,7 @@ export default class AuthAdapter implements Adapter {
           username: user.username,
           email: user.email,
           name: user.name,
+          userType: user.userType,
           avatar: user.avatar,
         },
       };
@@ -193,6 +195,7 @@ export const getUserByEmail = async (email: string): Promise<DatabaseUser | unde
             username,
             name,
             email,
+            userType,
             avatar
           }
         }`,
@@ -212,6 +215,7 @@ export const getUserByEmail = async (email: string): Promise<DatabaseUser | unde
         email: data.email,
         avatar: data.avatar,
         name: data.name,
+        userType: data.userType,
       },
     };
     return user;
@@ -223,28 +227,32 @@ export const createUserFn = async (
   username: string,
   email?: string,
   avatar?: string,
-  name?: string
+  name?: string,
+  userType?: string,
 ): Promise<DatabaseUser> => {
   const response = await axios.post(USERS_API, {
     query: `mutation createUser(
-            $username: String,
+            $username: String!,
             $email: String,
             $avatar: String,
             $name: String,
+            $userType: UserType
           ) {
           createUser(
             input: {
               username: $username,
               email: $email,
-              avatar: $avatar
-              name: $name
+              avatar: $avatar,
+              name: $name,
+              userType: $userType
             }
           ) {
             id,
             username,
             email,
             avatar,
-            name
+            name,
+            userType
           }
         }`,
     variables: {
@@ -252,6 +260,7 @@ export const createUserFn = async (
       email,
       avatar,
       name,
+      userType: userType ?? 'INDIVIDUAL'
     },
   });
 
@@ -264,6 +273,7 @@ export const createUserFn = async (
       email: data.email,
       avatar: data.avatar,
       name: data.name,
+      userType: data.userType
     },
   };
   return user;

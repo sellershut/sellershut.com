@@ -26,6 +26,7 @@ export const lucia = new Lucia(new AuthAdapter(), {
     email: attributes.email,
     avatar: attributes.avatar,
     name: attributes.name,
+    userType: attributes.userType,
   }),
 });
 
@@ -41,6 +42,7 @@ interface DatabaseUserAttributes {
   email: string;
   avatar?: string;
   name?: string;
+  userType: string;
 }
 
 export default github;
