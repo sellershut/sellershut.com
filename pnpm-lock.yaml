@@ -36,8 +36,8 @@ dependencies:
     specifier: ^0.0.13
     version: 0.0.13(svelte@5.0.0-next.40)
   embla-carousel-svelte:
-    specifier: 8.0.0-rc22
-    version: 8.0.0-rc22(svelte@5.0.0-next.40)
+    specifier: 8.0.0
+    version: 8.0.0(svelte@5.0.0-next.40)
   leaflet:
     specifier: ^1.9.4
     version: 1.9.4
@@ -45,8 +45,8 @@ dependencies:
     specifier: ^3.0.1
     version: 3.0.1
   lucide-svelte:
-    specifier: ^0.323.0
-    version: 0.323.0(svelte@5.0.0-next.40)
+    specifier: ^0.338.0
+    version: 0.338.0(svelte@5.0.0-next.40)
   ol:
     specifier: ^8.2.0
     version: 8.2.0
@@ -131,8 +131,8 @@ devDependencies:
     specifier: ^1.70.0
     version: 1.70.0
   shadcn-svelte:
-    specifier: ^0.7.0
-    version: 0.7.0(typescript@5.3.3)
+    specifier: ^0.8.0
+    version: 0.8.0(typescript@5.3.3)
   svelte:
     specifier: ^5.0.0-next.1
     version: 5.0.0-next.40
@@ -2260,26 +2260,26 @@ packages:
     resolution: {integrity: sha512-EmFMarXeqJp9cUKu/QEciEApn0S/xRcpZWuAm32U7NgoZCimjsilKXHRO9saeEW55eHZagIDg6XTUOv32w9pjg==}
     dev: true
 
-  /embla-carousel-reactive-utils@8.0.0-rc22(embla-carousel@8.0.0-rc22):
-    resolution: {integrity: sha512-K4b8QhQGXYW5wr4l+U6XryhafsFV5c/IyohDnZN3MGoYIB9xY7qpjUWAcs5bTDjAD+qCZPOuXre0D3IVa28mqw==}
+  /embla-carousel-reactive-utils@8.0.0(embla-carousel@8.0.0):
+    resolution: {integrity: sha512-JCw0CqCXI7tbHDRogBb9PoeMLyjEC1vpN0lDOzUjmlfVgtfF+ffLaOK8bVtXVUEbNs/3guGe3NSzA5J5aYzLzw==}
     peerDependencies:
-      embla-carousel: 8.0.0-rc22
+      embla-carousel: 8.0.0
     dependencies:
-      embla-carousel: 8.0.0-rc22
+      embla-carousel: 8.0.0
     dev: false
 
-  /embla-carousel-svelte@8.0.0-rc22(svelte@5.0.0-next.40):
-    resolution: {integrity: sha512-kRcKJXslkfrtXjS97AdJHQ28ctm0HOfcTA3Fb9Y57fzLzrB5uC+qOGF7nLSI8Z1s+0ww+OaouxIvbrS987CkfA==}
+  /embla-carousel-svelte@8.0.0(svelte@5.0.0-next.40):
+    resolution: {integrity: sha512-twoIN3jpSZB2Gc7pI2mfN0vjmXgZQbwgQ4T4OUa2OEXBU/jRbevhb9kd2RtqzU2lalB3j2a1lCE5Ey9DQtxr6Q==}
     peerDependencies:
       svelte: ^3.49.0 || ^4.0.0
     dependencies:
-      embla-carousel: 8.0.0-rc22
-      embla-carousel-reactive-utils: 8.0.0-rc22(embla-carousel@8.0.0-rc22)
+      embla-carousel: 8.0.0
+      embla-carousel-reactive-utils: 8.0.0(embla-carousel@8.0.0)
       svelte: 5.0.0-next.40
     dev: false
 
-  /embla-carousel@8.0.0-rc22:
-    resolution: {integrity: sha512-MeXnPT1LShfgAu8qXj3CskayV0R6OkHx7w3cPTx+Q5ZWKyShKpIuu7qVQJ5BoFegalE4n6yxqoQaRuGFbK9pYw==}
+  /embla-carousel@8.0.0:
+    resolution: {integrity: sha512-ecixcyqS6oKD2nh5Nj5MObcgoSILWNI/GtBxkidn5ytFaCCmwVHo2SecksaQZHcARMMpIR2dWOlSIdA1LkZFUA==}
     dev: false
 
   /emoji-regex@8.0.0:
@@ -3493,8 +3493,8 @@ packages:
       oslo: 1.0.1
     dev: false
 
-  /lucide-svelte@0.323.0(svelte@5.0.0-next.40):
-    resolution: {integrity: sha512-3GEFk1vCwB8BtHTHZTocFJfX6AtTLQw9a74JSuihAGx+MzhxqeWk8W1TkM4WUlvE0x9UdONM2rJGRyx9IyjkJg==}
+  /lucide-svelte@0.338.0(svelte@5.0.0-next.40):
+    resolution: {integrity: sha512-A6NxbwRxbsbgzYBPNkQccu/dD5HP630hEmop4Xz/ya0JDL3h1dVJp+LCtkMEEqEkN4VcdvE2CeQzCvWFIV4iRA==}
     peerDependencies:
       svelte: ^3 || ^4 || ^5.0.0-next.42
     dependencies:
@@ -4407,8 +4407,8 @@ packages:
       has-property-descriptors: 1.0.1
     dev: true
 
-  /shadcn-svelte@0.7.0(typescript@5.3.3):
-    resolution: {integrity: sha512-Ob+umTjCSxsV/KLhwNVOU76kr4aO28xiYWV89w/MNf7FPzMx4TZm7z/HsOQIVTWDqRXYS8k2/HNbLcQGRlT9JA==}
+  /shadcn-svelte@0.8.0(typescript@5.3.3):
+    resolution: {integrity: sha512-7j8kwZUpZhvvX3HhkStviFYvaHhEhL1C7hCHYyW7iX1DQIYxWOVwBy49bGMC3HM5v1U1GHCiY+p/cC+KJdsNAg==}
     hasBin: true
     peerDependencies:
       typescript: ^4.0.0 || ^5.0.0
