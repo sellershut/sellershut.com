@@ -36,7 +36,7 @@ export default class AuthAdapter implements Adapter {
       },
     });
     logger.debug(resp.data, 'sessionAndUser');
-    if (resp.data.data.userAndSession) {
+    if (resp.data.data?.userAndSession) {
       const { user, session } = resp.data.data.userAndSession;
       const sessionValue: DatabaseSession = {
         id: session.sessionToken,
