@@ -32,14 +32,14 @@
         {text.slice(0, limit)}{text.length >= limit ? '...' : ''}
       </p>
     </Card.Content>
-    <Card.Footer>
-      <div class="flex justify-between w-full">
+    <Card.Footer class="relative">
+      <div class="absolute left-0 right-0 translate-y-1/2 flex justify-between w-full items-center">
         <p>$16.00</p>
-        <div class="flex flex-col">
+        <div class="flex flex-col ">
           <p class="text-xs font-semibold">Some Area</p>
           <HoverCard.Root>
             <HoverCard.Trigger
-              class="text-xs font-medium inline-flex items-center gap-1 place-self-end"
+              class="text-xs font-medium inline-flex items-center gap-1 place-self-center"
               ><Calendar />7d</HoverCard.Trigger
             >
             <HoverCard.Content class="w-80">
