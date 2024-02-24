@@ -1,7 +1,7 @@
 <script lang="ts">
+  import '../../app.scss';
   import NavigationBar from '$components/navigation-bar/navigation-bar.svelte';
   import { QueryClientProvider } from '@tanstack/svelte-query';
-  import '../../app.scss';
   import { SvelteQueryDevtools } from '@tanstack/svelte-query-devtools';
   import { setContext } from 'svelte';
   import type { PageData } from './$types';

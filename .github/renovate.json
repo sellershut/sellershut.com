@@ -6,10 +6,23 @@
   ],
   "packageRules": [
     {
+      "matchDepTypes": [
+        "devDependencies"
+      ],
       "matchPackagePatterns": [
-        "eslint",
-        "lint-staged",
+        "lint",
         "prettier"
+      ],
+      "groupName": "linters",
+      "automerge": true
+    },
+    {
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchPackagePatterns": [
+        "sass",
+        "css"
       ],
       "groupName": "linters",
       "automerge": true
