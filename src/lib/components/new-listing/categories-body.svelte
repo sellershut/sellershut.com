@@ -38,7 +38,7 @@
     <div transition:fly={{ y: 50, duration: index * 300, delay: 100 }} class="w-full">
       <Button
         variant="outline"
-        class="text-xs justify-start gap-2 text-wrap w-full"
+        class="text-xs justify-start gap-2 text-wrap w-full text-foreground"
         on:click={() => {
           sendCategory(node.name!, node.id!, node.subCategories);
         }}
@@ -54,7 +54,7 @@
     <div transition:fly={{ y: 50, duration: index * 300, delay: 100 }} class="w-full">
       <Button
         variant="outline"
-        class="text-xs justify-start gap-2 text-wrap w-full"
+        class="text-xs justify-start gap-2 text-wrap w-full text-foreground"
         on:click={() => {
           sendCategory(category!.name!, category!.id!, category?.subCategories);
         }}
