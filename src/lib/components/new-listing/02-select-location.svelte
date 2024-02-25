@@ -25,7 +25,7 @@
   const dispatch = createEventDispatcher();
 
   const pointSelected = (event: CustomEvent<number[]>) => {
-    dispatch('slideValid', event.detail);
+    dispatch('slideValid', { location: event.detail, slideIndex: 1 });
   };
 </script>
 

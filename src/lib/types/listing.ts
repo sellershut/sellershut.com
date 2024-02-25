@@ -8,10 +8,9 @@ export type Listing = {
   imageUrl: string;
   otherImages: string[];
   active: boolean;
-  tags: string[];
-  location: string;
-  liked_by: string[];
-  created_at: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
-}
+  negotiable: boolean;
+  tags: string;
+  location: number[];
+  likedBy: string[];
+  createdAt: Date;
+};

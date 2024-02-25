@@ -1,36 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":semanticCommits"
-  ],
+  "extends": ["config:recommended", ":semanticCommits"],
   "packageRules": [
     {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchPackagePatterns": [
-        "lint",
-        "prettier"
-      ],
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["lint", "prettier"],
       "groupName": "linters",
       "automerge": true
     },
     {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchPackagePatterns": [
-        "sass",
-        "css"
-      ],
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["sass", "css"],
       "groupName": "linters",
       "automerge": true
     },
     {
-      "matchPackagePatterns": [
-        "actions/"
-      ],
+      "matchPackagePatterns": ["actions/"],
       "groupName": "github-actions"
     }
   ]

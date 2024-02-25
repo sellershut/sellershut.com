@@ -6,6 +6,7 @@ import { PUBLIC_LISTINGS_API } from '$env/static/public';
 export const api = () => ({
   getListings: async (
     pagination: Partial<GraphQLPaginationProps>,
+    categoryGroup?: string
   ): Promise<GraphQLPaginatedResult<Partial<Listing>>> => {
     /* const output = {
       traceparent: null,

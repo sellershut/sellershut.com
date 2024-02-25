@@ -4,8 +4,10 @@
   import * as Avatar from '$components/ui/avatar';
   import * as HoverCard from '$components/ui/hover-card';
   import type { Listing } from '$lib/types/listing';
-  const { categoryId, description, title, location, imageUrl, id, price } =
-    $props<Partial<Listing>>();
+  const { listing } = $props<{
+    listing: Partial<Listing>;
+  }>();
+  const { categoryId, description, title, location, imageUrl, id, price, negotiable } = listing;
 
   const limit: number = 80;
 </script>
@@ -34,14 +36,14 @@
         {description?.slice(0, limit)}{description!.length >= limit ? '...' : ''}
       </p>
     </Card.Content>
-    <Card.Footer>
-      <div class="flex justify-between w-full">
+    <Card.Footer class="relative">
+      <div class="absolute left-0 right-0 translate-y-1/2 flex justify-between w-full items-center">
         <p>${price}</p>
         <div class="flex flex-col">
           <p class="text-xs font-semibold">{location}</p>
           <HoverCard.Root>
             <HoverCard.Trigger
-              class="text-xs font-medium inline-flex items-center gap-1 place-self-end"
+              class="text-xs font-medium inline-flex items-center gap-1 place-self-center"
               ><Calendar />7d</HoverCard.Trigger
             >
             <HoverCard.Content class="w-80">

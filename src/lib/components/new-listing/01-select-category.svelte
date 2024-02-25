@@ -64,7 +64,7 @@
   $effect(() => {
     if (lastItem && !lastItem.subCategories?.length) {
       // send message that this slide is ok
-      dispatch('slideValid', { categoryId: lastItem.id, slide: 1 });
+      dispatch('slideValid', { categoryId: lastItem.id, slideIndex: 0 });
     } else {
       dispatch('invalidate');
     }

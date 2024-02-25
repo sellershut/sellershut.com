@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from '$components/ui/button';
   import LoadingSpinner from '$components/ui/loading-spinner.svelte';
-  import type { Category } from '$lib/api/categories';
+  import type { Category } from '$lib/types/category';
   import { api } from '$lib/api/categories/api';
   import type { Edge, GraphQLPaginatedResult } from '$lib/api/response/graphql';
   import { nonWhitespaceInput } from '$lib/utils';
@@ -15,7 +15,7 @@
     searching: boolean;
     searchResults: Edge<Partial<{ category: Partial<Category>; parentName?: string }>>[];
   }>();
-  const parent = $derived(selectedCategories[selectedCategories.length - 1]?.id ?? null);
+  const parent = $derived(selectedCategories[selectedCategories.length - 1]?.id ?? undefined);
 
   const validInput = $derived(nonWhitespaceInput(searchQuery));
 
