@@ -10,13 +10,47 @@
   import { Button } from '$components/ui/button';
   import { getContext } from 'svelte';
   import type { Session, User } from 'lucia';
+  import type { Listing } from '$lib/types/listing';
 
-  const slides = [SlideSelectCategory, SlideSelectArea, SlideListingInfo, SlideImages];
+  const slides = [SlideSelectCategory, SlideSelectArea, SlideListingInfo, SlideImages, SlideTags];
   let activeIndex = $state(0);
   const progress = $derived((activeIndex / slides.length) * 100);
   let stepValid = $state(false);
 
-  const stepIsValid = (/* event: CustomEvent<{ categoryId: string; slide: number }> */) => {
+  type LocationSlide = Pick<Listing, 'location'> & { slideIndex: number };
+  type CategorySlide = Pick<Listing, 'categoryId'> & { slideIndex: number };
+  type InfoSlide = Pick<Listing, 'title' | 'description' | 'active' | 'price'> & {
+    slideIndex: number;
+  };
+
+  const listing: Partial<Listing> = {};
+
+  const stepIsValid = (event: CustomEvent<CategorySlide | LocationSlide | InfoSlide>) => {
+    switch (event.detail.slideIndex) {
+      case 0: {
+        const categorySlide = event.detail as CategorySlide;
+        listing.categoryId = categorySlide.categoryId;
+        break;
+      }
+      case 1: {
+        const locationSlide = event.detail as LocationSlide;
+        listing.location = locationSlide.location;
+        break;
+      }
+      case 2: {
+        const infoSlide = event.detail as InfoSlide;
+        listing.title = infoSlide.title;
+        listing.description = infoSlide.description;
+        listing.active = infoSlide.active;
+        listing.price = infoSlide.price;
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    console.log(listing);
+
     stepValid = true;
   };
 

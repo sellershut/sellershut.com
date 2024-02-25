@@ -5,18 +5,9 @@
   import { createEventDispatcher } from 'svelte';
   import SlideTitle from './slide-title.svelte';
 
-  let title = $state('');
-  let titleValid = $state(false);
-
-  let description = $state('');
-  const descriptionValid = $state(false);
-
   let active = $state(false);
   let negotiable = $state(false);
 
-  let price = $state('');
-
-  const slideValid = $derived(titleValid && descriptionValid);
   const dispatch = createEventDispatcher();
 
   const isNotEmptyOrWhitespace = (value: string): boolean => {
@@ -27,9 +18,25 @@
     return regex.test(value);
   };
 
+  let description = $state('');
+  const descriptionValid = $derived(isNotEmptyOrWhitespace(description));
+
+  const isValidDecimal = (str: string): boolean => {
+    const value = parseFloat(str);
+    return value > 0 && !Number.isNaN(value);
+  };
+
+  let price = $state('');
+  const priceValid = $derived(isValidDecimal(price));
+
+  let title = $state('');
+  const titleValid = $derived(isNotEmptyOrWhitespace(title));
+
+  const slideValid = $derived(titleValid && descriptionValid && priceValid);
+
   $effect(() => {
     if (slideValid) {
-      dispatch('postDetails', { title, description, active });
+      dispatch('slideValid', { title, description, active, negotiable, price, slideIndex: 2 });
     }
   });
 </script>
@@ -38,15 +45,7 @@
 
 <div class="grid w-full items-center gap-1.5">
   <Label for="post-name">Title</Label>
-  <Input
-    type="text"
-    id="post-name"
-    placeholder=""
-    bind:value={title}
-    on:input={() => {
-      titleValid = isNotEmptyOrWhitespace(title);
-    }}
-  />
+  <Input type="text" id="post-name" placeholder="" bind:value={title} />
   <p class="text-xs text-muted-foreground">Give your listing a title</p>
 </div>
 <div class="grid w-full mitems-center gap-1.5">
