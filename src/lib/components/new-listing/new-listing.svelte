@@ -19,7 +19,7 @@
 
   type LocationSlide = Pick<Listing, 'location'> & { slideIndex: number };
   type CategorySlide = Pick<Listing, 'categoryId'> & { slideIndex: number };
-  type InfoSlide = Pick<Listing, 'title' | 'description' | 'active' | 'price'> & {
+  type InfoSlide = Pick<Listing, 'title' | 'description' | 'active' | 'price' | 'negotiable'> & {
     slideIndex: number;
   };
 
@@ -41,6 +41,7 @@
         const infoSlide = event.detail as InfoSlide;
         listing.title = infoSlide.title;
         listing.description = infoSlide.description;
+        listing.negotiable = infoSlide.negotiable;
         listing.active = infoSlide.active;
         listing.price = infoSlide.price;
         break;
