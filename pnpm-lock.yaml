@@ -131,8 +131,8 @@ devDependencies:
     specifier: ^1.70.0
     version: 1.72.0
   shadcn-svelte:
-    specifier: ^0.7.0
-    version: 0.7.0(typescript@5.3.3)
+    specifier: ^0.8.0
+    version: 0.8.3(typescript@5.3.3)
   svelte:
     specifier: ^5.0.0-next.1
     version: 5.0.0-next.80
@@ -3420,8 +3420,8 @@ packages:
     resolution: {integrity: sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==}
     dev: true
 
-  /https-proxy-agent@7.0.2:
-    resolution: {integrity: sha512-NmLNjm6ucYwtcUmL7JQC1ZQ57LmHP4lT15FQ8D61nak1rO6DH+fz5qNK2Ap5UN4ZapYICE3/0KodcLYSPsPbaA==}
+  /https-proxy-agent@7.0.4:
+    resolution: {integrity: sha512-wlwpilI7YdjSkWaQ/7omYBMTliDcmCN8OLihO6I9B86g06lMyAoqgoDpV0XqoaPOKj+0DIdAvnsWfyAAhmimcg==}
     engines: {node: '>= 14'}
     dependencies:
       agent-base: 7.1.0
@@ -4834,8 +4834,8 @@ packages:
       has-property-descriptors: 1.0.2
     dev: true
 
-  /shadcn-svelte@0.7.0(typescript@5.3.3):
-    resolution: {integrity: sha512-Ob+umTjCSxsV/KLhwNVOU76kr4aO28xiYWV89w/MNf7FPzMx4TZm7z/HsOQIVTWDqRXYS8k2/HNbLcQGRlT9JA==}
+  /shadcn-svelte@0.8.3(typescript@5.3.3):
+    resolution: {integrity: sha512-qCAKQf1VUePSa9gSUdUSwmRKAXusB1Iocfrp2+0Rt9yqQziUDdp4oNtko+5FjMfMWg2wnSp7JiIHMXJmihEfvw==}
     hasBin: true
     peerDependencies:
       typescript: ^4.0.0 || ^5.0.0
@@ -4844,7 +4844,7 @@ packages:
       commander: 10.0.1
       execa: 7.2.0
       fs-extra: 11.2.0
-      https-proxy-agent: 7.0.2
+      https-proxy-agent: 7.0.4
       node-fetch: 3.3.2
       ora: 6.3.1
       prompts: 2.4.2
