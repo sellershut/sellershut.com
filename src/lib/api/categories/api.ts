@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { GraphQLPaginatedResult, GraphQLPaginationProps } from '$lib/api/response/graphql';
-import type { Category, SliderCategory } from '.';
+import type { Category } from '$lib/types/category';
+import type { SliderCategory } from '.';
 import { PUBLIC_CATEGORIES_API } from '$env/static/public';
 
 export const api = () => ({
