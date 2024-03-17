@@ -11,12 +11,18 @@
     {
       "matchDepTypes": ["devDependencies"],
       "matchPackagePatterns": ["sass", "css"],
-      "groupName": "linters",
+      "groupName": "stylesheets",
       "automerge": true
     },
     {
       "matchPackagePatterns": ["actions/"],
       "groupName": "github-actions"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
     }
   ]
 }

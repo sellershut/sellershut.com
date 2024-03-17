@@ -88,7 +88,6 @@ export const api = () => ({
 
     return response;
   },
-
 });
 
 export default api;

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { Button } from '$components/ui/button';
-  import type { Category } from '$lib/api/categories';
   import api from '$lib/api/categories/api';
   import type { Edge } from '$lib/api/response/graphql';
   import { Cross2, MagnifyingGlass } from 'radix-icons-svelte';
   import { createEventDispatcher } from 'svelte';
   import LoadingSpinner from './loading-spinner.svelte';
   import { nonWhitespaceInput } from '$lib/utils';
+  import type { Category } from '$lib/types/category';
 
   const dispatch = createEventDispatcher();
 

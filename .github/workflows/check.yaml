@@ -1,0 +1,50 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+name: check
+env:
+  PNPM_VER: 8
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: pnpm / install
+    strategy:
+      matrix:
+        node-version: [20] # Current LTS
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VER }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+        #  linting:
+        #    needs: build
+        #    runs-on: ubuntu-latest
+        #    strategy:
+        #      matrix:
+        #        node-version: [20]
+        #    steps:
+        #      - uses: actions/checkout@v3
+        #      - uses: pnpm/action-setup@v2
+        #        with:
+        #          version: ${{ env.PNPM_VER }}
+        #      - name: Use Node.js ${{ matrix.node-version }}
+        #        uses: actions/setup-node@v3
+        #        with:
+        #          node-version: ${{ matrix.node-version }}
+        #          cache: 'pnpm'
+        #      - name: Install dependencies
+        #        run: pnpm install
+        #      - name: Run linter
+        #        run: |
+        #          pnpm lint
+        #      - name: Run unit tests
+        #        run: |
+        #          pnpm run test:unit -- --coverage
