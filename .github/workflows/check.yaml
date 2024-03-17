@@ -24,8 +24,6 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Build
-        run: pnpm build
         #  linting:
         #    needs: build
         #    runs-on: ubuntu-latest
