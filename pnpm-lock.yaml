@@ -43,7 +43,7 @@ dependencies:
     version: 1.9.4
   lucia:
     specifier: ^3.0.1
-    version: 3.0.1
+    version: 3.1.1
   lucide-svelte:
     specifier: ^0.358.0
     version: 0.358.0(svelte@5.0.0-next.80)
@@ -3844,8 +3844,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /lucia@3.0.1:
-    resolution: {integrity: sha512-srwUkTCGgr6N4mFpaKZVZy5kwiRZdsrbIDv9Wrjar+xyw1MjojYQQ7oRbegjRWOZ3yI8xOOclK3sz/rga2J7/w==}
+  /lucia@3.1.1:
+    resolution: {integrity: sha512-Ygvgnqq7Ha7lYVaZATPwkPD2s2Qlsm71Z2o0byx/abNBfFldCRow5sNii6RqMsuMpK957RAI3Gw4/aWoagkc7A==}
     dependencies:
       oslo: 1.0.1
     dev: false
