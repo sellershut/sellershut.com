@@ -56,7 +56,7 @@
     "embla-carousel-svelte": "8.0.0-rc22",
     "leaflet": "^1.9.4",
     "lucia": "^3.0.1",
-    "lucide-svelte": "^0.323.0",
+    "lucide-svelte": "^0.358.0",
     "ol": "^8.2.0",
     "oslo": "^1.1.1",
     "pino": "^8.19.0",
