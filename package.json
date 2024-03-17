@@ -48,7 +48,7 @@
     "@tanstack/svelte-query-devtools": "^5.18.0",
     "arctic": "^1.1.6",
     "axios": "^1.6.7",
-    "bits-ui": "^0.18.0",
+    "bits-ui": "^0.19.0",
     "clsx": "^2.1.0",
     "cmdk-sv": "^0.0.15",
     "embla-carousel-svelte": "8.0.0",
