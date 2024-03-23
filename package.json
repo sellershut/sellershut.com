@@ -50,7 +50,7 @@
     "axios": "^1.6.7",
     "bits-ui": "^0.19.0",
     "clsx": "^2.1.0",
-    "cmdk-sv": "^0.0.15",
+    "cmdk-sv": "^0.0.16",
     "embla-carousel-svelte": "8.0.0",
     "leaflet": "^1.9.4",
     "lucia": "^3.0.1",
