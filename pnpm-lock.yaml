@@ -10,10 +10,10 @@ dependencies:
     version: 3.5.2
   '@tanstack/svelte-query':
     specifier: ^5.18.0
-    version: 5.28.4(svelte@5.0.0-next.82)
+    version: 5.28.6(svelte@5.0.0-next.82)
   '@tanstack/svelte-query-devtools':
     specifier: ^5.18.0
-    version: 5.28.4(@tanstack/svelte-query@5.28.4)(svelte@5.0.0-next.82)
+    version: 5.28.6(@tanstack/svelte-query@5.28.6)(svelte@5.0.0-next.82)
   arctic:
     specifier: ^1.1.6
     version: 1.2.1
@@ -1393,32 +1393,32 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@tanstack/query-core@5.28.4:
-    resolution: {integrity: sha512-uQZqOFqLWUvXNIQZ63XdKzg22NtHzgCBUfDmjDHi3BoF+nUYeBNvMi/xFPtFrMhqRzG2Ir4mYaGsWZzmiEjXpA==}
+  /@tanstack/query-core@5.28.6:
+    resolution: {integrity: sha512-hnhotV+DnQtvtR3jPvbQMPNMW4KEK0J4k7c609zJ8muiNknm+yoDyMHmxTWM5ZnlZpsz0zOxYFr+mzRJNHWJsA==}
     dev: false
 
-  /@tanstack/query-devtools@5.28.3:
-    resolution: {integrity: sha512-Kxch05PVnxLUAyRiz2gXYQhXATHfXbQQwvz858YPjYYQyi7yk8SyS9Z5hyw90bRb0pd3rjelXyGFCsNMWvEghw==}
+  /@tanstack/query-devtools@5.28.6:
+    resolution: {integrity: sha512-DXJGqbrsteWU9XehDf6s3k3QxwQqGUlNXpitsF1xbwkYBcDaAakiC6hjJSMfPBHOrbZCnWfAGCVf4vh2D75/xw==}
     dev: false
 
-  /@tanstack/svelte-query-devtools@5.28.4(@tanstack/svelte-query@5.28.4)(svelte@5.0.0-next.82):
-    resolution: {integrity: sha512-HCUiX62TPmcRlGKEde7KJ+6g2hDJymrn8u0sITfTp5ut4sLNH45p+HYwn1em0c5FqB0D7iKcWgvIzsTcQp7YOQ==}
+  /@tanstack/svelte-query-devtools@5.28.6(@tanstack/svelte-query@5.28.6)(svelte@5.0.0-next.82):
+    resolution: {integrity: sha512-i7TYOmHu7aVr8U+BhroIfep2Olrp11fpBUql8X/QnisYZO4x+RQ12XHFt+fl0icNwOGZMIYQYsGU+u2r6Im5XA==}
     peerDependencies:
-      '@tanstack/svelte-query': ^5.28.4
+      '@tanstack/svelte-query': ^5.28.6
       svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
     dependencies:
-      '@tanstack/query-devtools': 5.28.3
-      '@tanstack/svelte-query': 5.28.4(svelte@5.0.0-next.82)
+      '@tanstack/query-devtools': 5.28.6
+      '@tanstack/svelte-query': 5.28.6(svelte@5.0.0-next.82)
       esm-env: 1.0.0
       svelte: 5.0.0-next.82
     dev: false
 
-  /@tanstack/svelte-query@5.28.4(svelte@5.0.0-next.82):
-    resolution: {integrity: sha512-M4tAWjRAuufEE8pfDukzLj8kl9tKhFe1hvIBLZ58EEEI7Yzi5eiBNfm4k1fvOYyMzNtoA1Ol/xGFiq8smekC5g==}
+  /@tanstack/svelte-query@5.28.6(svelte@5.0.0-next.82):
+    resolution: {integrity: sha512-AOYzN3UfxhBdiO8lm9zYS0uM+6ByqxraGQgkYxfmveKXvXnzfNNKg4BomIheG0g91eVi/iQUmz0e/TniAzCi3Q==}
     peerDependencies:
       svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
     dependencies:
-      '@tanstack/query-core': 5.28.4
+      '@tanstack/query-core': 5.28.6
       svelte: 5.0.0-next.82
     dev: false
 
