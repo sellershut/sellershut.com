@@ -108,7 +108,7 @@ devDependencies:
     version: 3.6.1(@typescript-eslint/parser@7.3.1)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
   eslint-plugin-svelte:
     specifier: ^2.36.0-next.4
-    version: 2.36.0-next.12(eslint@8.57.0)(svelte@5.0.0-next.82)
+    version: 2.36.0-next.13(eslint@8.57.0)(svelte@5.0.0-next.82)
   pino-pretty:
     specifier: ^11.0.0
     version: 11.0.0
@@ -2733,8 +2733,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-svelte@2.36.0-next.12(eslint@8.57.0)(svelte@5.0.0-next.82):
-    resolution: {integrity: sha512-aRWZF+vLmRjbka4bCI/HqlHCMXdqdTZk2Lwvbdwv43ZQ4XtB7fqjnGrrSXAEMCzi6hXnGKRN4yjtJhLUgXZyww==}
+  /eslint-plugin-svelte@2.36.0-next.13(eslint@8.57.0)(svelte@5.0.0-next.82):
+    resolution: {integrity: sha512-N4bLGdFkGbbAQiKvX17kLfBgnZ+Em00khOY3AReppO7fkP9jaSxwjdgTCcWf+Q5/uZWor58g4GleRqHcb2Dk2w==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0-0 || ^9.0.0-0
