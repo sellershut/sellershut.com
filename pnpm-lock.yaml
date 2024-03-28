@@ -16,7 +16,7 @@ dependencies:
     version: 5.28.6(@tanstack/svelte-query@5.28.6)(svelte@5.0.0-next.85)
   arctic:
     specifier: ^1.1.6
-    version: 1.2.1
+    version: 1.3.0
   axios:
     specifier: ^1.6.7
     version: 1.6.8
@@ -1724,8 +1724,8 @@ packages:
       normalize-path: 3.0.0
       picomatch: 2.3.1
 
-  /arctic@1.2.1:
-    resolution: {integrity: sha512-Pahp2ZhXH7fqrsQKRkvcsVBTFXkpUzfxSuJcyHR5Zz83a2S8yNX3w3w5rbozezO3i0w5q1zgR27VMoiuR/hB/Q==}
+  /arctic@1.3.0:
+    resolution: {integrity: sha512-W0b6M54M3ix1Xm0V3vYGHgOSAiqTxl001C1IkGZTt+ud0M9GKEvIg6YTIl9iGu4eAeftLtjAkLrC6xHEYIXvRQ==}
     dependencies:
       oslo: 1.0.1
     dev: false
