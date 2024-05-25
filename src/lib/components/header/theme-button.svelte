@@ -1,6 +1,7 @@
 <script lang="ts">
 import { enhance } from "$app/forms";
 import { page } from "$app/stores";
+import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 import type { SubmitFunction } from "@sveltejs/kit";
 
 const submitUpdateTheme: SubmitFunction = ({ action }) => {
@@ -16,12 +17,21 @@ const createRoute = (theme: string): string => {
 };
 </script>
 
-<form
-  use:enhance={submitUpdateTheme}
-  method="post"
-  class="flex gap-2 list-none"
->
-  <li><button formaction={createRoute("dark")}>Dark</button></li>
-  <li><button formaction={createRoute("light")}>Light</button></li>
-  <li><button formaction={createRoute("system")}>System</button></li>
-</form>
+<DropdownMenu.Root>
+  <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Group>
+      <form use:enhance={submitUpdateTheme} method="post">
+        <DropdownMenu.Item>
+          <button formaction={createRoute("dark")}>Dark</button>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+          <button formaction={createRoute("light")}>Light</button>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+          <button formaction={createRoute("system")}>System</button>
+        </DropdownMenu.Item>
+      </form>
+    </DropdownMenu.Group>
+  </DropdownMenu.Content>
+</DropdownMenu.Root>

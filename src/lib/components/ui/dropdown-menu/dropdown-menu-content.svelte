@@ -1,0 +1,27 @@
+<script lang="ts">
+import { cn, flyAndScale } from "$lib/utils.js";
+// biome-ignore lint/style/useImportType: <explanation>
+import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
+
+type $$Props = DropdownMenuPrimitive.ContentProps;
+
+const className: $$Props["class"] = undefined;
+export const sideOffset: $$Props["sideOffset"] = 4;
+export const transition: $$Props["transition"] = flyAndScale;
+export const transitionConfig: $$Props["transitionConfig"] = undefined;
+export { className as class };
+</script>
+
+<DropdownMenuPrimitive.Content
+  {transition}
+  {transitionConfig}
+  {sideOffset}
+  class={cn(
+    "z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md focus:outline-none",
+    className,
+  )}
+  {...$$restProps}
+  on:keydown
+>
+  <slot />
+</DropdownMenuPrimitive.Content>
