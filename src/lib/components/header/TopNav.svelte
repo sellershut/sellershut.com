@@ -1,1 +1,1 @@
-<header class="h-11 sticky top-0">Navigation</header>
+<header class="navigation-bar h-11">Navigation</header>
