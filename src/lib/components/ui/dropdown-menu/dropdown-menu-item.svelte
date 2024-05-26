@@ -8,8 +8,8 @@ type $$Props = DropdownMenuPrimitive.ItemProps & {
 };
 type $$Events = DropdownMenuPrimitive.ItemEvents;
 
-const className: $$Props["class"] = undefined;
-export const inset: $$Props["inset"] = undefined;
+let className: $$Props["class"] = undefined;
+export let inset: $$Props["inset"] = undefined;
 export { className as class };
 </script>
 

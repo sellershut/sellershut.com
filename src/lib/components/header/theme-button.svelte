@@ -2,13 +2,16 @@
 import { enhance } from "$app/forms";
 import { page } from "$app/stores";
 import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+
 import type { SubmitFunction } from "@sveltejs/kit";
+import { IconColorSwatch } from "@tabler/icons-svelte";
 import {
 	MoonOutline,
 	PhonePortraitOutline,
 	SunnyOutline,
 	TvOutline,
 } from "svelte-ionicons";
+import Button from "../ui/button/button.svelte";
 
 const submitUpdateTheme: SubmitFunction = ({ action }) => {
 	const theme = action.searchParams.get("theme");
@@ -24,7 +27,11 @@ const createRoute = (theme: string): string => {
 </script>
 
 <DropdownMenu.Root>
-  <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+  <DropdownMenu.Trigger asChild let:builder>
+    <Button size="lg" variant="outline" builders={[builder]}>
+      <IconColorSwatch stroke={1.5} />
+    </Button>
+  </DropdownMenu.Trigger>
   <DropdownMenu.Content>
     <DropdownMenu.Group>
       <form use:enhance={submitUpdateTheme} method="post">
@@ -39,10 +46,9 @@ const createRoute = (theme: string): string => {
           >
         </DropdownMenu.Item>
         <DropdownMenu.Item>
-          <button formaction={createRoute("system")} class="inline-flex gap-2"
-            >
-            <TvOutline class="hidden md:block"/>
-            <PhonePortraitOutline class="md:hidden"/>
+          <button formaction={createRoute("system")} class="inline-flex gap-2">
+            <TvOutline class="hidden md:block" />
+            <PhonePortraitOutline class="md:hidden" />
             System</button
           >
         </DropdownMenu.Item>

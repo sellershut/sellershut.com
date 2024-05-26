@@ -5,7 +5,7 @@ import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 
 type $$Props = DropdownMenuPrimitive.SeparatorProps;
 
-const className: $$Props["class"] = undefined;
+let className: $$Props["class"] = undefined;
 export { className as class };
 </script>
 

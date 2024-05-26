@@ -7,8 +7,7 @@ import { CheckmarkOutline } from "svelte-ionicons";
 type $$Props = DropdownMenuPrimitive.CheckboxItemProps;
 type $$Events = DropdownMenuPrimitive.CheckboxItemEvents;
 
-const className: $$Props["class"] = undefined;
-// biome-ignore lint/style/useConst: <explanation>
+let className: $$Props["class"] = undefined;
 export let checked: $$Props["checked"] = undefined;
 export { className as class };
 </script>

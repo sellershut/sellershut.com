@@ -5,10 +5,10 @@ import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 
 type $$Props = DropdownMenuPrimitive.ContentProps;
 
-const className: $$Props["class"] = undefined;
-export const sideOffset: $$Props["sideOffset"] = 4;
-export const transition: $$Props["transition"] = flyAndScale;
-export const transitionConfig: $$Props["transitionConfig"] = undefined;
+let className: $$Props["class"] = undefined;
+export let sideOffset: $$Props["sideOffset"] = 4;
+export let transition: $$Props["transition"] = flyAndScale;
+export let transitionConfig: $$Props["transitionConfig"] = undefined;
 export { className as class };
 </script>
 

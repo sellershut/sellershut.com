@@ -7,7 +7,7 @@ import { RadioButtonOn } from "svelte-ionicons";
 type $$Props = DropdownMenuPrimitive.RadioItemProps;
 type $$Events = DropdownMenuPrimitive.RadioItemEvents;
 
-const className: $$Props["class"] = undefined;
+let className: $$Props["class"] = undefined;
 export let value: DropdownMenuPrimitive.RadioItemProps["value"];
 export { className as class };
 </script>

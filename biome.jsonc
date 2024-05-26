@@ -12,5 +12,17 @@
 		"rules": {
 			"recommended": true
 		}
-	}
+	},
+	"overrides": [
+		{
+			"include": ["src/lib/components/ui/**"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useConst": "off"
+					}
+				}
+			}
+		}
+	]
 }
