@@ -3,11 +3,12 @@ import { IconSearch } from "@tabler/icons-svelte";
 import { setContext } from "svelte";
 import { writable } from "svelte/store";
 import { Button } from "../ui/button";
+import MenuIcon from "./menu-icon.svelte";
 import NavSearch from "./nav-search.svelte";
 import SellershutButton from "./sellershut-logo-button.svelte";
 import ThemeButton from "./theme-button.svelte";
 
-let searchOpen = writable(true);
+let searchOpen = writable(false);
 setContext("searching", searchOpen);
 </script>
 
@@ -15,9 +16,10 @@ setContext("searching", searchOpen);
   class="navigation-bar min-h-11 sticky top-0 flex items-center px-2 gap-2 shadow"
 >
   <NavSearch />
-  <div class={`${$searchOpen ? "hidden" : "flex-1"} flex`}>
+  <div class={`${$searchOpen ? "hidden" : "flex-1"} flex relative`}>
+    <MenuIcon/>
     <SellershutButton />
-    <div class="flex-1 flex justify-end">
+    <div class="absolute right-0 -top-[6px] bottom-0 m-auto">
       <Button size="icon" variant="ghost">
         <IconSearch
           onmousedown={() => {

@@ -8,7 +8,7 @@ let searchOpen: Writable<boolean> = getContext("searching");
 </script>
 
 <div
-  class={`${$searchOpen ? "flex " : "hidden"} items-center w-full gap-1 justify-end relative`}
+  class={`${$searchOpen ? "flex " : "hidden"} items-center w-full gap-1 justify-end`}
 >
   <Input
     id="searchInput"
@@ -21,7 +21,4 @@ let searchOpen: Writable<boolean> = getContext("searching");
       $searchOpen = false;
     }}>Cancel</Button
   >
-  <div class="absolute bottom-0 left-0 right-0 h-44 bg-blue-600">
-    <div></div>
-  </div>
 </div>
