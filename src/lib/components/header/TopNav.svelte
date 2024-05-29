@@ -9,7 +9,9 @@ import SellershutButton from "./sellershut-logo-button.svelte";
 import ThemeButton from "./theme-button.svelte";
 
 let searchOpen = writable(false);
+let menuOpen = writable(false);
 setContext("searching", searchOpen);
+setContext("menuOpen", menuOpen);
 </script>
 
 <header
