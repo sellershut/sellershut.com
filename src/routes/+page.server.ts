@@ -4,7 +4,6 @@ export const actions: Actions = {
 	setTheme: async ({ url, cookies }) => {
 		const theme = url.searchParams.get("theme");
 		const redirectTo = url.searchParams.get("redirectTo");
-		console.log("theme", theme);
 
 		if (theme) {
 			cookies.set("siteTheme", theme, {

@@ -28,7 +28,7 @@ const createRoute = (theme: string): string => {
 
 <DropdownMenu.Root>
   <DropdownMenu.Trigger asChild let:builder>
-    <Button size="lg" variant="outline" builders={[builder]}>
+    <Button size="icon" variant="ghost" builders={[builder]}>
       <IconColorSwatch stroke={1.5} />
     </Button>
   </DropdownMenu.Trigger>
@@ -37,7 +37,7 @@ const createRoute = (theme: string): string => {
       <form use:enhance={submitUpdateTheme} method="post">
         <DropdownMenu.Item>
           <button formaction={createRoute("dark")} class="inline-flex gap-2"
-            ><MoonOutline /> Dark</button
+            ><MoonOutline />Dark</button
           >
         </DropdownMenu.Item>
         <DropdownMenu.Item>
