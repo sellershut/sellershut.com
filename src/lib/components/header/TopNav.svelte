@@ -15,23 +15,28 @@ setContext("menuOpen", menuOpen);
 </script>
 
 <header
-  class="navigation-bar min-h-11 sticky top-0 flex items-center px-2 gap-2 shadow"
+  class="navigation-bar min-h-11 sticky top-0 flex flex-col justify-center space-y-1 py-2"
 >
-  <NavSearch />
-  <div class={`${$searchOpen ? "hidden" : "flex-1"} flex relative`}>
-    <MenuIcon/>
-    <SellershutButton />
-    <div class="absolute right-0 -top-[6px] bottom-0 m-auto">
-      <Button size="icon" variant="ghost">
-        <IconSearch
-          onmousedown={() => {
-            $menuOpen = false;
-            $searchOpen = true;
-          }}
-          stroke={1.5}
-        />
-      </Button>
-      <ThemeButton />
+  <div class="md:container flex items-center gap-2">
+    <NavSearch />
+    <div class={`${$searchOpen ? "hidden" : "flex-1"} flex relative`}>
+      <MenuIcon />
+      <SellershutButton />
+      <div class="absolute right-0 -top-[6px] bottom-0 m-auto">
+        <Button size="icon" variant="ghost">
+          <IconSearch
+            onmousedown={() => {
+              $menuOpen = false;
+              $searchOpen = true;
+            }}
+            stroke={1.5}
+          />
+        </Button>
+        <ThemeButton />
+      </div>
     </div>
+  </div>
+  <div class="flex items-center justify-center">
+    <div>Filter</div>
   </div>
 </header>
