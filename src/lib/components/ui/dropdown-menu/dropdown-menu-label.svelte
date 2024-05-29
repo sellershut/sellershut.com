@@ -1,6 +1,5 @@
 <script lang="ts">
-import { cn } from "$lib/utils.js";
-// biome-ignore lint/style/useImportType: <explanation>
+import { cn } from "$lib/utils";
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 
 type $$Props = DropdownMenuPrimitive.LabelProps & {

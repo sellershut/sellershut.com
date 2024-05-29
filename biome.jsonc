@@ -23,6 +23,16 @@
 					}
 				}
 			}
+		},
+		{
+			"include": ["src/lib/components/ui/**/*.svelte"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useImportType": "off"
+					}
+				}
+			}
 		}
 	]
 }

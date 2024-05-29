@@ -7,7 +7,7 @@ let menuOpen: Writable<boolean> = getContext("menuOpen");
 
 <button
   class="absolute m-auto top-0 bottom-0 left-0 h-8 w-8 scale-75 md:hidden"
-  on:click={() => {
+  onmousedown={() => {
     $menuOpen = !$menuOpen;
   }}
 >

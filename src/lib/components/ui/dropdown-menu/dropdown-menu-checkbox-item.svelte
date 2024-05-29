@@ -1,6 +1,5 @@
 <script lang="ts">
 import { cn } from "$lib/utils";
-// biome-ignore lint/style/useImportType: <explanation>
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 import { CheckmarkOutline } from "svelte-ionicons";
 

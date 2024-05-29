@@ -1,5 +1,4 @@
 <script lang="ts">
-// biome-ignore lint/style/useImportType: <explanation>
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 
 type $$Props = DropdownMenuPrimitive.RadioGroupProps;
