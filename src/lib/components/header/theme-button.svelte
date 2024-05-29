@@ -6,11 +6,11 @@ import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 import type { SubmitFunction } from "@sveltejs/kit";
 import { IconColorSwatch } from "@tabler/icons-svelte";
 import {
-	MoonOutline,
-	PhonePortraitOutline,
-	SunnyOutline,
-	TvOutline,
-} from "svelte-ionicons";
+	IconDeviceDesktop,
+	IconDeviceMobile,
+	IconMoon,
+	IconSun,
+} from "@tabler/icons-svelte";
 import Button from "../ui/button/button.svelte";
 
 const submitUpdateTheme: SubmitFunction = ({ action }) => {
@@ -37,18 +37,18 @@ const createRoute = (theme: string): string => {
       <form use:enhance={submitUpdateTheme} method="post">
         <DropdownMenu.Item>
           <button formaction={createRoute("dark")} class="inline-flex gap-2"
-            ><MoonOutline />Dark</button
+            ><IconMoon />Dark</button
           >
         </DropdownMenu.Item>
         <DropdownMenu.Item>
           <button formaction={createRoute("light")} class="inline-flex gap-2"
-            ><SunnyOutline />Light</button
+            ><IconSun />Light</button
           >
         </DropdownMenu.Item>
         <DropdownMenu.Item>
           <button formaction={createRoute("system")} class="inline-flex gap-2">
-            <TvOutline class="hidden md:block" />
-            <PhonePortraitOutline class="md:hidden" />
+            <IconDeviceDesktop class="hidden md:block" />
+            <IconDeviceMobile class="md:hidden" />
             System</button
           >
         </DropdownMenu.Item>

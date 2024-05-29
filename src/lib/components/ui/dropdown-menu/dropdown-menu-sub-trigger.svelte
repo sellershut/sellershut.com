@@ -1,7 +1,7 @@
 <script lang="ts">
 import { cn } from "$lib/utils";
+import { IconChevronRight } from "@tabler/icons-svelte";
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
-import { ChevronForwardOutline } from "svelte-ionicons";
 
 type $$Props = DropdownMenuPrimitive.SubTriggerProps & {
 	inset?: boolean;
@@ -28,5 +28,5 @@ export { className as class };
   on:pointermove
 >
   <slot />
-  <ChevronForwardOutline class="ml-auto h-4 w-4" />
+  <IconChevronRight class="ml-auto h-4 w-4" />
 </DropdownMenuPrimitive.SubTrigger>
