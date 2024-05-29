@@ -25,6 +25,7 @@ setContext("menuOpen", menuOpen);
       <Button size="icon" variant="ghost">
         <IconSearch
           onmousedown={() => {
+            $menuOpen = false;
             $searchOpen = true;
           }}
           stroke={1.5}
