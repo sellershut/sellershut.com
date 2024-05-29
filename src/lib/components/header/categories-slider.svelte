@@ -21,8 +21,8 @@ function routePage(name: string): string {
 }
 </script>
 
-<div class="flex flex-col items-center md:mx-4 md:flex-row-reverse md:gap-1.5">
-  <Button variant="secondary" size="sm" class="mx-auto gap-2 md:mt-3 md:hidden">
+<div class="flex flex-col items-center 2xl:mx-4 2xl:flex-row-reverse 2xl:gap-1.5">
+  <Button variant="secondary" size="sm" class="mx-auto gap-2 2xl:mt-3 2xl:hidden">
     <FilterOutline class="h-4 w-4" />
     Filter
   </Button>
