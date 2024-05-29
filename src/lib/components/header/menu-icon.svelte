@@ -5,8 +5,12 @@ import { getContext } from "svelte";
 import type { Writable } from "svelte/store";
 
 let menuOpen: Writable<boolean> = getContext("menuOpen");
+let windowWidth = $state(0);
 </script>
 
+<svelte:window bind:outerWidth={windowWidth} />
+
+{#if windowWidth < 768}
 <Sheet.Root bind:open={$menuOpen}>
   <Sheet.Trigger asChild let:builder>
     <Button
@@ -43,3 +47,4 @@ let menuOpen: Writable<boolean> = getContext("menuOpen");
     </Sheet.Footer>
   </Sheet.Content>
 </Sheet.Root>
+{/if}
