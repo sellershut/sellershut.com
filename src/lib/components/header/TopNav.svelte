@@ -36,7 +36,7 @@ setContext("menuOpen", menuOpen);
       </div>
     </div>
   </div>
-  <div class="flex items-center justify-center">
-    <div>Filter</div>
-  </div>
+   {#await import('$lib/components/header/categories-slider.svelte') then Module}
+      <Module.default />
+    {/await}
 </header>
