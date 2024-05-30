@@ -1,39 +1,61 @@
 <script lang="ts">
+import { Button } from "$lib/components/ui/button";
+import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 import * as Pagination from "$lib/components/ui/pagination/index";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-svelte";
+import {
+	IconArrowsMoveVertical,
+	IconChevronLeft,
+	IconChevronRight,
+} from "@tabler/icons-svelte";
 
 let windowWidth = $state(0);
 let isDesktop = $derived(windowWidth > 768);
 
-$effect(() => {});
-
 let count = 20;
 let perPage = $derived(isDesktop ? 3 : 8);
 let siblingCount = $derived(isDesktop ? 1 : 0);
+
+let position = $state("featured");
 </script>
 
 <svelte:window bind:outerWidth={windowWidth} />
 
-  <section class="container px-5 py-12 mx-auto">
-    <div class="flex flex-wrap -m-4">
-      {#each Array(24) as _}
-        <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-          <a href={"#"} class="block relative h-48 rounded overflow-hidden">
-            <img
-              alt="ecommerce"
-              class="object-cover object-center w-full h-full block"
-              src="https://dummyimage.com/420x260"
-            />
-          </a>
-          <div class="mt-4">
-            <h3 class="text-xs tracking-widest title-font mb-1">CATEGORY</h3>
-            <h2 class="title-font text-lg font-medium">The Catalyzer</h2>
-            <p class="mt-1">$16.00</p>
-          </div>
+<section class="container px-5 py-12 mx-auto space-y-6">
+  <DropdownMenu.Root>
+    <DropdownMenu.Trigger asChild let:builder>
+      <Button class="shrink-0" variant="outline" builders={[builder]}>
+        <IconArrowsMoveVertical class="w-4 h-4 mr-2" />
+        Sort by
+      </Button>
+    </DropdownMenu.Trigger>
+    <DropdownMenu.Content class="w-56">
+      <DropdownMenu.RadioGroup bind:value={position}>
+        <DropdownMenu.RadioItem value="featured">Featured</DropdownMenu.RadioItem>
+        <DropdownMenu.RadioItem value="newest">Newest</DropdownMenu.RadioItem>
+        <DropdownMenu.RadioItem value="low">Price: Low to High</DropdownMenu.RadioItem>
+        <DropdownMenu.RadioItem value="high">Price: High to Low</DropdownMenu.RadioItem>
+      </DropdownMenu.RadioGroup>
+    </DropdownMenu.Content>
+  </DropdownMenu.Root>
+  <div class="flex flex-wrap -m-4">
+    {#each Array(48) as _}
+      <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+        <a href={"#"} class="block relative h-48 rounded overflow-hidden">
+          <img
+            alt="ecommerce"
+            class="object-cover object-center w-full h-full block"
+            src="https://dummyimage.com/420x260"
+          />
+        </a>
+        <div class="mt-4">
+          <h3 class="text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+          <h2 class="title-font text-lg font-medium">The Catalyzer</h2>
+          <p class="mt-1">$16.00</p>
         </div>
-      {/each}
-    </div>
-  </section>
+      </div>
+    {/each}
+  </div>
+</section>
 
 <Pagination.Root {count} {perPage} {siblingCount} let:pages let:currentPage>
   <Pagination.Content>

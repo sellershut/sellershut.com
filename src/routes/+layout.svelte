@@ -9,12 +9,13 @@ const { children }: { children: Snippet } = $props();
 </script>
 
 <div class="min-h-screen bg-muted text-foreground duration-150 transition-colors space-y-4">
-<TopNav/>
+  <TopNav/>
   <div class="flex flex-row gap-2">
-<FilterSidebar/>
-    <div>
-{@render children()}
-</div>
-</div>
+    <FilterSidebar/>
+    <!-- Left Margin to cater for sidebar -->
+    <div class="flex-1 2xl:ml-64">
+      {@render children()}
+    </div>
+  </div>
   <Footer/>
 </div>

@@ -1,15 +1,15 @@
 <script>
-import MenuIcon from "$lib/components/header/menu-icon.svelte";
+import SellershutButton from "$lib/components/header/sellershut-logo-button.svelte";
 </script>
 
-<footer class="bg-background">
+<footer class="bg-background z-auto relative">
   <div
     class="container px-5 py-12 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col"
   >
     <div
       class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left md:mt-0 mt-10"
     >
-      <MenuIcon />
+      <SellershutButton />
     </div>
     <div
       class="flex-grow flex flex-wrap md:pr-20 -mb-10 md:text-left text-center order-first"
@@ -95,12 +95,12 @@ import MenuIcon from "$lib/components/header/menu-icon.svelte";
       class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row"
     >
       <p class="text-sm text-center sm:text-left">
-        © 2020 Tailblocks —
+        {`©  ${new Date().getFullYear()}—`}
         <a
-          href="https://twitter.com/knyttneve"
+          href="https://github.com/sellershut"
           rel="noopener noreferrer"
           class=" ml-1"
-          target="_blank">@knyttneve</a
+          target="_blank">sellershut</a
         >
       </p>
       <span
