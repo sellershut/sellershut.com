@@ -6,6 +6,7 @@ import { page } from "$app/stores";
 import { type Snippet, getContext, setContext } from "svelte";
 import { type Writable, writable } from "svelte/store";
 
+let windowWidth = $state(0);
 const { children }: { children: Snippet } = $props();
 
 setContext("exploreParams", writable(""));
@@ -17,6 +18,7 @@ $effect(() => {
 	});
 });
 </script>
+<svelte:window bind:outerWidth={windowWidth} />
 
 <div class="min-h-screen bg-secondary text-foreground duration-150 transition-colors space-y-4">
   <TopNav/>
@@ -31,5 +33,10 @@ $effect(() => {
       {@render children()}
     </div>
   </div>
+  {#if windowWidth < 768}
+    {#await import("$lib/components/header/mobile-nav.svelte") then Module}
+      <Module.default/>
+    {/await}
+  {/if}
   <Footer/>
 </div>
