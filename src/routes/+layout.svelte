@@ -8,7 +8,7 @@ import type { Snippet } from "svelte";
 const { children }: { children: Snippet } = $props();
 </script>
 
-<div class="min-h-screen bg-muted text-foreground duration-150 transition-colors space-y-4">
+<div class="min-h-screen bg-secondary text-foreground duration-150 transition-colors space-y-4">
   <TopNav/>
   <div class="flex flex-row gap-2">
     <FilterSidebar/>

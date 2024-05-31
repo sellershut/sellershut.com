@@ -30,10 +30,16 @@ let position = $state("featured");
     </DropdownMenu.Trigger>
     <DropdownMenu.Content class="w-56">
       <DropdownMenu.RadioGroup bind:value={position}>
-        <DropdownMenu.RadioItem value="featured">Featured</DropdownMenu.RadioItem>
+        <DropdownMenu.RadioItem value="featured"
+          >Featured</DropdownMenu.RadioItem
+        >
         <DropdownMenu.RadioItem value="newest">Newest</DropdownMenu.RadioItem>
-        <DropdownMenu.RadioItem value="low">Price: Low to High</DropdownMenu.RadioItem>
-        <DropdownMenu.RadioItem value="high">Price: High to Low</DropdownMenu.RadioItem>
+        <DropdownMenu.RadioItem value="low"
+          >Price: Low to High</DropdownMenu.RadioItem
+        >
+        <DropdownMenu.RadioItem value="high"
+          >Price: High to Low</DropdownMenu.RadioItem
+        >
       </DropdownMenu.RadioGroup>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
