@@ -27,7 +27,7 @@ $effect(() => {
       {/await}
     {/if}
     <!-- Left Margin to cater for sidebar -->
-    <div class="flex-1 2xl:ml-64">
+    <div class={`flex-1 ${$exploreParams?.length ? '2xl:ml-64' : ''}`}>
       {@render children()}
     </div>
   </div>
