@@ -8,11 +8,14 @@ import NavSearch from "./nav-search.svelte";
 import SellershutButton from "./sellershut-logo-button.svelte";
 import ThemeButton from "./theme-button.svelte";
 
+let windowWidth = $state(0);
 let searchOpen = writable(false);
 let menuOpen = writable(false);
 setContext("searching", searchOpen);
 setContext("menuOpen", menuOpen);
 </script>
+
+<svelte:window bind:outerWidth={windowWidth} />
 
 <header
   class="navigation-bar min-h-11 sticky top-0 flex flex-col justify-center space-y-1 py-2"
@@ -22,7 +25,9 @@ setContext("menuOpen", menuOpen);
     <div class={`${$searchOpen ? "hidden" : "flex-1"} flex relative`}>
       <MenuIcon />
       <SellershutButton />
-      <div class="absolute right-0 -top-[6px] bottom-0 m-auto">
+      <div
+        class="absolute right-0 -top-[6px] bottom-0 m-auto flex items-center"
+      >
         <Button size="icon" variant="ghost">
           <IconSearch
             onmousedown={() => {
@@ -32,11 +37,16 @@ setContext("menuOpen", menuOpen);
             stroke={1.5}
           />
         </Button>
+        {#if windowWidth > 768}
+          {#await import("$lib/components/header/desktop-nav-items.svelte") then Module}
+            <Module.default />
+          {/await}
+        {/if}
         <ThemeButton />
       </div>
     </div>
   </div>
-   {#await import('$lib/components/header/categories-slider.svelte') then Module}
-      <Module.default />
-    {/await}
+  {#await import("$lib/components/header/categories-slider.svelte") then Module}
+    <Module.default />
+  {/await}
 </header>
