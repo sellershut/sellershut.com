@@ -30,6 +30,7 @@ function routePage(name: string): string {
     <nav class="absolute left-0 right-0">
       <Carousel.Root class="mx-16">
         <Carousel.Content class="-ml-4">
+          {#each Array(20) as _}
             <Carousel.Item
               class="mt-4 h-16 min-w-24 basis-auto pl-4 text-xs opacity-80 hover:opacity-100"
             >
@@ -40,9 +41,10 @@ function routePage(name: string): string {
                 </span>
               </a>
               <div
-                class={`mt-1 h-[2px] w-full rounded-full bg-primary ${searchParams === name ? "" : "invisible"} `}
+                class={`mt-1 h-[2px] w-full rounded-full bg-primary ${searchParams === "explore" ? "" : "invisible"} `}
               ></div>
             </Carousel.Item>
+          {/each}
         </Carousel.Content>
         <Carousel.Previous />
         <Carousel.Next />
