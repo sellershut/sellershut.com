@@ -1,4 +1,5 @@
 <script lang="ts">
+import { page } from "$app/stores";
 import { IconSearch } from "@tabler/icons-svelte";
 import { setContext } from "svelte";
 import { writable } from "svelte/store";
@@ -13,6 +14,13 @@ let searchOpen = writable(false);
 let menuOpen = writable(false);
 setContext("searching", searchOpen);
 setContext("menuOpen", menuOpen);
+
+// NOTE: may need to group the layouts
+const isRootPage = $derived(
+	$page.route.id === "/" ||
+		$page.route.id === "/(app)" ||
+		$page.route.id === "/(app)/(explore)",
+);
 </script>
 
 <svelte:window bind:outerWidth={windowWidth} />
@@ -46,7 +54,9 @@ setContext("menuOpen", menuOpen);
       </div>
     </div>
   </div>
-  {#await import("$lib/components/header/categories-slider.svelte") then Module}
-    <Module.default />
-  {/await}
+  {#if isRootPage}
+    {#await import("$lib/components/header/categories-slider.svelte") then Module}
+      <Module.default />
+    {/await}
+  {/if}
 </header>
