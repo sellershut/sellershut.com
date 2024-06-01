@@ -1,16 +1,17 @@
 <script lang="ts">
-import type { Component } from "svelte";
+import { IconSmartHome } from "@tabler/icons-svelte";
 import {
 	AlbumsOutline,
 	ChatbubbleOutline,
 	CogOutline,
-	HomeOutline,
 	PersonOutline,
 } from "svelte-ionicons";
 
-const items: { icon: Component; text: string }[] = [
+// TODO: fix type
+//biome-ignore lint/suspicious/noExplicitAny: <explanation>
+const items: { icon: any; text: string }[] = [
 	{
-		icon: HomeOutline,
+		icon: IconSmartHome,
 		text: "Home",
 	},
 	{
