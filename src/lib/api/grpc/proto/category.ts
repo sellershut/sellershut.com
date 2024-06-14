@@ -2,20 +2,20 @@
 // versions:
 //   protoc-gen-ts_proto  v1.178.0
 //   protoc               v4.25.3
-// source: src/lib/server/grpc/proto/category.proto
+// source: src/lib/api/grpc/proto/category.proto
 
 /* eslint-disable */
 import {
-	type CallOptions,
-	type ChannelCredentials,
-	type Client,
-	type ClientOptions,
-	type ClientUnaryCall,
-	type Metadata,
-	type ServiceError,
-	type UntypedServiceImplementation,
-	type handleUnaryCall,
-	makeGenericClientConstructor,
+  type CallOptions,
+  ChannelCredentials,
+  Client,
+  type ClientOptions,
+  type ClientUnaryCall,
+  type handleUnaryCall,
+  makeGenericClientConstructor,
+  Metadata,
+  type ServiceError,
+  type UntypedServiceImplementation,
 } from "@grpc/grpc-js";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
@@ -24,1435 +24,1308 @@ export const protobufPackage = "category";
 
 /** A category */
 export interface Category {
-	/** A unique identifier, it should be a v7 uuid */
-	id: string;
-	/** Human readable name */
-	name: string;
-	/** A list of sub categories of this current category */
-	subCategories: string[];
-	/** An optional image denoting this category */
-	imageUrl?: string | undefined;
-	/** The direct parent of this category (if applicable) */
-	parentId?: string | undefined;
-	/** Timestamp (millisecond precision) indicating when this category was created */
-	createdAt: string;
-	/** Timestamp (millisecond precision) indicating when this category was last updated */
-	updatedAt: string;
+  /** A unique identifier, it should be a v7 uuid */
+  id: string;
+  /** Human readable name */
+  name: string;
+  /** A list of sub categories of this current category */
+  subCategories: string[];
+  /** An optional image denoting this category */
+  imageUrl?:
+    | string
+    | undefined;
+  /** The direct parent of this category (if applicable) */
+  parentId?:
+    | string
+    | undefined;
+  /** Timestamp (millisecond precision) indicating when this category was created */
+  createdAt: string;
+  /** Timestamp (millisecond precision) indicating when this category was last updated */
+  updatedAt: string;
 }
 
 /** A response node */
 export interface Node {
-	/** A category */
-	node: Category | undefined;
-	/** Pagination cursor */
-	cursor: string;
+  /** A category */
+  node:
+    | Category
+    | undefined;
+  /** Pagination cursor */
+  cursor: string;
 }
 
 /** Connection contains a list of Node objects and the pagination information. */
 export interface Connection {
-	/** The list of nodes in the current page. */
-	edges: Node[];
-	/** Information about the pagination state. */
-	pageInfo: PageInfo | undefined;
+  /** The list of nodes in the current page. */
+  edges: Node[];
+  /** Information about the pagination state. */
+  pageInfo: PageInfo | undefined;
 }
 
 /** QueryResponse */
 export interface Response {
-	/** response status */
-	status: Status | undefined;
-	/** The connection object containing the paginated data. */
-	connection: Connection | undefined;
+  /** response status */
+  status:
+    | Status
+    | undefined;
+  /** The connection object containing the paginated data. */
+  connection: Connection | undefined;
 }
 
 /** MutationResponse */
 export interface SimpleResponse {
-	/** response status */
-	status: Status | undefined;
-	/** data */
-	category?: Category | undefined;
+  /** response status */
+  status:
+    | Status
+    | undefined;
+  /** data */
+  category?: Category | undefined;
 }
 
 /** An empty message */
-export type Empty = {};
+export interface Empty {
+}
 
 /** Pagination */
 export interface Paginate {
-	/** Cursor indicating the position after which results should be fetched. */
-	after?: string | undefined;
-	/** Cursor indicating the position before which results should be fetched. */
-	before?: string | undefined;
-	/** Maximum number of results to fetch starting after the "after" cursor. */
-	first?: number | undefined;
-	/** Maximum number of results to fetch ending before the "before" cursor. */
-	last?: number | undefined;
+  /** Cursor indicating the position after which results should be fetched. */
+  after?:
+    | string
+    | undefined;
+  /** Cursor indicating the position before which results should be fetched. */
+  before?:
+    | string
+    | undefined;
+  /** Maximum number of results to fetch starting after the "after" cursor. */
+  first?:
+    | number
+    | undefined;
+  /** Maximum number of results to fetch ending before the "before" cursor. */
+  last?: number | undefined;
 }
 
 /** A message holding an optional string, for string based searching */
 export interface SearchQueryOptional {
-	/** A parameter sent in with requests */
-	query?: string | undefined;
-	/** Pagination */
-	pagination: Paginate | undefined;
+  /** A parameter sent in with requests */
+  query?:
+    | string
+    | undefined;
+  /** Pagination */
+  pagination: Paginate | undefined;
 }
 
 /** A message holding a string, for string based searching */
 export interface SearchQuery {
-	/** A parameter sent in with requests */
-	query: string;
-	/** Pagination */
-	pagination: Paginate | undefined;
+  /** A parameter sent in with requests */
+  query: string;
+  /** Pagination */
+  pagination: Paginate | undefined;
 }
 
 /** Response status */
 export interface Status {
-	/** The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]. */
-	code: number;
-	/**
-	 * A developer-facing error message, which should be in English. Any
-	 * user-facing error message should be localized and sent in the
-	 * [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-	 */
-	message: string;
+  /** The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]. */
+  code: number;
+  /**
+   * A developer-facing error message, which should be in English. Any
+   * user-facing error message should be localized and sent in the
+   * [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+   */
+  message: string;
 }
 
 /** PageInfo represents information about the pagination state. */
 export interface PageInfo {
-	/** Whether there is a next page available. */
-	hasNextPage: boolean;
-	/** Whether there is a previous page available. */
-	hasPreviousPage: boolean;
-	/** The cursor marking the start of the current page. */
-	startCursor?: string | undefined;
-	/** The cursor marking the end of the current page. */
-	endCursor?: string | undefined;
+  /** Whether there is a next page available. */
+  hasNextPage: boolean;
+  /** Whether there is a previous page available. */
+  hasPreviousPage: boolean;
+  /** The cursor marking the start of the current page. */
+  startCursor?:
+    | string
+    | undefined;
+  /** The cursor marking the end of the current page. */
+  endCursor?: string | undefined;
 }
 
 function createBaseCategory(): Category {
-	return {
-		id: "",
-		name: "",
-		subCategories: [],
-		imageUrl: undefined,
-		parentId: undefined,
-		createdAt: "0",
-		updatedAt: "0",
-	};
+  return {
+    id: "",
+    name: "",
+    subCategories: [],
+    imageUrl: undefined,
+    parentId: undefined,
+    createdAt: "0",
+    updatedAt: "0",
+  };
 }
 
 export const Category = {
-	encode(
-		message: Category,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.id !== "") {
-			writer.uint32(10).string(message.id);
-		}
-		if (message.name !== "") {
-			writer.uint32(18).string(message.name);
-		}
-		for (const v of message.subCategories) {
-			writer.uint32(26).string(v!);
-		}
-		if (message.imageUrl !== undefined) {
-			writer.uint32(34).string(message.imageUrl);
-		}
-		if (message.parentId !== undefined) {
-			writer.uint32(42).string(message.parentId);
-		}
-		if (message.createdAt !== "0") {
-			writer.uint32(48).int64(message.createdAt);
-		}
-		if (message.updatedAt !== "0") {
-			writer.uint32(56).int64(message.updatedAt);
-		}
-		return writer;
-	},
+  encode(message: Category, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== "") {
+      writer.uint32(10).string(message.id);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    for (const v of message.subCategories) {
+      writer.uint32(26).string(v!);
+    }
+    if (message.imageUrl !== undefined) {
+      writer.uint32(34).string(message.imageUrl);
+    }
+    if (message.parentId !== undefined) {
+      writer.uint32(42).string(message.parentId);
+    }
+    if (message.createdAt !== "0") {
+      writer.uint32(48).int64(message.createdAt);
+    }
+    if (message.updatedAt !== "0") {
+      writer.uint32(56).int64(message.updatedAt);
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): Category {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseCategory();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): Category {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCategory();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.id = reader.string();
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.id = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.name = reader.string();
-					continue;
-				case 3:
-					if (tag !== 26) {
-						break;
-					}
+          message.name = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
 
-					message.subCategories.push(reader.string());
-					continue;
-				case 4:
-					if (tag !== 34) {
-						break;
-					}
+          message.subCategories.push(reader.string());
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
 
-					message.imageUrl = reader.string();
-					continue;
-				case 5:
-					if (tag !== 42) {
-						break;
-					}
+          message.imageUrl = reader.string();
+          continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
 
-					message.parentId = reader.string();
-					continue;
-				case 6:
-					if (tag !== 48) {
-						break;
-					}
+          message.parentId = reader.string();
+          continue;
+        case 6:
+          if (tag !== 48) {
+            break;
+          }
 
-					message.createdAt = longToString(reader.int64() as Long);
-					continue;
-				case 7:
-					if (tag !== 56) {
-						break;
-					}
+          message.createdAt = longToString(reader.int64() as Long);
+          continue;
+        case 7:
+          if (tag !== 56) {
+            break;
+          }
 
-					message.updatedAt = longToString(reader.int64() as Long);
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.updatedAt = longToString(reader.int64() as Long);
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): Category {
-		return {
-			id: isSet(object.id) ? globalThis.String(object.id) : "",
-			name: isSet(object.name) ? globalThis.String(object.name) : "",
-			subCategories: globalThis.Array.isArray(object?.subCategories)
-				? object.subCategories.map((e: any) => globalThis.String(e))
-				: [],
-			imageUrl: isSet(object.imageUrl)
-				? globalThis.String(object.imageUrl)
-				: undefined,
-			parentId: isSet(object.parentId)
-				? globalThis.String(object.parentId)
-				: undefined,
-			createdAt: isSet(object.createdAt)
-				? globalThis.String(object.createdAt)
-				: "0",
-			updatedAt: isSet(object.updatedAt)
-				? globalThis.String(object.updatedAt)
-				: "0",
-		};
-	},
+  fromJSON(object: any): Category {
+    return {
+      id: isSet(object.id) ? globalThis.String(object.id) : "",
+      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      subCategories: globalThis.Array.isArray(object?.subCategories)
+        ? object.subCategories.map((e: any) => globalThis.String(e))
+        : [],
+      imageUrl: isSet(object.imageUrl) ? globalThis.String(object.imageUrl) : undefined,
+      parentId: isSet(object.parentId) ? globalThis.String(object.parentId) : undefined,
+      createdAt: isSet(object.createdAt) ? globalThis.String(object.createdAt) : "0",
+      updatedAt: isSet(object.updatedAt) ? globalThis.String(object.updatedAt) : "0",
+    };
+  },
 
-	toJSON(message: Category): unknown {
-		const obj: any = {};
-		if (message.id !== "") {
-			obj.id = message.id;
-		}
-		if (message.name !== "") {
-			obj.name = message.name;
-		}
-		if (message.subCategories?.length) {
-			obj.subCategories = message.subCategories;
-		}
-		if (message.imageUrl !== undefined) {
-			obj.imageUrl = message.imageUrl;
-		}
-		if (message.parentId !== undefined) {
-			obj.parentId = message.parentId;
-		}
-		if (message.createdAt !== "0") {
-			obj.createdAt = message.createdAt;
-		}
-		if (message.updatedAt !== "0") {
-			obj.updatedAt = message.updatedAt;
-		}
-		return obj;
-	},
+  toJSON(message: Category): unknown {
+    const obj: any = {};
+    if (message.id !== "") {
+      obj.id = message.id;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.subCategories?.length) {
+      obj.subCategories = message.subCategories;
+    }
+    if (message.imageUrl !== undefined) {
+      obj.imageUrl = message.imageUrl;
+    }
+    if (message.parentId !== undefined) {
+      obj.parentId = message.parentId;
+    }
+    if (message.createdAt !== "0") {
+      obj.createdAt = message.createdAt;
+    }
+    if (message.updatedAt !== "0") {
+      obj.updatedAt = message.updatedAt;
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<Category>, I>>(base?: I): Category {
-		return Category.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<Category>, I>>(object: I): Category {
-		const message = createBaseCategory();
-		message.id = object.id ?? "";
-		message.name = object.name ?? "";
-		message.subCategories = object.subCategories?.map((e) => e) || [];
-		message.imageUrl = object.imageUrl ?? undefined;
-		message.parentId = object.parentId ?? undefined;
-		message.createdAt = object.createdAt ?? "0";
-		message.updatedAt = object.updatedAt ?? "0";
-		return message;
-	},
+  create<I extends Exact<DeepPartial<Category>, I>>(base?: I): Category {
+    return Category.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Category>, I>>(object: I): Category {
+    const message = createBaseCategory();
+    message.id = object.id ?? "";
+    message.name = object.name ?? "";
+    message.subCategories = object.subCategories?.map((e) => e) || [];
+    message.imageUrl = object.imageUrl ?? undefined;
+    message.parentId = object.parentId ?? undefined;
+    message.createdAt = object.createdAt ?? "0";
+    message.updatedAt = object.updatedAt ?? "0";
+    return message;
+  },
 };
 
 function createBaseNode(): Node {
-	return { node: undefined, cursor: "" };
+  return { node: undefined, cursor: "" };
 }
 
 export const Node = {
-	encode(message: Node, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-		if (message.node !== undefined) {
-			Category.encode(message.node, writer.uint32(10).fork()).ldelim();
-		}
-		if (message.cursor !== "") {
-			writer.uint32(18).string(message.cursor);
-		}
-		return writer;
-	},
+  encode(message: Node, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.node !== undefined) {
+      Category.encode(message.node, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.cursor !== "") {
+      writer.uint32(18).string(message.cursor);
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): Node {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseNode();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): Node {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseNode();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.node = Category.decode(reader, reader.uint32());
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.node = Category.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.cursor = reader.string();
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.cursor = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): Node {
-		return {
-			node: isSet(object.node) ? Category.fromJSON(object.node) : undefined,
-			cursor: isSet(object.cursor) ? globalThis.String(object.cursor) : "",
-		};
-	},
+  fromJSON(object: any): Node {
+    return {
+      node: isSet(object.node) ? Category.fromJSON(object.node) : undefined,
+      cursor: isSet(object.cursor) ? globalThis.String(object.cursor) : "",
+    };
+  },
 
-	toJSON(message: Node): unknown {
-		const obj: any = {};
-		if (message.node !== undefined) {
-			obj.node = Category.toJSON(message.node);
-		}
-		if (message.cursor !== "") {
-			obj.cursor = message.cursor;
-		}
-		return obj;
-	},
+  toJSON(message: Node): unknown {
+    const obj: any = {};
+    if (message.node !== undefined) {
+      obj.node = Category.toJSON(message.node);
+    }
+    if (message.cursor !== "") {
+      obj.cursor = message.cursor;
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<Node>, I>>(base?: I): Node {
-		return Node.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<Node>, I>>(object: I): Node {
-		const message = createBaseNode();
-		message.node =
-			object.node !== undefined && object.node !== null
-				? Category.fromPartial(object.node)
-				: undefined;
-		message.cursor = object.cursor ?? "";
-		return message;
-	},
+  create<I extends Exact<DeepPartial<Node>, I>>(base?: I): Node {
+    return Node.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Node>, I>>(object: I): Node {
+    const message = createBaseNode();
+    message.node = (object.node !== undefined && object.node !== null) ? Category.fromPartial(object.node) : undefined;
+    message.cursor = object.cursor ?? "";
+    return message;
+  },
 };
 
 function createBaseConnection(): Connection {
-	return { edges: [], pageInfo: undefined };
+  return { edges: [], pageInfo: undefined };
 }
 
 export const Connection = {
-	encode(
-		message: Connection,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		for (const v of message.edges) {
-			Node.encode(v!, writer.uint32(10).fork()).ldelim();
-		}
-		if (message.pageInfo !== undefined) {
-			PageInfo.encode(message.pageInfo, writer.uint32(18).fork()).ldelim();
-		}
-		return writer;
-	},
+  encode(message: Connection, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.edges) {
+      Node.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pageInfo !== undefined) {
+      PageInfo.encode(message.pageInfo, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): Connection {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseConnection();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): Connection {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseConnection();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.edges.push(Node.decode(reader, reader.uint32()));
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.edges.push(Node.decode(reader, reader.uint32()));
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.pageInfo = PageInfo.decode(reader, reader.uint32());
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.pageInfo = PageInfo.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): Connection {
-		return {
-			edges: globalThis.Array.isArray(object?.edges)
-				? object.edges.map((e: any) => Node.fromJSON(e))
-				: [],
-			pageInfo: isSet(object.pageInfo)
-				? PageInfo.fromJSON(object.pageInfo)
-				: undefined,
-		};
-	},
+  fromJSON(object: any): Connection {
+    return {
+      edges: globalThis.Array.isArray(object?.edges) ? object.edges.map((e: any) => Node.fromJSON(e)) : [],
+      pageInfo: isSet(object.pageInfo) ? PageInfo.fromJSON(object.pageInfo) : undefined,
+    };
+  },
 
-	toJSON(message: Connection): unknown {
-		const obj: any = {};
-		if (message.edges?.length) {
-			obj.edges = message.edges.map((e) => Node.toJSON(e));
-		}
-		if (message.pageInfo !== undefined) {
-			obj.pageInfo = PageInfo.toJSON(message.pageInfo);
-		}
-		return obj;
-	},
+  toJSON(message: Connection): unknown {
+    const obj: any = {};
+    if (message.edges?.length) {
+      obj.edges = message.edges.map((e) => Node.toJSON(e));
+    }
+    if (message.pageInfo !== undefined) {
+      obj.pageInfo = PageInfo.toJSON(message.pageInfo);
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<Connection>, I>>(base?: I): Connection {
-		return Connection.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<Connection>, I>>(
-		object: I,
-	): Connection {
-		const message = createBaseConnection();
-		message.edges = object.edges?.map((e) => Node.fromPartial(e)) || [];
-		message.pageInfo =
-			object.pageInfo !== undefined && object.pageInfo !== null
-				? PageInfo.fromPartial(object.pageInfo)
-				: undefined;
-		return message;
-	},
+  create<I extends Exact<DeepPartial<Connection>, I>>(base?: I): Connection {
+    return Connection.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Connection>, I>>(object: I): Connection {
+    const message = createBaseConnection();
+    message.edges = object.edges?.map((e) => Node.fromPartial(e)) || [];
+    message.pageInfo = (object.pageInfo !== undefined && object.pageInfo !== null)
+      ? PageInfo.fromPartial(object.pageInfo)
+      : undefined;
+    return message;
+  },
 };
 
 function createBaseResponse(): Response {
-	return { status: undefined, connection: undefined };
+  return { status: undefined, connection: undefined };
 }
 
 export const Response = {
-	encode(
-		message: Response,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.status !== undefined) {
-			Status.encode(message.status, writer.uint32(10).fork()).ldelim();
-		}
-		if (message.connection !== undefined) {
-			Connection.encode(message.connection, writer.uint32(18).fork()).ldelim();
-		}
-		return writer;
-	},
+  encode(message: Response, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.status !== undefined) {
+      Status.encode(message.status, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.connection !== undefined) {
+      Connection.encode(message.connection, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): Response {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseResponse();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): Response {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.status = Status.decode(reader, reader.uint32());
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.status = Status.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.connection = Connection.decode(reader, reader.uint32());
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.connection = Connection.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): Response {
-		return {
-			status: isSet(object.status) ? Status.fromJSON(object.status) : undefined,
-			connection: isSet(object.connection)
-				? Connection.fromJSON(object.connection)
-				: undefined,
-		};
-	},
+  fromJSON(object: any): Response {
+    return {
+      status: isSet(object.status) ? Status.fromJSON(object.status) : undefined,
+      connection: isSet(object.connection) ? Connection.fromJSON(object.connection) : undefined,
+    };
+  },
 
-	toJSON(message: Response): unknown {
-		const obj: any = {};
-		if (message.status !== undefined) {
-			obj.status = Status.toJSON(message.status);
-		}
-		if (message.connection !== undefined) {
-			obj.connection = Connection.toJSON(message.connection);
-		}
-		return obj;
-	},
+  toJSON(message: Response): unknown {
+    const obj: any = {};
+    if (message.status !== undefined) {
+      obj.status = Status.toJSON(message.status);
+    }
+    if (message.connection !== undefined) {
+      obj.connection = Connection.toJSON(message.connection);
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<Response>, I>>(base?: I): Response {
-		return Response.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<Response>, I>>(object: I): Response {
-		const message = createBaseResponse();
-		message.status =
-			object.status !== undefined && object.status !== null
-				? Status.fromPartial(object.status)
-				: undefined;
-		message.connection =
-			object.connection !== undefined && object.connection !== null
-				? Connection.fromPartial(object.connection)
-				: undefined;
-		return message;
-	},
+  create<I extends Exact<DeepPartial<Response>, I>>(base?: I): Response {
+    return Response.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Response>, I>>(object: I): Response {
+    const message = createBaseResponse();
+    message.status = (object.status !== undefined && object.status !== null)
+      ? Status.fromPartial(object.status)
+      : undefined;
+    message.connection = (object.connection !== undefined && object.connection !== null)
+      ? Connection.fromPartial(object.connection)
+      : undefined;
+    return message;
+  },
 };
 
 function createBaseSimpleResponse(): SimpleResponse {
-	return { status: undefined, category: undefined };
+  return { status: undefined, category: undefined };
 }
 
 export const SimpleResponse = {
-	encode(
-		message: SimpleResponse,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.status !== undefined) {
-			Status.encode(message.status, writer.uint32(10).fork()).ldelim();
-		}
-		if (message.category !== undefined) {
-			Category.encode(message.category, writer.uint32(18).fork()).ldelim();
-		}
-		return writer;
-	},
+  encode(message: SimpleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.status !== undefined) {
+      Status.encode(message.status, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.category !== undefined) {
+      Category.encode(message.category, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): SimpleResponse {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseSimpleResponse();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): SimpleResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseSimpleResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.status = Status.decode(reader, reader.uint32());
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.status = Status.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.category = Category.decode(reader, reader.uint32());
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.category = Category.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): SimpleResponse {
-		return {
-			status: isSet(object.status) ? Status.fromJSON(object.status) : undefined,
-			category: isSet(object.category)
-				? Category.fromJSON(object.category)
-				: undefined,
-		};
-	},
+  fromJSON(object: any): SimpleResponse {
+    return {
+      status: isSet(object.status) ? Status.fromJSON(object.status) : undefined,
+      category: isSet(object.category) ? Category.fromJSON(object.category) : undefined,
+    };
+  },
 
-	toJSON(message: SimpleResponse): unknown {
-		const obj: any = {};
-		if (message.status !== undefined) {
-			obj.status = Status.toJSON(message.status);
-		}
-		if (message.category !== undefined) {
-			obj.category = Category.toJSON(message.category);
-		}
-		return obj;
-	},
+  toJSON(message: SimpleResponse): unknown {
+    const obj: any = {};
+    if (message.status !== undefined) {
+      obj.status = Status.toJSON(message.status);
+    }
+    if (message.category !== undefined) {
+      obj.category = Category.toJSON(message.category);
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<SimpleResponse>, I>>(
-		base?: I,
-	): SimpleResponse {
-		return SimpleResponse.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<SimpleResponse>, I>>(
-		object: I,
-	): SimpleResponse {
-		const message = createBaseSimpleResponse();
-		message.status =
-			object.status !== undefined && object.status !== null
-				? Status.fromPartial(object.status)
-				: undefined;
-		message.category =
-			object.category !== undefined && object.category !== null
-				? Category.fromPartial(object.category)
-				: undefined;
-		return message;
-	},
+  create<I extends Exact<DeepPartial<SimpleResponse>, I>>(base?: I): SimpleResponse {
+    return SimpleResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<SimpleResponse>, I>>(object: I): SimpleResponse {
+    const message = createBaseSimpleResponse();
+    message.status = (object.status !== undefined && object.status !== null)
+      ? Status.fromPartial(object.status)
+      : undefined;
+    message.category = (object.category !== undefined && object.category !== null)
+      ? Category.fromPartial(object.category)
+      : undefined;
+    return message;
+  },
 };
 
 function createBaseEmpty(): Empty {
-	return {};
+  return {};
 }
 
 export const Empty = {
-	encode(_: Empty, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-		return writer;
-	},
+  encode(_: Empty, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): Empty {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseEmpty();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+  decode(input: _m0.Reader | Uint8Array, length?: number): Empty {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEmpty();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(_: any): Empty {
-		return {};
-	},
+  fromJSON(_: any): Empty {
+    return {};
+  },
 
-	toJSON(_: Empty): unknown {
-		const obj: any = {};
-		return obj;
-	},
+  toJSON(_: Empty): unknown {
+    const obj: any = {};
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<Empty>, I>>(base?: I): Empty {
-		return Empty.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<Empty>, I>>(_: I): Empty {
-		const message = createBaseEmpty();
-		return message;
-	},
+  create<I extends Exact<DeepPartial<Empty>, I>>(base?: I): Empty {
+    return Empty.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Empty>, I>>(_: I): Empty {
+    const message = createBaseEmpty();
+    return message;
+  },
 };
 
 function createBasePaginate(): Paginate {
-	return {
-		after: undefined,
-		before: undefined,
-		first: undefined,
-		last: undefined,
-	};
+  return { after: undefined, before: undefined, first: undefined, last: undefined };
 }
 
 export const Paginate = {
-	encode(
-		message: Paginate,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.after !== undefined) {
-			writer.uint32(10).string(message.after);
-		}
-		if (message.before !== undefined) {
-			writer.uint32(18).string(message.before);
-		}
-		if (message.first !== undefined) {
-			writer.uint32(24).int32(message.first);
-		}
-		if (message.last !== undefined) {
-			writer.uint32(32).int32(message.last);
-		}
-		return writer;
-	},
+  encode(message: Paginate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.after !== undefined) {
+      writer.uint32(10).string(message.after);
+    }
+    if (message.before !== undefined) {
+      writer.uint32(18).string(message.before);
+    }
+    if (message.first !== undefined) {
+      writer.uint32(24).int32(message.first);
+    }
+    if (message.last !== undefined) {
+      writer.uint32(32).int32(message.last);
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): Paginate {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBasePaginate();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): Paginate {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePaginate();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.after = reader.string();
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.after = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.before = reader.string();
-					continue;
-				case 3:
-					if (tag !== 24) {
-						break;
-					}
+          message.before = reader.string();
+          continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
 
-					message.first = reader.int32();
-					continue;
-				case 4:
-					if (tag !== 32) {
-						break;
-					}
+          message.first = reader.int32();
+          continue;
+        case 4:
+          if (tag !== 32) {
+            break;
+          }
 
-					message.last = reader.int32();
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.last = reader.int32();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): Paginate {
-		return {
-			after: isSet(object.after) ? globalThis.String(object.after) : undefined,
-			before: isSet(object.before)
-				? globalThis.String(object.before)
-				: undefined,
-			first: isSet(object.first) ? globalThis.Number(object.first) : undefined,
-			last: isSet(object.last) ? globalThis.Number(object.last) : undefined,
-		};
-	},
+  fromJSON(object: any): Paginate {
+    return {
+      after: isSet(object.after) ? globalThis.String(object.after) : undefined,
+      before: isSet(object.before) ? globalThis.String(object.before) : undefined,
+      first: isSet(object.first) ? globalThis.Number(object.first) : undefined,
+      last: isSet(object.last) ? globalThis.Number(object.last) : undefined,
+    };
+  },
 
-	toJSON(message: Paginate): unknown {
-		const obj: any = {};
-		if (message.after !== undefined) {
-			obj.after = message.after;
-		}
-		if (message.before !== undefined) {
-			obj.before = message.before;
-		}
-		if (message.first !== undefined) {
-			obj.first = Math.round(message.first);
-		}
-		if (message.last !== undefined) {
-			obj.last = Math.round(message.last);
-		}
-		return obj;
-	},
+  toJSON(message: Paginate): unknown {
+    const obj: any = {};
+    if (message.after !== undefined) {
+      obj.after = message.after;
+    }
+    if (message.before !== undefined) {
+      obj.before = message.before;
+    }
+    if (message.first !== undefined) {
+      obj.first = Math.round(message.first);
+    }
+    if (message.last !== undefined) {
+      obj.last = Math.round(message.last);
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<Paginate>, I>>(base?: I): Paginate {
-		return Paginate.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<Paginate>, I>>(object: I): Paginate {
-		const message = createBasePaginate();
-		message.after = object.after ?? undefined;
-		message.before = object.before ?? undefined;
-		message.first = object.first ?? undefined;
-		message.last = object.last ?? undefined;
-		return message;
-	},
+  create<I extends Exact<DeepPartial<Paginate>, I>>(base?: I): Paginate {
+    return Paginate.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Paginate>, I>>(object: I): Paginate {
+    const message = createBasePaginate();
+    message.after = object.after ?? undefined;
+    message.before = object.before ?? undefined;
+    message.first = object.first ?? undefined;
+    message.last = object.last ?? undefined;
+    return message;
+  },
 };
 
 function createBaseSearchQueryOptional(): SearchQueryOptional {
-	return { query: undefined, pagination: undefined };
+  return { query: undefined, pagination: undefined };
 }
 
 export const SearchQueryOptional = {
-	encode(
-		message: SearchQueryOptional,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.query !== undefined) {
-			writer.uint32(10).string(message.query);
-		}
-		if (message.pagination !== undefined) {
-			Paginate.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-		}
-		return writer;
-	},
+  encode(message: SearchQueryOptional, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.query !== undefined) {
+      writer.uint32(10).string(message.query);
+    }
+    if (message.pagination !== undefined) {
+      Paginate.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): SearchQueryOptional {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseSearchQueryOptional();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): SearchQueryOptional {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseSearchQueryOptional();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.query = reader.string();
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.query = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.pagination = Paginate.decode(reader, reader.uint32());
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.pagination = Paginate.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): SearchQueryOptional {
-		return {
-			query: isSet(object.query) ? globalThis.String(object.query) : undefined,
-			pagination: isSet(object.pagination)
-				? Paginate.fromJSON(object.pagination)
-				: undefined,
-		};
-	},
+  fromJSON(object: any): SearchQueryOptional {
+    return {
+      query: isSet(object.query) ? globalThis.String(object.query) : undefined,
+      pagination: isSet(object.pagination) ? Paginate.fromJSON(object.pagination) : undefined,
+    };
+  },
 
-	toJSON(message: SearchQueryOptional): unknown {
-		const obj: any = {};
-		if (message.query !== undefined) {
-			obj.query = message.query;
-		}
-		if (message.pagination !== undefined) {
-			obj.pagination = Paginate.toJSON(message.pagination);
-		}
-		return obj;
-	},
+  toJSON(message: SearchQueryOptional): unknown {
+    const obj: any = {};
+    if (message.query !== undefined) {
+      obj.query = message.query;
+    }
+    if (message.pagination !== undefined) {
+      obj.pagination = Paginate.toJSON(message.pagination);
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<SearchQueryOptional>, I>>(
-		base?: I,
-	): SearchQueryOptional {
-		return SearchQueryOptional.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<SearchQueryOptional>, I>>(
-		object: I,
-	): SearchQueryOptional {
-		const message = createBaseSearchQueryOptional();
-		message.query = object.query ?? undefined;
-		message.pagination =
-			object.pagination !== undefined && object.pagination !== null
-				? Paginate.fromPartial(object.pagination)
-				: undefined;
-		return message;
-	},
+  create<I extends Exact<DeepPartial<SearchQueryOptional>, I>>(base?: I): SearchQueryOptional {
+    return SearchQueryOptional.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<SearchQueryOptional>, I>>(object: I): SearchQueryOptional {
+    const message = createBaseSearchQueryOptional();
+    message.query = object.query ?? undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? Paginate.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
 };
 
 function createBaseSearchQuery(): SearchQuery {
-	return { query: "", pagination: undefined };
+  return { query: "", pagination: undefined };
 }
 
 export const SearchQuery = {
-	encode(
-		message: SearchQuery,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.query !== "") {
-			writer.uint32(10).string(message.query);
-		}
-		if (message.pagination !== undefined) {
-			Paginate.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-		}
-		return writer;
-	},
+  encode(message: SearchQuery, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.query !== "") {
+      writer.uint32(10).string(message.query);
+    }
+    if (message.pagination !== undefined) {
+      Paginate.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): SearchQuery {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseSearchQuery();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 10) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): SearchQuery {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseSearchQuery();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
 
-					message.query = reader.string();
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.query = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.pagination = Paginate.decode(reader, reader.uint32());
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.pagination = Paginate.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): SearchQuery {
-		return {
-			query: isSet(object.query) ? globalThis.String(object.query) : "",
-			pagination: isSet(object.pagination)
-				? Paginate.fromJSON(object.pagination)
-				: undefined,
-		};
-	},
+  fromJSON(object: any): SearchQuery {
+    return {
+      query: isSet(object.query) ? globalThis.String(object.query) : "",
+      pagination: isSet(object.pagination) ? Paginate.fromJSON(object.pagination) : undefined,
+    };
+  },
 
-	toJSON(message: SearchQuery): unknown {
-		const obj: any = {};
-		if (message.query !== "") {
-			obj.query = message.query;
-		}
-		if (message.pagination !== undefined) {
-			obj.pagination = Paginate.toJSON(message.pagination);
-		}
-		return obj;
-	},
+  toJSON(message: SearchQuery): unknown {
+    const obj: any = {};
+    if (message.query !== "") {
+      obj.query = message.query;
+    }
+    if (message.pagination !== undefined) {
+      obj.pagination = Paginate.toJSON(message.pagination);
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<SearchQuery>, I>>(base?: I): SearchQuery {
-		return SearchQuery.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<SearchQuery>, I>>(
-		object: I,
-	): SearchQuery {
-		const message = createBaseSearchQuery();
-		message.query = object.query ?? "";
-		message.pagination =
-			object.pagination !== undefined && object.pagination !== null
-				? Paginate.fromPartial(object.pagination)
-				: undefined;
-		return message;
-	},
+  create<I extends Exact<DeepPartial<SearchQuery>, I>>(base?: I): SearchQuery {
+    return SearchQuery.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<SearchQuery>, I>>(object: I): SearchQuery {
+    const message = createBaseSearchQuery();
+    message.query = object.query ?? "";
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? Paginate.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
 };
 
 function createBaseStatus(): Status {
-	return { code: 0, message: "" };
+  return { code: 0, message: "" };
 }
 
 export const Status = {
-	encode(
-		message: Status,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.code !== 0) {
-			writer.uint32(8).int32(message.code);
-		}
-		if (message.message !== "") {
-			writer.uint32(18).string(message.message);
-		}
-		return writer;
-	},
+  encode(message: Status, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.code !== 0) {
+      writer.uint32(8).int32(message.code);
+    }
+    if (message.message !== "") {
+      writer.uint32(18).string(message.message);
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): Status {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBaseStatus();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 8) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): Status {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseStatus();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 8) {
+            break;
+          }
 
-					message.code = reader.int32();
-					continue;
-				case 2:
-					if (tag !== 18) {
-						break;
-					}
+          message.code = reader.int32();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
 
-					message.message = reader.string();
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.message = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): Status {
-		return {
-			code: isSet(object.code) ? globalThis.Number(object.code) : 0,
-			message: isSet(object.message) ? globalThis.String(object.message) : "",
-		};
-	},
+  fromJSON(object: any): Status {
+    return {
+      code: isSet(object.code) ? globalThis.Number(object.code) : 0,
+      message: isSet(object.message) ? globalThis.String(object.message) : "",
+    };
+  },
 
-	toJSON(message: Status): unknown {
-		const obj: any = {};
-		if (message.code !== 0) {
-			obj.code = Math.round(message.code);
-		}
-		if (message.message !== "") {
-			obj.message = message.message;
-		}
-		return obj;
-	},
+  toJSON(message: Status): unknown {
+    const obj: any = {};
+    if (message.code !== 0) {
+      obj.code = Math.round(message.code);
+    }
+    if (message.message !== "") {
+      obj.message = message.message;
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<Status>, I>>(base?: I): Status {
-		return Status.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<Status>, I>>(object: I): Status {
-		const message = createBaseStatus();
-		message.code = object.code ?? 0;
-		message.message = object.message ?? "";
-		return message;
-	},
+  create<I extends Exact<DeepPartial<Status>, I>>(base?: I): Status {
+    return Status.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<Status>, I>>(object: I): Status {
+    const message = createBaseStatus();
+    message.code = object.code ?? 0;
+    message.message = object.message ?? "";
+    return message;
+  },
 };
 
 function createBasePageInfo(): PageInfo {
-	return {
-		hasNextPage: false,
-		hasPreviousPage: false,
-		startCursor: undefined,
-		endCursor: undefined,
-	};
+  return { hasNextPage: false, hasPreviousPage: false, startCursor: undefined, endCursor: undefined };
 }
 
 export const PageInfo = {
-	encode(
-		message: PageInfo,
-		writer: _m0.Writer = _m0.Writer.create(),
-	): _m0.Writer {
-		if (message.hasNextPage !== false) {
-			writer.uint32(8).bool(message.hasNextPage);
-		}
-		if (message.hasPreviousPage !== false) {
-			writer.uint32(16).bool(message.hasPreviousPage);
-		}
-		if (message.startCursor !== undefined) {
-			writer.uint32(26).string(message.startCursor);
-		}
-		if (message.endCursor !== undefined) {
-			writer.uint32(34).string(message.endCursor);
-		}
-		return writer;
-	},
+  encode(message: PageInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.hasNextPage !== false) {
+      writer.uint32(8).bool(message.hasNextPage);
+    }
+    if (message.hasPreviousPage !== false) {
+      writer.uint32(16).bool(message.hasPreviousPage);
+    }
+    if (message.startCursor !== undefined) {
+      writer.uint32(26).string(message.startCursor);
+    }
+    if (message.endCursor !== undefined) {
+      writer.uint32(34).string(message.endCursor);
+    }
+    return writer;
+  },
 
-	decode(input: _m0.Reader | Uint8Array, length?: number): PageInfo {
-		const reader =
-			input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-		const end = length === undefined ? reader.len : reader.pos + length;
-		const message = createBasePageInfo();
-		while (reader.pos < end) {
-			const tag = reader.uint32();
-			switch (tag >>> 3) {
-				case 1:
-					if (tag !== 8) {
-						break;
-					}
+  decode(input: _m0.Reader | Uint8Array, length?: number): PageInfo {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePageInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 8) {
+            break;
+          }
 
-					message.hasNextPage = reader.bool();
-					continue;
-				case 2:
-					if (tag !== 16) {
-						break;
-					}
+          message.hasNextPage = reader.bool();
+          continue;
+        case 2:
+          if (tag !== 16) {
+            break;
+          }
 
-					message.hasPreviousPage = reader.bool();
-					continue;
-				case 3:
-					if (tag !== 26) {
-						break;
-					}
+          message.hasPreviousPage = reader.bool();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
 
-					message.startCursor = reader.string();
-					continue;
-				case 4:
-					if (tag !== 34) {
-						break;
-					}
+          message.startCursor = reader.string();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
 
-					message.endCursor = reader.string();
-					continue;
-			}
-			if ((tag & 7) === 4 || tag === 0) {
-				break;
-			}
-			reader.skipType(tag & 7);
-		}
-		return message;
-	},
+          message.endCursor = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
 
-	fromJSON(object: any): PageInfo {
-		return {
-			hasNextPage: isSet(object.hasNextPage)
-				? globalThis.Boolean(object.hasNextPage)
-				: false,
-			hasPreviousPage: isSet(object.hasPreviousPage)
-				? globalThis.Boolean(object.hasPreviousPage)
-				: false,
-			startCursor: isSet(object.startCursor)
-				? globalThis.String(object.startCursor)
-				: undefined,
-			endCursor: isSet(object.endCursor)
-				? globalThis.String(object.endCursor)
-				: undefined,
-		};
-	},
+  fromJSON(object: any): PageInfo {
+    return {
+      hasNextPage: isSet(object.hasNextPage) ? globalThis.Boolean(object.hasNextPage) : false,
+      hasPreviousPage: isSet(object.hasPreviousPage) ? globalThis.Boolean(object.hasPreviousPage) : false,
+      startCursor: isSet(object.startCursor) ? globalThis.String(object.startCursor) : undefined,
+      endCursor: isSet(object.endCursor) ? globalThis.String(object.endCursor) : undefined,
+    };
+  },
 
-	toJSON(message: PageInfo): unknown {
-		const obj: any = {};
-		if (message.hasNextPage !== false) {
-			obj.hasNextPage = message.hasNextPage;
-		}
-		if (message.hasPreviousPage !== false) {
-			obj.hasPreviousPage = message.hasPreviousPage;
-		}
-		if (message.startCursor !== undefined) {
-			obj.startCursor = message.startCursor;
-		}
-		if (message.endCursor !== undefined) {
-			obj.endCursor = message.endCursor;
-		}
-		return obj;
-	},
+  toJSON(message: PageInfo): unknown {
+    const obj: any = {};
+    if (message.hasNextPage !== false) {
+      obj.hasNextPage = message.hasNextPage;
+    }
+    if (message.hasPreviousPage !== false) {
+      obj.hasPreviousPage = message.hasPreviousPage;
+    }
+    if (message.startCursor !== undefined) {
+      obj.startCursor = message.startCursor;
+    }
+    if (message.endCursor !== undefined) {
+      obj.endCursor = message.endCursor;
+    }
+    return obj;
+  },
 
-	create<I extends Exact<DeepPartial<PageInfo>, I>>(base?: I): PageInfo {
-		return PageInfo.fromPartial(base ?? ({} as any));
-	},
-	fromPartial<I extends Exact<DeepPartial<PageInfo>, I>>(object: I): PageInfo {
-		const message = createBasePageInfo();
-		message.hasNextPage = object.hasNextPage ?? false;
-		message.hasPreviousPage = object.hasPreviousPage ?? false;
-		message.startCursor = object.startCursor ?? undefined;
-		message.endCursor = object.endCursor ?? undefined;
-		return message;
-	},
+  create<I extends Exact<DeepPartial<PageInfo>, I>>(base?: I): PageInfo {
+    return PageInfo.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<PageInfo>, I>>(object: I): PageInfo {
+    const message = createBasePageInfo();
+    message.hasNextPage = object.hasNextPage ?? false;
+    message.hasPreviousPage = object.hasPreviousPage ?? false;
+    message.startCursor = object.startCursor ?? undefined;
+    message.endCursor = object.endCursor ?? undefined;
+    return message;
+  },
 };
 
 /** The Category Query service */
 export type QueryCategoriesService = typeof QueryCategoriesService;
 export const QueryCategoriesService = {
-	/** gets all categories */
-	categories: {
-		path: "/category.QueryCategories/Categories",
-		requestStream: false,
-		responseStream: false,
-		requestSerialize: (value: Paginate) =>
-			Buffer.from(Paginate.encode(value).finish()),
-		requestDeserialize: (value: Buffer) => Paginate.decode(value),
-		responseSerialize: (value: Response) =>
-			Buffer.from(Response.encode(value).finish()),
-		responseDeserialize: (value: Buffer) => Response.decode(value),
-	},
-	categoryById: {
-		path: "/category.QueryCategories/CategoryById",
-		requestStream: false,
-		responseStream: false,
-		requestSerialize: (value: SearchQuery) =>
-			Buffer.from(SearchQuery.encode(value).finish()),
-		requestDeserialize: (value: Buffer) => SearchQuery.decode(value),
-		responseSerialize: (value: SimpleResponse) =>
-			Buffer.from(SimpleResponse.encode(value).finish()),
-		responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
-	},
-	subCategories: {
-		path: "/category.QueryCategories/SubCategories",
-		requestStream: false,
-		responseStream: false,
-		requestSerialize: (value: SearchQueryOptional) =>
-			Buffer.from(SearchQueryOptional.encode(value).finish()),
-		requestDeserialize: (value: Buffer) => SearchQueryOptional.decode(value),
-		responseSerialize: (value: Response) =>
-			Buffer.from(Response.encode(value).finish()),
-		responseDeserialize: (value: Buffer) => Response.decode(value),
-	},
-	search: {
-		path: "/category.QueryCategories/Search",
-		requestStream: false,
-		responseStream: false,
-		requestSerialize: (value: SearchQuery) =>
-			Buffer.from(SearchQuery.encode(value).finish()),
-		requestDeserialize: (value: Buffer) => SearchQuery.decode(value),
-		responseSerialize: (value: Response) =>
-			Buffer.from(Response.encode(value).finish()),
-		responseDeserialize: (value: Buffer) => Response.decode(value),
-	},
+  /** gets all categories */
+  categories: {
+    path: "/category.QueryCategories/Categories",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: Paginate) => Buffer.from(Paginate.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => Paginate.decode(value),
+    responseSerialize: (value: Response) => Buffer.from(Response.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => Response.decode(value),
+  },
+  categoryById: {
+    path: "/category.QueryCategories/CategoryById",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: SearchQuery) => Buffer.from(SearchQuery.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => SearchQuery.decode(value),
+    responseSerialize: (value: SimpleResponse) => Buffer.from(SimpleResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
+  },
+  subCategories: {
+    path: "/category.QueryCategories/SubCategories",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: SearchQueryOptional) => Buffer.from(SearchQueryOptional.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => SearchQueryOptional.decode(value),
+    responseSerialize: (value: Response) => Buffer.from(Response.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => Response.decode(value),
+  },
+  search: {
+    path: "/category.QueryCategories/Search",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: SearchQuery) => Buffer.from(SearchQuery.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => SearchQuery.decode(value),
+    responseSerialize: (value: Response) => Buffer.from(Response.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => Response.decode(value),
+  },
 } as const;
 
 export interface QueryCategoriesServer extends UntypedServiceImplementation {
-	/** gets all categories */
-	categories: handleUnaryCall<Paginate, Response>;
-	categoryById: handleUnaryCall<SearchQuery, SimpleResponse>;
-	subCategories: handleUnaryCall<SearchQueryOptional, Response>;
-	search: handleUnaryCall<SearchQuery, Response>;
+  /** gets all categories */
+  categories: handleUnaryCall<Paginate, Response>;
+  categoryById: handleUnaryCall<SearchQuery, SimpleResponse>;
+  subCategories: handleUnaryCall<SearchQueryOptional, Response>;
+  search: handleUnaryCall<SearchQuery, Response>;
 }
 
 export interface QueryCategoriesClient extends Client {
-	/** gets all categories */
-	categories(
-		request: Paginate,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	categories(
-		request: Paginate,
-		metadata: Metadata,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	categories(
-		request: Paginate,
-		metadata: Metadata,
-		options: Partial<CallOptions>,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	categoryById(
-		request: SearchQuery,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	categoryById(
-		request: SearchQuery,
-		metadata: Metadata,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	categoryById(
-		request: SearchQuery,
-		metadata: Metadata,
-		options: Partial<CallOptions>,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	subCategories(
-		request: SearchQueryOptional,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	subCategories(
-		request: SearchQueryOptional,
-		metadata: Metadata,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	subCategories(
-		request: SearchQueryOptional,
-		metadata: Metadata,
-		options: Partial<CallOptions>,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	search(
-		request: SearchQuery,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	search(
-		request: SearchQuery,
-		metadata: Metadata,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
-	search(
-		request: SearchQuery,
-		metadata: Metadata,
-		options: Partial<CallOptions>,
-		callback: (error: ServiceError | null, response: Response) => void,
-	): ClientUnaryCall;
+  /** gets all categories */
+  categories(request: Paginate, callback: (error: ServiceError | null, response: Response) => void): ClientUnaryCall;
+  categories(
+    request: Paginate,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: Response) => void,
+  ): ClientUnaryCall;
+  categories(
+    request: Paginate,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: Response) => void,
+  ): ClientUnaryCall;
+  categoryById(
+    request: SearchQuery,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  categoryById(
+    request: SearchQuery,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  categoryById(
+    request: SearchQuery,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  subCategories(
+    request: SearchQueryOptional,
+    callback: (error: ServiceError | null, response: Response) => void,
+  ): ClientUnaryCall;
+  subCategories(
+    request: SearchQueryOptional,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: Response) => void,
+  ): ClientUnaryCall;
+  subCategories(
+    request: SearchQueryOptional,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: Response) => void,
+  ): ClientUnaryCall;
+  search(request: SearchQuery, callback: (error: ServiceError | null, response: Response) => void): ClientUnaryCall;
+  search(
+    request: SearchQuery,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: Response) => void,
+  ): ClientUnaryCall;
+  search(
+    request: SearchQuery,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: Response) => void,
+  ): ClientUnaryCall;
 }
 
 export const QueryCategoriesClient = makeGenericClientConstructor(
-	QueryCategoriesService,
-	"category.QueryCategories",
+  QueryCategoriesService,
+  "category.QueryCategories",
 ) as unknown as {
-	new (
-		address: string,
-		credentials: ChannelCredentials,
-		options?: Partial<ClientOptions>,
-	): QueryCategoriesClient;
-	service: typeof QueryCategoriesService;
-	serviceName: string;
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): QueryCategoriesClient;
+  service: typeof QueryCategoriesService;
+  serviceName: string;
 };
 
 /** Category Mutation Service */
 export type MutateCategoriesService = typeof MutateCategoriesService;
 export const MutateCategoriesService = {
-	/** Create a category */
-	create: {
-		path: "/category.MutateCategories/Create",
-		requestStream: false,
-		responseStream: false,
-		requestSerialize: (value: Category) =>
-			Buffer.from(Category.encode(value).finish()),
-		requestDeserialize: (value: Buffer) => Category.decode(value),
-		responseSerialize: (value: SimpleResponse) =>
-			Buffer.from(SimpleResponse.encode(value).finish()),
-		responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
-	},
-	/** Update a category */
-	update: {
-		path: "/category.MutateCategories/Update",
-		requestStream: false,
-		responseStream: false,
-		requestSerialize: (value: Category) =>
-			Buffer.from(Category.encode(value).finish()),
-		requestDeserialize: (value: Buffer) => Category.decode(value),
-		responseSerialize: (value: SimpleResponse) =>
-			Buffer.from(SimpleResponse.encode(value).finish()),
-		responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
-	},
-	/** Delete a category */
-	delete: {
-		path: "/category.MutateCategories/Delete",
-		requestStream: false,
-		responseStream: false,
-		requestSerialize: (value: SearchQuery) =>
-			Buffer.from(SearchQuery.encode(value).finish()),
-		requestDeserialize: (value: Buffer) => SearchQuery.decode(value),
-		responseSerialize: (value: SimpleResponse) =>
-			Buffer.from(SimpleResponse.encode(value).finish()),
-		responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
-	},
+  /** Create a category */
+  create: {
+    path: "/category.MutateCategories/Create",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: Category) => Buffer.from(Category.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => Category.decode(value),
+    responseSerialize: (value: SimpleResponse) => Buffer.from(SimpleResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
+  },
+  /** Update a category */
+  update: {
+    path: "/category.MutateCategories/Update",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: Category) => Buffer.from(Category.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => Category.decode(value),
+    responseSerialize: (value: SimpleResponse) => Buffer.from(SimpleResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
+  },
+  /** Delete a category */
+  delete: {
+    path: "/category.MutateCategories/Delete",
+    requestStream: false,
+    responseStream: false,
+    requestSerialize: (value: SearchQuery) => Buffer.from(SearchQuery.encode(value).finish()),
+    requestDeserialize: (value: Buffer) => SearchQuery.decode(value),
+    responseSerialize: (value: SimpleResponse) => Buffer.from(SimpleResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer) => SimpleResponse.decode(value),
+  },
 } as const;
 
 export interface MutateCategoriesServer extends UntypedServiceImplementation {
-	/** Create a category */
-	create: handleUnaryCall<Category, SimpleResponse>;
-	/** Update a category */
-	update: handleUnaryCall<Category, SimpleResponse>;
-	/** Delete a category */
-	delete: handleUnaryCall<SearchQuery, SimpleResponse>;
+  /** Create a category */
+  create: handleUnaryCall<Category, SimpleResponse>;
+  /** Update a category */
+  update: handleUnaryCall<Category, SimpleResponse>;
+  /** Delete a category */
+  delete: handleUnaryCall<SearchQuery, SimpleResponse>;
 }
 
 export interface MutateCategoriesClient extends Client {
-	/** Create a category */
-	create(
-		request: Category,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	create(
-		request: Category,
-		metadata: Metadata,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	create(
-		request: Category,
-		metadata: Metadata,
-		options: Partial<CallOptions>,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	/** Update a category */
-	update(
-		request: Category,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	update(
-		request: Category,
-		metadata: Metadata,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	update(
-		request: Category,
-		metadata: Metadata,
-		options: Partial<CallOptions>,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	/** Delete a category */
-	delete(
-		request: SearchQuery,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	delete(
-		request: SearchQuery,
-		metadata: Metadata,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
-	delete(
-		request: SearchQuery,
-		metadata: Metadata,
-		options: Partial<CallOptions>,
-		callback: (error: ServiceError | null, response: SimpleResponse) => void,
-	): ClientUnaryCall;
+  /** Create a category */
+  create(request: Category, callback: (error: ServiceError | null, response: SimpleResponse) => void): ClientUnaryCall;
+  create(
+    request: Category,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  create(
+    request: Category,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  /** Update a category */
+  update(request: Category, callback: (error: ServiceError | null, response: SimpleResponse) => void): ClientUnaryCall;
+  update(
+    request: Category,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  update(
+    request: Category,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  /** Delete a category */
+  delete(
+    request: SearchQuery,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  delete(
+    request: SearchQuery,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
+  delete(
+    request: SearchQuery,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: SimpleResponse) => void,
+  ): ClientUnaryCall;
 }
 
 export const MutateCategoriesClient = makeGenericClientConstructor(
-	MutateCategoriesService,
-	"category.MutateCategories",
+  MutateCategoriesService,
+  "category.MutateCategories",
 ) as unknown as {
-	new (
-		address: string,
-		credentials: ChannelCredentials,
-		options?: Partial<ClientOptions>,
-	): MutateCategoriesClient;
-	service: typeof MutateCategoriesService;
-	serviceName: string;
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): MutateCategoriesClient;
+  service: typeof MutateCategoriesService;
+  serviceName: string;
 };
 
-type Builtin =
-	| Date
-	| Function
-	| Uint8Array
-	| string
-	| number
-	| boolean
-	| undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-	? T
-	: T extends globalThis.Array<infer U>
-		? globalThis.Array<DeepPartial<U>>
-		: T extends ReadonlyArray<infer U>
-			? ReadonlyArray<DeepPartial<U>>
-			: T extends {}
-				? { [K in keyof T]?: DeepPartial<T[K]> }
-				: Partial<T>;
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-	? P
-	: P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-			[K in Exclude<keyof I, KeysOfUnion<P>>]: never;
-		};
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function longToString(long: Long) {
-	return long.toString();
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {
-	_m0.util.Long = Long as any;
-	_m0.configure();
+  _m0.util.Long = Long as any;
+  _m0.configure();
 }
 
 function isSet(value: any): boolean {
-	return value !== null && value !== undefined;
+  return value !== null && value !== undefined;
 }
