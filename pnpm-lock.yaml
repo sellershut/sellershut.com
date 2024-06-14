@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@tabler/icons-svelte':
         specifier: ^3.5.0
-        version: 3.5.0(svelte@5.0.0-next.154)
+        version: 3.6.0(svelte@5.0.0-next.154)
       bits-ui:
         specifier: ^0.21.9
         version: 0.21.10(svelte@5.0.0-next.154)
@@ -469,13 +469,13 @@ packages:
   '@swc/helpers@0.5.11':
     resolution: {integrity: sha512-YNlnKRWF2sVojTpIyzwou9XoTNbzbzONwRhOoniEioF1AtaitTvVZblaQRrAzChWQ1bLYyYSWzM18y4WwgzJ+A==}
 
-  '@tabler/icons-svelte@3.5.0':
-    resolution: {integrity: sha512-mc5ardGEM7cnUA4/q6Mz5bmW9B6t28vAAOf4Wl6+KXiTwG00EjImfnIr3pS3Ihi9sFIiXvJPYRl4H5IHlgvJvQ==}
+  '@tabler/icons-svelte@3.6.0':
+    resolution: {integrity: sha512-phI61t81MlWhodATjvQQdqw8vTL0srSW6GsHzJmuhIMJGB4rwFzAXB2Ec4Pkz0vWFzVQgkeSE/AsiOLIUKWkxA==}
     peerDependencies:
       svelte: '>=3 <5'
 
-  '@tabler/icons@3.5.0':
-    resolution: {integrity: sha512-I53dC3ZSHQ2MZFGvDYJelfXm91L2bTTixS4w5jTAulLhHbCZso5Bih4Rk/NYZxlngLQMKHvEYwZQ+6w/WluKiA==}
+  '@tabler/icons@3.6.0':
+    resolution: {integrity: sha512-Zv0Ofc64RCMpZ2F8CvsWAphrSjerx5hEErt/RMmE+W8r4E5l5Lizi+My9KbbZQ4NyAtrtrOX80OY1oROZrRzEA==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -1870,12 +1870,12 @@ snapshots:
     dependencies:
       tslib: 2.6.3
 
-  '@tabler/icons-svelte@3.5.0(svelte@5.0.0-next.154)':
+  '@tabler/icons-svelte@3.6.0(svelte@5.0.0-next.154)':
     dependencies:
-      '@tabler/icons': 3.5.0
+      '@tabler/icons': 3.6.0
       svelte: 5.0.0-next.154
 
-  '@tabler/icons@3.5.0': {}
+  '@tabler/icons@3.6.0': {}
 
   '@types/cookie@0.6.0': {}
 
