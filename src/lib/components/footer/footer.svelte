@@ -9,14 +9,6 @@ import type { Writable } from "svelte/store";
 let sliderCategories: Writable<Promise<Response>> =
 	getContext("sliderCategories");
 
-let searchParams = $state();
-
-$effect(() => {
-	page.subscribe((page) => {
-		searchParams = page.url.searchParams.get("explore");
-	});
-});
-
 function routePage(name: string): string {
 	let url = new URLSearchParams($page.url.searchParams);
 
@@ -56,7 +48,7 @@ function routePage(name: string): string {
                 </nav>
             </div>
             <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-                <h2 class="title-font font-medium tracking-widest text-sm mb-3">
+                <h2 class="font-medium tracking-widest text-sm mb-3">
                     CATEGORIES
                 </h2>
                 <nav class="list-none mb-10">
@@ -75,7 +67,7 @@ function routePage(name: string): string {
                 </nav>
             </div>
             <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-                <h2 class="title-font font-medium tracking-widest text-sm mb-3">
+                <h2 class="font-medium tracking-widest text-sm mb-3">
                     CATEGORIES
                 </h2>
                 <nav class="list-none mb-10">
@@ -94,7 +86,7 @@ function routePage(name: string): string {
                 </nav>
             </div>
             <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-                <h2 class="title-font font-medium tracking-widest text-sm mb-3">
+                <h2 class="font-medium tracking-widest text-sm mb-3">
                     CATEGORIES
                 </h2>
                 <nav class="list-none mb-10">
