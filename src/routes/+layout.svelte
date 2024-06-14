@@ -5,11 +5,13 @@ import "../app.scss";
 import { page } from "$app/stores";
 import { type Snippet, getContext, setContext } from "svelte";
 import { type Writable, writable } from "svelte/store";
+import type { LayoutData } from "./$types";
 
 let windowWidth = $state(0);
-const { children }: { children: Snippet } = $props();
+const { children, data }: { children: Snippet; data: LayoutData } = $props();
 
 setContext("exploreParams", writable(""));
+setContext("sliderCategories", writable(data.parentCategories));
 let exploreParams: Writable<string | null> = getContext("exploreParams");
 
 $effect(() => {

@@ -28,7 +28,8 @@ export const handleTheme = (async ({ event, resolve }) => {
 		});
 	}
 
-	return await resolve(event);
+	const response = await resolve(event);
+	return response;
 }) satisfies Handle;
 
 export const handle = sequence(handlePreload, handleTheme);

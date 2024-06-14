@@ -5,7 +5,7 @@
 	},
 	"files": {
 		// All tools, including the linter, ignore following files
-		"ignore": [".svelte-kit/**"]
+		"ignore": [".svelte-kit/**", "src/lib/api/grpc/**/*.ts"]
 	},
 	"linter": {
 		"enabled": true,
