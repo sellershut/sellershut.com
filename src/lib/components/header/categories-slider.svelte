@@ -54,11 +54,11 @@ function routePage(name: string): string {
                                     >
                                         <IconDevices size={28} stroke={1} />
                                         <span class="font-semibold"
-                                        >{node.name}</span
+                                            >{node.name}</span
                                         >
                                     </a>
                                     <div
-                                        class={`mt-1 h-[2px] w-full rounded-full bg-primary ${searchParams === "explore" ? "" : "invisible"} `}
+                                        class={`mt-1 h-[2px] w-full rounded-full bg-primary ${searchParams === node.name ? "" : "invisible"} `}
                                     ></div>
                                 </Carousel.Item>
                             {/if}
