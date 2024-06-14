@@ -44,22 +44,24 @@ function routePage(name: string): string {
                 <Carousel.Content class="-ml-4">
                     {#await $sliderCategories then queryResult}
                         {#each queryResult.connection?.edges ?? [] as { node }}
-                            <Carousel.Item
-                                class="mt-4 h-16 min-w-24 basis-auto pl-4 text-xs opacity-80 hover:opacity-100"
-                            >
-                                <a
-                                    href={routePage("example")}
-                                    class="flex flex-col items-center"
+                            {#if node}
+                                <Carousel.Item
+                                    class="mt-4 h-16 min-w-24 basis-auto pl-4 text-xs opacity-80 hover:opacity-100"
                                 >
-                                    <IconDevices size={28} stroke={1} />
-                                    <span class="font-semibold"
-                                        >{node?.name}</span
+                                    <a
+                                        href={routePage(node.name)}
+                                        class="flex flex-col items-center"
                                     >
-                                </a>
-                                <div
-                                    class={`mt-1 h-[2px] w-full rounded-full bg-primary ${searchParams === "explore" ? "" : "invisible"} `}
-                                ></div>
-                            </Carousel.Item>
+                                        <IconDevices size={28} stroke={1} />
+                                        <span class="font-semibold"
+                                        >{node.name}</span
+                                        >
+                                    </a>
+                                    <div
+                                        class={`mt-1 h-[2px] w-full rounded-full bg-primary ${searchParams === "explore" ? "" : "invisible"} `}
+                                    ></div>
+                                </Carousel.Item>
+                            {/if}
                         {/each}
                     {/await}
                 </Carousel.Content>
