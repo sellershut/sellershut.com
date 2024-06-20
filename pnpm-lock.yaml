@@ -89,7 +89,7 @@ importers:
         version: 2.6.3
       typescript:
         specifier: ^5.0.0
-        version: 5.4.5
+        version: 5.5.2
       vite:
         specifier: ^5.0.3
         version: 5.3.1(@types/node@20.14.2)(sass@1.77.6)
@@ -1562,8 +1562,8 @@ packages:
     resolution: {integrity: sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==}
     engines: {node: '>=4'}
 
-  typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+  typescript@5.5.2:
+    resolution: {integrity: sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2919,8 +2919,8 @@ snapshots:
       picocolors: 1.0.1
       sade: 1.8.1
       svelte: 5.0.0-next.159
-      svelte-preprocess: 5.1.4(postcss-load-config@4.0.2(postcss@8.4.38))(postcss@8.4.38)(sass@1.77.6)(svelte@5.0.0-next.159)(typescript@5.4.5)
-      typescript: 5.4.5
+      svelte-preprocess: 5.1.4(postcss-load-config@4.0.2(postcss@8.4.38))(postcss@8.4.38)(sass@1.77.6)(svelte@5.0.0-next.159)(typescript@5.5.2)
+      typescript: 5.5.2
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -2940,7 +2940,7 @@ snapshots:
     dependencies:
       svelte: 5.0.0-next.159
 
-  svelte-preprocess@5.1.4(postcss-load-config@4.0.2(postcss@8.4.38))(postcss@8.4.38)(sass@1.77.6)(svelte@5.0.0-next.159)(typescript@5.4.5):
+  svelte-preprocess@5.1.4(postcss-load-config@4.0.2(postcss@8.4.38))(postcss@8.4.38)(sass@1.77.6)(svelte@5.0.0-next.159)(typescript@5.5.2):
     dependencies:
       '@types/pug': 2.0.10
       detect-indent: 6.1.0
@@ -2952,7 +2952,7 @@ snapshots:
       postcss: 8.4.38
       postcss-load-config: 4.0.2(postcss@8.4.38)
       sass: 1.77.6
-      typescript: 5.4.5
+      typescript: 5.5.2
 
   svelte@5.0.0-next.159:
     dependencies:
@@ -3055,7 +3055,7 @@ snapshots:
 
   type-detect@4.0.8: {}
 
-  typescript@5.4.5: {}
+  typescript@5.5.2: {}
 
   ufo@1.5.3: {}
 
