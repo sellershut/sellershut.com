@@ -70,8 +70,8 @@ importers:
         specifier: ^3.6.0
         version: 3.8.4(postcss-load-config@4.0.2(postcss@8.4.39))(postcss@8.4.39)(sass@1.77.8)(svelte@5.0.0-next.190)
       svelte-ionicons:
-        specifier: 2.0.0-next.1
-        version: 2.0.0-next.1(svelte@5.0.0-next.190)
+        specifier: 2.0.0-next.2
+        version: 2.0.0-next.2(svelte@5.0.0-next.190)
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.4.0
@@ -1376,8 +1376,8 @@ packages:
     peerDependencies:
       svelte: ^3.19.0 || ^4.0.0
 
-  svelte-ionicons@2.0.0-next.1:
-    resolution: {integrity: sha512-ldDMjmT0difKZIxEpN6SSCTBIhEPGFGYTrmuSRR2z/b1ZIp+GsMxE5UFq9hTedD9nm0OLzC0fOnzhuTACslqtg==}
+  svelte-ionicons@2.0.0-next.2:
+    resolution: {integrity: sha512-S7C7MjlCuIs/q916aERgUtJCp1qfuYzojyTFfyQMhYMgpOQM9XiARQgTtRbWzg7wk6ntIiXmxlVraQgvs4xOag==}
     engines: {node: '>=18.0.0', npm: '>=7.0.0'}
     peerDependencies:
       svelte: ^5.0.0
@@ -2780,7 +2780,7 @@ snapshots:
     dependencies:
       svelte: 5.0.0-next.190
 
-  svelte-ionicons@2.0.0-next.1(svelte@5.0.0-next.190):
+  svelte-ionicons@2.0.0-next.2(svelte@5.0.0-next.190):
     dependencies:
       svelte: 5.0.0-next.190
 
