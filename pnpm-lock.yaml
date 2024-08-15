@@ -83,7 +83,7 @@ importers:
         version: 3.4.10
       ts-proto:
         specifier: ^1.178.0
-        version: 1.181.1
+        version: 1.181.2
       tslib:
         specifier: ^2.4.1
         version: 2.6.3
@@ -1495,8 +1495,8 @@ packages:
   ts-proto-descriptors@1.16.0:
     resolution: {integrity: sha512-3yKuzMLpltdpcyQji1PJZRfoo4OJjNieKTYkQY8pF7xGKsYz/RHe3aEe4KiRxcinoBmnEhmuI+yJTxLb922ULA==}
 
-  ts-proto@1.181.1:
-    resolution: {integrity: sha512-lNmd/KEgqWtwDG9mIM3EpcxBx+URRVHkDP/EEJBgQJaQwmZFTk6VjHg56HNQswd114yXGfF+8pKQvJ2iH9KfWw==}
+  ts-proto@1.181.2:
+    resolution: {integrity: sha512-knJ8dtjn2Pd0c5ZGZG8z9DMiD4PUY8iGI9T9tb8DvGdWRMkLpf0WcPO7G+7cmbZyxvNTAG6ci3fybEaFgMZIvg==}
     hasBin: true
 
   tslib@2.6.3:
@@ -2914,7 +2914,7 @@ snapshots:
       long: 5.2.3
       protobufjs: 7.3.2
 
-  ts-proto@1.181.1:
+  ts-proto@1.181.2:
     dependencies:
       case-anything: 2.1.13
       protobufjs: 7.3.2
